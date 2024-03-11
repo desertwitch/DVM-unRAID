@@ -47,6 +47,21 @@ Markdown="false"
     </blockquote>
 
     <dl>
+        <dt>Persist Database on Reboot</dt>
+        <dd>
+            <select id="BACKUPDB" name="BACKUPDB" class="dwdvm-run" size="1">
+                <?=mk_option($dwdvm_backupdb, "disable", "No");?>
+                <?=mk_option($dwdvm_backupdb, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>Set to <strong>'Yes'</strong> to make the DVM database survive regular system reboots.</p>
+        <p>Set to <strong>'No'</strong> to start always with a fresh DVM database on system reboot.</p>
+    </blockquote>
+
+    <dl>
         <dt>
             <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
         </dt>

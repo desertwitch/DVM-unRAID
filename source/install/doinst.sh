@@ -40,13 +40,6 @@ cp -nr $DOCROOT/vnstat/* $BOOT/vnstat/ >/dev/null 2>&1
 # copy conf files from flash drive to local system, for our services to use
 cp -rf $BOOT/vnstat/* /etc/vnstat/ >/dev/null 2>&1
 
-if [ -f /boot/config/plugins/dwdvm/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
-    mkdir -p /var/lib/vnstat
-    cp -n /boot/config/plugins/dwdvm/vnstat.db /var/lib/vnstat/vnstat.db
-    chown root:root /var/lib/vnstat/vnstat.db
-    chmod 644 /var/lib/vnstat/vnstat.db
-fi
-
 # set up permissions
 if [ -d /etc/vnstat ]; then
     echo "Updating permissions for DVM..."
