@@ -114,7 +114,7 @@ write_config() {
 
   if [ ! "$CRONINT" == "disable" ]; then
     echo -n "Adding DVM custom periodic execution script to crontab (${CRONINT})..."
-    cp -f  $DOCROOT/dwdvm.cron /boot/config/plugins/dynamix/dwdvm.cron
+    cp -f $DOCROOT/dwdvm.cron /boot/config/plugins/dynamix/dwdvm.cron
     if [ "$CRONINT" == "01min" ]; then
       sleep 1
     elif [ "$CRONINT" == "15min" ]; then
