@@ -32,7 +32,18 @@ Markdown="false"
     <span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 
     <dl>
-        <dt>Start DVM service:</dt>
+        <dt>DVM Backend:</dt>
+        <dd>
+	        <strong><?= isset($dwdvm_installed_backend) && $dwdvm_installed_backend ? $dwdvm_installed_backend : "n/a" ?></strong>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>The currently installed NUT backend is shown here to make sure any backend changes were applied after a reboot.</p>
+    </blockquote>
+
+    <dl>
+        <dt><strong>Start DVM service:</strong></dt>
         <dd>
             <select id="SERVICE" name="SERVICE" size="1">
                 <?=mk_option($dwdvm_service, "disable", "No");?>
@@ -90,12 +101,22 @@ Markdown="false"
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
     <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
     <dl>
-        <dt>DVM Report Type</dt>
+        <dt>Data Volume Report</dt>
         <dd>
             <select id="REPORT" name="REPORT" size="1">
                 <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
                 <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
                 <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>Show Virtual Interfaces</dt>
+        <dd>
+            <select id="VIFACES" name="VIFACES" size="1">
+                <?=mk_option($dwdvm_vifaces, "disable", "No");?>
+                <?=mk_option($dwdvm_vifaces, "enable", "Yes");?>
             </select>
         </dd>
     </dl>
