@@ -1,0 +1,2 @@
+# Data Volume Monitor Custom Periodic Execution Script
+* * * * * /etc/vnstat/periodic.sh > /dev/null 2>&1

@@ -21,6 +21,7 @@ PIDFILE=/var/run/vnstat/vnstat.pid
 DAEMON=vnstatd
 
 PLGPATH="/boot/config/plugins/dwdvm"
+DOCROOT="/usr/local/emhttp/plugins/dwdvm"
 CONFIG=$PLGPATH/dwdvm.cfg
 
 [ -e "$CONFIG" ] && source $CONFIG
@@ -93,6 +94,7 @@ write_config() {
       chmod 755 /etc/vnstat
       chown root:root /etc/vnstat/*
       chmod 644 /etc/vnstat/*
+      chmod 755 /etc/vnstat/dvm-periodic.sh
   fi
 
   if [ "$BACKUPDB" == "enable" ]; then
@@ -108,6 +110,39 @@ write_config() {
         chown root:root /var/lib/vnstat/vnstat.db
         chmod 644 /var/lib/vnstat/vnstat.db
     fi
+  fi
+
+  if [ ! "$CRONINT" == "disable" ]; then
+    echo -n "Adding DVM custom periodic execution script to crontab..."
+    cp -f  $DOCROOT/dwdvm.cron /boot/config/plugins/dynamix/dwdvm.cron
+    if [ "$CRONINT" == "01min" ]; then
+      sleep 1
+    elif [ "$CRONINT" == "15min" ]; then
+      sed -i '/dvm-periodic/s,^\*,*/15,' /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+    elif [ "$CRONINT" == "30min" ]; then
+      sed -i '/dvm-periodic/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+    elif [ "$CRONINT" == "45min" ]; then
+      sed -i '/dvm-periodic/s,^\*,*/45,' /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+    elif [ "$CRONINT" == "60min" ]; then
+      sed -i '/dvm-periodic/s,^\*,0,' /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+    else
+      sed -i '/dvm-periodic/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+    fi
+    update_cron
+    sleep 1
+    echo " DONE"
+  else
+    echo -n "Removing DVM custom periodic execution script from crontab..."
+    [ -f /boot/config/plugins/dynamix/dwdvm.cron ] && rm -f /boot/config/plugins/dynamix/dwdvm.cron
+    sleep 1
+    update_cron
+    sleep 1
+    echo " DONE"
   fi
 
   sleep 1

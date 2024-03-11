@@ -40,7 +40,7 @@ Markdown="false"
 <form id="editform" method="POST">
 <img id="editfolder" style="cursor:pointer;margin-left: 10px;" src="/webGui/images/explore.png" >
 
-<input id="editfile" type="text" name="editfile" value="" readonly="" data-picktop="/etc/vnstat" data-pickcloseonfile="true" data-pickfilter="conf" data-pickroot="/etc/vnstat" data-pickfolders="false" required="required" >
+<input id="editfile" type="text" name="editfile" value="" readonly="" data-picktop="/etc/vnstat" data-pickcloseonfile="true" data-pickfilter="conf,sh" data-pickroot="/etc/vnstat" data-pickfolders="false" required="required" >
 
 <textarea id="editdata" name="editdata" placeholder="Select a configuration file to modify." autofocus></textarea>
 <input type="hidden" name="commit" value="1" />

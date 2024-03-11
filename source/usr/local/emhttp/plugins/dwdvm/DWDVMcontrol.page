@@ -73,7 +73,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Custom Script Execution Frequency:</dt>
+        <dt>Custom Periodic Execution Script Frequency:</dt>
             <dd>
                 <select id="CRONINT" name="CRONINT" size="1">
                     <?=mk_option($dwdvm_cronint, 'disable', 'Never');?>
