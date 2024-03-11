@@ -73,20 +73,6 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Custom Script Execution Frequency:</dt>
-            <dd>
-                <select id="CRONINT" name="CRONINT" size="1">
-                    <?=mk_option($dwdvm_cronint, 'disable', 'Never');?>
-                    <?=mk_option($dwdvm_cronint, '01min', 'Every 01 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '15min', 'Every 15 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '30min', 'Every 30 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '45min', 'Every 45 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '60min', 'Every 60 Minute(s)');?>
-                </select>
-            </dd>
-    </dl>
-
-    <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
             <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
@@ -106,7 +92,7 @@ Markdown="false"
 </form>
 
 <div id="title">
-    <span class="left"><i class="icon fa fa-desktop"></i> Display Settings</span>
+    <span class="left"><i class="icon fa fa-desktop"></i> Runtime Settings</span>
 </div>
 
 <br>
@@ -133,6 +119,20 @@ Markdown="false"
                 <?=mk_option($dwdvm_vifaces, "enable", "Yes");?>
             </select>
         </dd>
+    </dl>
+
+    <dl>
+        <dt>Custom Script Execution Frequency:</dt>
+            <dd>
+                <select id="CRONINT" name="CRONINT" size="1">
+                    <?=mk_option($dwdvm_cronint, 'disable', 'Never');?>
+                    <?=mk_option($dwdvm_cronint, '01min', 'Every 01 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '15min', 'Every 15 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '30min', 'Every 30 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '45min', 'Every 45 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '60min', 'Every 60 Minute(s)');?>
+                </select>
+            </dd>
     </dl>
 
     <dl>
