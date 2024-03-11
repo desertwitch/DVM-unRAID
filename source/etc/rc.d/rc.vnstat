@@ -40,10 +40,10 @@ vnstat_stop() {
     TIMER=0
     while killall $DAEMON 2>/dev/null; do
       sleep 1
-      killall $DAEMON
+      killall $DAEMON 2>/dev/null
       TIMER=$((TIMER+1))
       if [ $TIMER -ge 30 ]; then
-        killall -9 $DAEMON
+        killall -9 $DAEMON 2>/dev/null
         sleep 1
         break
       fi
