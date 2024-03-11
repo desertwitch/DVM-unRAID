@@ -17,12 +17,12 @@ function build_report() {
 
     foreach($db_ifaces_array as $db_iface) {
         if ($dwdvm_report == "both") {
-            shell_exec("vnstati --small -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
 
             echo("<tr>");
             echo("<td>". $db_iface ."</td>");
@@ -34,12 +34,12 @@ function build_report() {
             echo("<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -y -i ". $db_iface ." 2>/dev/null")."</pre></details></td>");
             echo("</tr>");
         } else if ($dwdvm_report == "images") {
-            shell_exec("vnstati --small -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
-            shell_exec("vnstati --small -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
+            shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
 
             echo("<tr>");
             echo("<td>". $db_iface ."</td>");

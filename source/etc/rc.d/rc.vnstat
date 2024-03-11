@@ -85,6 +85,10 @@ write_config() {
       mkdir $PLGPATH/vnstat
   fi
 
+  if [ ! -L /etc/vnstat.conf ]; then
+    ln -sf $CONFIGFILE /etc/vnstat.conf
+  fi
+
   echo "Writing DVM configuration..."
   cp -rf /etc/vnstat/* $PLGPATH/vnstat/ >/dev/null 2>&1
 
