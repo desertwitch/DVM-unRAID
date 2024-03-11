@@ -86,7 +86,7 @@ write_config() {
 
   if [ "$( grep -ic "/etc/rc.d/rc.vnstat" /etc/rc.d/rc.local_shutdown )" -eq 0 ]; then
       echo "Adding DVM database backup line to rc.local_shutdown..."
-      sed -i -e '/# Get time-out setting /i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat stop && sleep 1 && cp -f /var/lib/vnstat/vnstat.db /boot/config/plugins/dwdvm/vnstat.db' -e //N /etc/rc.d/rc.local_shutdown
+      sed -i -e '/# Get time-out setting /i [ -f /var/lib/vnstat/vnstat.db ] && /etc/rc.d/rc.vnstat stop && sleep 1 && cp -f /var/lib/vnstat/vnstat.db /boot/config/plugins/dwdvm/vnstat.db' -e //N /etc/rc.d/rc.local_shutdown
   fi
 
   sleep 1
