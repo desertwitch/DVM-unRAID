@@ -68,6 +68,17 @@ vnstat_restart() {
   vnstat_start
 }
 
+backup_db() {
+  if [ -f /var/lib/vnstat/vnstat.db ]; then
+    write_config
+    vnstat_stop
+    sleep 2
+    echo -n "Backing up the DVM database to the flash drive..."
+    cp -f /var/lib/vnstat/vnstat.db /boot/config/plugins/dwdvm/vnstat.db
+    echo " DONE"
+  fi
+}
+
 write_config() {
   if [ ! -d $PLGPATH/vnstat ]; then
       mkdir $PLGPATH/vnstat
@@ -87,7 +98,7 @@ write_config() {
   if [ "$BACKUPDB" == "enable" ]; then
     if [ "$( grep -ic "/etc/rc.d/rc.vnstat" /etc/rc.d/rc.local_shutdown )" -eq 0 ]; then
         echo "Adding DVM database backup line to rc.local_shutdown script..."
-        sed -i -e '/# Get time-out setting /i [ -f /var/lib/vnstat/vnstat.db ] && /etc/rc.d/rc.vnstat stop && sleep 1 && cp -f /var/lib/vnstat/vnstat.db /boot/config/plugins/dwdvm/vnstat.db' -e //N /etc/rc.d/rc.local_shutdown
+        sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db' -e //N /etc/rc.d/rc.local_shutdown
     fi
 
     if [ -f /boot/config/plugins/dwdvm/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
@@ -121,8 +132,11 @@ case "$1" in
   'write_config')
     write_config
     ;;
+  'backup_db')
+    backup_db
+    ;;
   *)
-    echo "Usage: $0 {start|stop|restart|reload|status|write_config}"
+    echo "Usage: $0 {start|stop|restart|reload|status|write_config|backup_db}"
     exit 1
     ;;
 esac

@@ -58,7 +58,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>Set to <strong>'Yes'</strong> to make the DVM database survive regular system reboots.</p>
-        <p>Set to <strong>'No'</strong> to start always with a fresh DVM database on system reboot.</p>
+        <p>Set to <strong>'No'</strong> to always start with a fresh DVM database on system reboot.</p>
     </blockquote>
 
     <dl>
@@ -73,7 +73,7 @@ Markdown="false"
     </dl>
     <br>
     <blockquote class="inline_help">
-    <p><strong>Reset Config</strong> will return your DVM configuration to the defaults.</p>
+    <p><strong>Reset Config/DB</strong> will return your DVM configuration to the defaults.</p>
     <p><strong>Restart DVM</strong> will restart the DVM service.</p>
     </blockquote>
 
