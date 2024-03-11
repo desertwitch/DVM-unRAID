@@ -101,6 +101,11 @@ $(function(){
     });
 
     $('#editfile').val("/etc/vnstat/vnstat.conf");
+    var EditfileDefault = $('#editfile').val();
+    $.getJSON('/plugins/dwdvm/include/dwdvm_edit.php', {editfile: EditfileDefault}, function (data) {
+            editor.setValue(data);
+        }
+    );
 
     // save config
     $('#btnSubmit').click(function () {
