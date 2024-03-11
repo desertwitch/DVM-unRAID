@@ -137,12 +137,14 @@ write_config() {
     sleep 1
     echo " DONE"
   else
-    echo -n "Removing DVM custom periodic execution script from crontab..."
-    [ -f /boot/config/plugins/dynamix/dwdvm.cron ] && rm -f /boot/config/plugins/dynamix/dwdvm.cron
-    sleep 1
-    update_cron
-    sleep 1
-    echo " DONE"
+    if [ -f /boot/config/plugins/dynamix/dwdvm.cron ]; then
+      echo -n "Removing DVM custom periodic execution script from crontab..."
+      rm -f /boot/config/plugins/dynamix/dwdvm.cron
+      sleep 1
+      update_cron
+      sleep 1
+      echo " DONE"
+    fi
   fi
 
   sleep 1
