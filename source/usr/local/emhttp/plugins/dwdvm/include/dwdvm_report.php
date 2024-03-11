@@ -6,12 +6,12 @@ function build_report() {
     $dbifacesarray = explode(" ", trim($dbifaces));
     foreach($dbifacesarray as $dbiface) {
         if ($dwdvm_report == "both") {
-            shell_exec("vnstati --small --noheader --nolegend -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_s.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_5.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_h.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_d.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_m.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_y.png -i ".$dbiface);
+            shell_exec("vnstati --small -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_s.png -i ".$dbiface);
+            shell_exec("vnstati --small -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_5.png -i ".$dbiface);
+            shell_exec("vnstati --small -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_h.png -i ".$dbiface);
+            shell_exec("vnstati --small -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_d.png -i ".$dbiface);
+            shell_exec("vnstati --small -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_m.png -i ".$dbiface);
+            shell_exec("vnstati --small -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_y.png -i ".$dbiface);
             echo("<tr>");
             echo("<td>".$dbiface."</td>");
             echo("<td><details><summary>...</summary><img src='/plugins/dwdvm/images/".$dbiface."_s.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -s -i ".$dbiface)."</pre></details></td>");
@@ -22,12 +22,12 @@ function build_report() {
             echo("<td><details><summary>...</summary><img src='/plugins/dwdvm/images/".$dbiface."_y.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -y -i ".$dbiface)."</pre></details></td>");
             echo("</tr>");
         } else if ($dwdvm_report == "images") {
-            shell_exec("vnstati --small --noheader --nolegend -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_s.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_5.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_h.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_d.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_m.png -i ".$dbiface);
-            shell_exec("vnstati --small --noheader --nolegend -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_y.png -i ".$dbiface);
+            shell_exec("vnstati --small -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_s.png -i ".$dbiface);
+            shell_exec("vnstati --small -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_5.png -i ".$dbiface);
+            shell_exec("vnstati --small -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_h.png -i ".$dbiface);
+            shell_exec("vnstati --small -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_d.png -i ".$dbiface);
+            shell_exec("vnstati --small -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_m.png -i ".$dbiface);
+            shell_exec("vnstati --small -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/".$dbiface."_y.png -i ".$dbiface);
             echo("<tr>");
             echo("<td>".$dbiface."</td>");
             echo("<td><details><summary>...</summary><img src='/plugins/dwdvm/images/".$dbiface."_s.png'></details></td>");
