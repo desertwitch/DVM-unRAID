@@ -40,6 +40,11 @@ cp -nr $DOCROOT/vnstat/* $BOOT/vnstat/ >/dev/null 2>&1
 # copy conf files from flash drive to local system, for our services to use
 cp -rf $BOOT/vnstat/* /etc/vnstat/ >/dev/null 2>&1
 
+# link default configuration location to actual configuration location for binaries to use
+if [ ! -L /etc/vnstat.conf ]; then
+    ln -sf /etc/vnstat/vnstat.conf /etc/vnstat.conf
+fi
+
 # set up permissions
 if [ -d /etc/vnstat ]; then
     echo "Updating permissions for DVM..."

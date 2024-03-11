@@ -28,7 +28,7 @@ CONFIG=$PLGPATH/dwdvm.cfg
 
 vnstat_start() {
   if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
-    echo "DVM service is already running with PID: $(cat $PIDFILE)"
+    echo "DVM service is already running with PID: $(cat $PIDFILE) !"
   elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
     echo "Starting DVM service..."
     /usr/sbin/vnstatd --config $CONFIGFILE --daemon
@@ -50,7 +50,7 @@ vnstat_stop() {
       fi
     done
   else
-    echo "No running DVM service to stop has been found!"
+    echo "No running DVM service has been found!"
   fi
 }
 
@@ -70,23 +70,22 @@ vnstat_restart() {
 }
 
 backup_db() {
-  if [ -f /var/lib/vnstat/vnstat.db ]; then
+  if [ "$BACKUPDB" == "enable" ] && [ -f /var/lib/vnstat/vnstat.db ]; then
     write_config
     vnstat_stop
     sleep 2
-    echo -n "Backing up the DVM database to the flash drive..."
+    echo "Backing up the DVM database to the flash drive..."
     cp -f /var/lib/vnstat/vnstat.db $PLGPATH/vnstat.db
-    echo " DONE"
   fi
 }
 
 write_config() {
-  if [ ! -d $PLGPATH/vnstat ]; then
-      mkdir $PLGPATH/vnstat
-  fi
-
   if [ ! -L /etc/vnstat.conf ]; then
     ln -sf $CONFIGFILE /etc/vnstat.conf
+  fi
+
+  if [ ! -d $PLGPATH/vnstat ]; then
+    mkdir $PLGPATH/vnstat
   fi
 
   echo "Writing DVM configuration..."
@@ -94,21 +93,21 @@ write_config() {
 
   if [ "$BACKUPDB" == "enable" ]; then
     if [ "$( grep -ic "/etc/rc.d/rc.vnstat" /etc/rc.d/rc.local_shutdown )" -eq 0 ]; then
-        echo "Adding DVM database backup line to rc.local_shutdown script..."
-        sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db' -e //N /etc/rc.d/rc.local_shutdown
+      echo "Adding DVM database backup line to rc.local_shutdown script..."
+      sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db' -e //N /etc/rc.d/rc.local_shutdown
     fi
 
     if [ -f $PLGPATH/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
-        echo "No local DVM database found, restoring DVM database backup from flash drive..."
-        mkdir -p /var/lib/vnstat
-        cp -n $PLGPATH/vnstat.db /var/lib/vnstat/vnstat.db
-        chown root:root /var/lib/vnstat/vnstat.db
-        chmod 644 /var/lib/vnstat/vnstat.db
+      echo "No local DVM database found, restoring DVM database backup from flash drive..."
+      mkdir -p /var/lib/vnstat
+      cp -n $PLGPATH/vnstat.db /var/lib/vnstat/vnstat.db
+      chown root:root /var/lib/vnstat/vnstat.db
+      chmod 644 /var/lib/vnstat/vnstat.db
     fi
   fi
 
   if [ ! "$CRONINT" == "disable" ]; then
-    echo -n "Adding DVM custom periodic execution script to crontab (${CRONINT})..."
+    echo "Adding DVM custom periodic execution script to crontab (${CRONINT})..."
     cp -f $DOCROOT/dwdvm.cron /boot/config/plugins/dynamix/dwdvm.cron
     if [ "$CRONINT" == "01min" ]; then
       sleep 1
@@ -130,15 +129,13 @@ write_config() {
     fi
     update_cron
     sleep 1
-    echo " DONE"
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm.cron ]; then
-      echo -n "Removing DVM custom periodic execution script from crontab..."
+      echo "Removing DVM custom periodic execution script from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
       update_cron
       sleep 1
-      echo " DONE"
     fi
   fi
 
