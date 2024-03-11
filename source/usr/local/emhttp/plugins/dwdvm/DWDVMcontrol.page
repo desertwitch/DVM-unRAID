@@ -90,12 +90,12 @@ Markdown="false"
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
     <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
     <dl>
-        <dt>Report Type</dt>
+        <dt>DVM Report Type</dt>
         <dd>
             <select id="REPORT" name="REPORT" size="1">
-                <?=mk_option($dwdvm_report, 'text', 'Text');?>
-                <?=mk_option($dwdvm_report, 'images', 'Images');?>
-                <?=mk_option($dwdvm_report, 'both', 'Images & Text');?>
+                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
+                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
+                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
             </select>
         </dd>
     </dl>
