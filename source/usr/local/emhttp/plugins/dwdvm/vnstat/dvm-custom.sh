@@ -3,7 +3,7 @@
 if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 #
 # THIS SCRIPT IS FOR CUSTOM DATA VOLUME ALARM BASED TRIGGERS
-# IT IS RUN PERIODICALLY BY THE CRONTAB WHEN ENABLED IN GUI
+# IT IS RUN PERIODICALLY BY THE CRONTAB WHEN ENABLED SO IN GUI
 #
 # vnstat --alert <output> <exit> <type> <condition> <limit> <unit>
 #
