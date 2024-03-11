@@ -63,6 +63,7 @@ Markdown="false"
 
     <dl>
         <dt>
+            <input id="DEFAULT" type="submit" name="#default" value="Default">
             <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
         </dt>
         <dd>
@@ -77,6 +78,36 @@ Markdown="false"
     <p><strong>Restart DVM</strong> will restart the DVM service.</p>
     </blockquote>
 
+</form>
+
+<div id="title">
+    <span class="left"><i class="icon fa fa-desktop"></i> Display Settings</span>
+</div>
+
+<br>
+
+<form markdown="0" id="dwdvm-display" name="dwdvm_display" method="POST" action="/update.php" target="progressFrame">
+    <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
+    <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
+    <dl>
+        <dt>Report Type</dt>
+        <dd>
+            <select id="REPORT" name="REPORT" size="1">
+                <?=mk_option($dwdvm_report, 'text', 'Text');?>
+                <?=mk_option($dwdvm_report, 'images', 'Images');?>
+                <?=mk_option($dwdvm_report, 'both', 'Images & Text');?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>
+            <input id="DEFAULT" type="submit" name="#default" value="Default">
+        </dt>
+        <dd>
+            <input type="submit" value="Apply"><input type="button" value="Done" onclick="done()">
+        </dd>
+    </dl>
 </form>
 
 <script src="<?=autov('/plugins/dwdvm/js/jquery.mask.min.js');?>"></script>
