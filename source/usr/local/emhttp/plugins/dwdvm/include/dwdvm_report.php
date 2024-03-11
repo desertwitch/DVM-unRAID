@@ -1,6 +1,7 @@
 <?PHP
 require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 function build_report() {
+    global $dwdvm_report;
     $dbifaces = shell_exec("vnstat --dbiflist | sed 's/Interfaces in database: //g' 2>/dev/null");
     $dbifacesarray = explode(" ", trim($dbifaces));
     foreach($dbifacesarray as $dbiface) {
