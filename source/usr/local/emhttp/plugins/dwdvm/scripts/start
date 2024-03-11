@@ -15,4 +15,4 @@
 # included in all copies or substantial portions of the Software.
 #
 echo "Starting DVM services..."
-/etc/rc.d/rc.vnstat start | logger
+/etc/rc.d/rc.vnstat start | logger -t "DVMGUI"

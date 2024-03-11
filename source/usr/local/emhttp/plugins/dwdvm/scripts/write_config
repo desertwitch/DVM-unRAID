@@ -14,5 +14,5 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 #
-echo "Stopping DVM services..."
-/etc/rc.d/rc.vnstat stop | logger -t "DVMGUI"
+echo "Writing DVM configuration..."
+/etc/rc.d/rc.vnstat write_config | logger -t "DVMGUI"

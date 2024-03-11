@@ -20,60 +20,93 @@ CONFIGFILE=/etc/vnstat/vnstat.conf
 PIDFILE=/var/run/vnstat.pid
 DAEMON=vnstatd
 
+PLGPATH="/boot/config/plugins/dwdvm"
+CONFIG=$PLGPATH/dwdvm.cfg
+
+[ -e "$CONFIG" ] && source $CONFIG
+
 vnstat_start() {
   if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
-    echo "vnstatd is already running with pid $(cat $PIDFILE)"
+    echo "DVM service is already running with PID: $(cat $PIDFILE)"
   elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
-    echo "Starting the vnstat daemon..."
+    echo "Starting DVM service..."
     /usr/sbin/vnstatd --config $CONFIGFILE --daemon
   fi
 }
 
 vnstat_stop() {
-  echo -n "Stopping the vnstat daemon..."
-  if [ -r $PIDFILE ]; then
-    kill $(cat $PIDFILE)
-    sleep 2
-    if [ -e "$PIDFILE" ]; then
-      rm $PIDFILE
-    fi
-    echo "Done"
+  if pgrep -x $DAEMON >/dev/null 2>&1; then
+    echo "Stopping the DVM service..."
+    TIMER=0
+    while killall $DAEMON 2>/dev/null; do
+      sleep 1
+      killall $DAEMON
+      TIMER=$((TIMER+1))
+      if [ $TIMER -ge 30 ]; then
+        killall -9 $DAEMON
+        sleep 1
+        break
+      fi
+    done
   else
-    killall $DAEMON
-    echo "Done"
+    echo "No running DVM service to stop has been found!"
   fi
 }
 
 vnstat_status() {
   if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
-    echo "vnstat daemon is running with pid $(cat $PIDFILE)"
+    echo "DVM service is running with PID: $(cat $PIDFILE)"
   else
-    echo "vnstat daemon is not running."
+    echo "DVM service is not running."
   fi
 }
 
 vnstat_restart() {
-  echo "restarting the vnstart daemon..."
+  echo "Restarting the DVM service..."
   vnstat_stop
   sleep 2
   vnstat_start
 }
 
+write_config() {
+  if [ ! -d $PLGPATH/vnstat ]; then
+      mkdir $PLGPATH/vnstat
+  fi
+
+  echo "Writing DVM configuration..."
+  cp -rf /etc/vnstat/* $PLGPATH/vnstat/ >/dev/null 2>&1
+
+  if [ -d /etc/vnstat ]; then
+      echo "Updating permissions for DVM..."
+      chown root:root /etc/vnstat
+      chmod 755 /etc/vnstat
+      chown root:root /etc/vnstat/*
+      chmod 644 /etc/vnstat/*
+  fi
+  sleep 1
+}
+
 case "$1" in
   'start')
+    write_config
     vnstat_start
     ;;
   'stop')
+    write_config
     vnstat_stop
     ;;
   'restart'|'reload')
+    write_config
     vnstat_restart
     ;;
   'status')
     vnstat_status
     ;;
+  'write_config')
+    write_config
+    ;;
   *)
-    echo "Usage: $0 {start|stop|restart|reload|status}"
+    echo "Usage: $0 {start|stop|restart|reload|status|write_config}"
     exit 1
     ;;
 esac
