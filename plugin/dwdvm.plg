@@ -64,6 +64,21 @@ run the post-installation scripts
 -->
 <FILE Run="/bin/bash">
 <INLINE> 
+CONFIG=&plgPATH;/&name;.cfg
+
+# reading our configuration
+echo "Reading DVM configuration..."
+if [ -e "$CONFIG" ]; then
+    source "$CONFIG"
+fi
+
+echo "Determining if DVM service should be started..."
+
+if [ "$SERVICE" == "enable" ]; then
+    echo "Starting DVM service..."
+    /etc/rc.d/rc.vnstat start
+fi
+
 # Cleaning old plugin source files
 find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
@@ -99,6 +114,7 @@ removepkg &plgPATH;/*.txz
 rm -rf &plgPATH;
 rm -rf &emhttp;
 rm -rf /etc/vnstat
+rm -rf /var/lib/vnstat
 
 echo ""
 echo "-------------------------------------------------------------"
