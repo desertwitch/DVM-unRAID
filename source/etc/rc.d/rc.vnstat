@@ -1,0 +1,78 @@
+#!/bin/bash
+#
+# Copyright Derek Macias (parts of code from NUT package)
+# Copyright macester (parts of code from NUT package)
+# Copyright gfjardim (parts of code from NUT package)
+# Copyright SimonF (parts of code from NUT package)
+# Copyright desertwitch
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License 2
+# as published by the Free Software Foundation.
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+# Modified by Mario Preksavec <mario@slackware.hr>
+
+CONFIGFILE=/etc/vnstat/vnstat.conf
+PIDFILE=/var/run/vnstat.pid
+DAEMON=vnstatd
+
+vnstat_start() {
+  if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
+    echo "vnstatd is already running with pid $(cat $PIDFILE)"
+  elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
+    echo "Starting the vnstat daemon..."
+    /usr/sbin/vnstatd --config $CONFIGFILE --daemon
+  fi
+}
+
+vnstat_stop() {
+  echo -n "Stopping the vnstat daemon..."
+  if [ -r $PIDFILE ]; then
+    kill $(cat $PIDFILE)
+    sleep 2
+    if [ -e "$PIDFILE" ]; then
+      rm $PIDFILE
+    fi
+    echo "Done"
+  else
+    killall $DAEMON
+    echo "Done"
+  fi
+}
+
+vnstat_status() {
+  if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
+    echo "vnstat daemon is running with pid $(cat $PIDFILE)"
+  else
+    echo "vnstat daemon is not running."
+  fi
+}
+
+vnstat_restart() {
+  echo "restarting the vnstart daemon..."
+  vnstat_stop
+  sleep 2
+  vnstat_start
+}
+
+case "$1" in
+  'start')
+    vnstat_start
+    ;;
+  'stop')
+    vnstat_stop
+    ;;
+  'restart'|'reload')
+    vnstat_restart
+    ;;
+  'status')
+    vnstat_status
+    ;;
+  *)
+    echo "Usage: $0 {start|stop|restart|reload|status}"
+    exit 1
+    ;;
+esac

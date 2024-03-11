@@ -1,0 +1,12 @@
+dwdvm: vnStat (a console-based network traffic monitor) for UNRAID
+dwdvm:
+dwdvm: vnStat is a network traffic monitor for Linux that keeps a log of
+dwdvm: daily network traffic for the selected interface(s). vnStat isn't a
+dwdvm: packetsniffer. The traffic information is analyzed from the /proc
+dwdvm: filesystem so vnStat can be used without root permissions. This
+dwdvm: program is open source (GPL) and can be installed in 'single' and
+dwdvm: 'root' mode.
+dwdvm:
+dwdvm: compiled and packaged by desertwitch on Slackware 14.2 (x86_64)
+dwdvm: intended for use on UNRAID installations WITHOUT ANY WARRANTIES
+dwdvm:

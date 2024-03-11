@@ -1,0 +1,116 @@
+Menu="DWDVMsettings:1"
+Title="DVM Service Control"
+Tag="wrench"
+Markdown="false"
+---
+<?PHP
+/* Copyright Derek Macias (parts of code from NUT package)
+ * Copyright macester (parts of code from NUT package)
+ * Copyright gfjardim (parts of code from NUT package)
+ * Copyright SimonF (parts of code from NUT package)
+ * Copyright desertwitch
+ *
+ * Copyright Dan Landon
+ * Copyright Bergware International
+ * Copyright Lime Technology
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License 2
+ * as published by the Free Software Foundation.
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ */
+
+require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
+
+<form markdown="0" id="dwdvm-settings" name="dwdvm_settings" method="POST" action="/update.php" target="progressFrame">
+    <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
+    <input type="hidden" id="command" name="#command" value="" />
+    <span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
+
+    <dl>
+        <dt>Start DVM service:</dt>
+        <dd>
+            <select id="SERVICE" name="SERVICE" class="dwdvm-run" size="1">
+                <?=mk_option($dwdvm_service, "disable", "No");?>
+                <?=mk_option($dwdvm_service, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>Set to <strong>'Yes'</strong> to enable DVM, the service will start when the system boots.</p>
+        <p>Set to <strong>'No'</strong> to disable DVM, the service will not start when the system boots.</p>
+    </blockquote>
+
+    <dl>
+        <dt>
+            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
+        </dt>
+        <dd>
+            <input type="submit" id="btnApply" name="#apply" value="Apply">
+            <input type="button" value="Done" onclick="done()">
+            <input id="RESTART" type="button" value="Restart DVM" style="margin-bottom:8px;">
+        </dd>
+    </dl>
+    <br>
+    <blockquote class="inline_help">
+    <p><strong>Reset Config</strong> will return your DVM configuration to the defaults.</p>
+    <p><strong>Restart DVM</strong> will restart the DVM service.</p>
+    </blockquote>
+
+</form>
+
+<script src="<?=autov('/plugins/dwdvm/js/jquery.mask.min.js');?>"></script>
+
+<script>
+function checkRUNNING(){
+   if ($('#SERVICE').val() === 'enable')
+        $('#command').val('/usr/local/emhttp/plugins/dwdvm/scripts/start');
+    else
+        $('#command').val('/usr/local/emhttp/plugins/dwdvm/scripts/stop');
+    if ("<?=$dwdvm_running;?>" == 1){
+        $('.dwdvm-run').prop('disabled', true);
+        $('#RESTART').prop('disabled', false);
+    }else{
+        $('.dwdvm-run').prop('disabled', false);
+        $('#RESTART').prop('disabled', true);
+    }
+}
+function Restart(){
+    $('#command').val('/usr/local/emhttp/plugins/dwdvm/scripts/restart');
+    $('#dwdvm-settings').submit();
+}
+function ResetConfig(){
+    $('#command').val('');
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetconf', 'DVM Configuration Reset', 600, 600, true);
+}
+$(function() {
+
+    $('form input:not([type="submit"])').keydown(function(e) {
+        if (e.keyCode == 13) {
+            e.preventDefault();
+            return false;
+        }
+    });
+
+    $('#btnApply').click(function(){
+        $('#dwdvm-settings').submit();
+    });
+
+    $('#RESTART').click(Restart);
+
+    if (typeof swal === "function") { 
+        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"This action will return any existing DVM configuration to their defaults!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
+    } else {
+        $('#RESETCONF').click(ResetConfig);
+    }
+
+    $('#SERVICE').change(checkRUNNING);
+
+    checkRUNNING();
+
+});
+</script>

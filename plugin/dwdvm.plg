@@ -1,0 +1,112 @@
+<?xml version='1.0' standalone='yes'?>
+
+<!DOCTYPE PLUGIN [
+<!ENTITY name      "dwdvm">
+<!ENTITY author    "desertwitch">
+<!ENTITY version   "2024.03.09">
+<!ENTITY launch    "Settings/DWDVMsettings">
+<!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/DVM-unRAID/main">
+<!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
+<!ENTITY pkgURL    "&gitURL;/packages">
+<!ENTITY plgPATH   "/boot/config/plugins/&name;">
+<!ENTITY plgNAME   "dwdvm-2024.03.09-x86_64-1">
+<!ENTITY plgMD5    "1fb322395e6a3d9a40d757223260cf3c">
+<!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
+]>
+
+<PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" support="" min="6.8.3">
+
+<CHANGES>
+## DVM - Data Volume Monitor (vnStat) for UNRAID
+###2023.03.11
+- release note: welcome to the first version of the DVM package.
+- release note: please report any problems in the support topic.
+</CHANGES>
+
+<!--
+stop already existing services before doing anything
+-->
+<FILE Run="/bin/bash">
+<INLINE>
+echo "Making sure all existing DVM services are stopped (before install/upgrade)..."
+if [ -x /etc/rc.d/rc.vnstat ]; then
+    if ! /etc/rc.d/rc.vnstat stop >/dev/null 2>&amp;1; then
+        echo "WARNING:"
+        echo "WARNING: The DVM installation script was not able to stop the services gracefully."
+        echo "WARNING: IN CASE OF PROBLEMS, please REBOOT YOUR SYSTEM to complete any upgrades."
+        echo "WARNING:"
+    fi 
+fi
+echo ""
+exit 0
+</INLINE>
+</FILE>
+
+<!--
+install or upgrade dependency files
+-->
+
+<FILE Name="&plgPATH;/vnstat-2.12-x86_64-1_slack14.2.txz" Min="6.8.3" Run="upgradepkg --install-new">
+<URL>&pkgURL;/vnstat-2.12-x86_64-1_slack14.2.txz</URL>
+<MD5>a36cbbe245a26d9e0a13bbeb4c0d7116</MD5>
+</FILE>
+
+<!--
+install or upgrade the plugin itself
+-->
+<FILE Name="&plgPATH;/&plgNAME;.txz" Min="6.10" Run="upgradepkg --install-new">
+<URL>&gitURL;/archive/&plgNAME;.txz</URL>
+<MD5>&plgMD5;</MD5>
+</FILE>
+
+<!--
+run the post-installation scripts
+-->
+<FILE Run="/bin/bash">
+<INLINE> 
+# Cleaning old plugin source files
+find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
+
+echo ""
+echo "-------------------------------------------------------------"
+echo " DVM - Data Volume Monitor (vnStat) for UNRAID (&version;)"
+echo " has been installed. Copyright 2023 - &author;"
+echo "-------------------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+<!--
+definition for uninstallation of the plugin
+-->
+<FILE Run="/bin/bash" Method="remove">
+<INLINE>
+echo "Making sure all existing DVM services are stopped (before uninstall)..."
+if [ -x /etc/rc.d/rc.vnstat ]; then
+    if ! /etc/rc.d/rc.vnstat stop >/dev/null 2>&amp;1; then
+        echo "WARNING:"
+        echo "WARNING: The DVM uninstallation script was not able to stop the services gracefully."
+        echo "WARNING: IN CASE OF PROBLEMS, please REBOOT YOUR SYSTEM to remove any remaining packages."
+        echo "WARNING:"
+    fi 
+fi
+
+removepkg &plgPATH;/*.txz
+
+# clean up folders after the removed installation
+# in case of re-installation of package on live system
+
+rm -rf &plgPATH;
+rm -rf &emhttp;
+rm -rf /etc/vnstat
+
+echo ""
+echo "-------------------------------------------------------------"
+echo " DVM - Data Volume Monitor (vnStat) for UNRAID (&version;)"
+echo " has been removed. Copyright 2023 - &author;"
+echo "-------------------------------------------------------------"
+echo ""
+</INLINE>
+</FILE>
+
+</PLUGIN>

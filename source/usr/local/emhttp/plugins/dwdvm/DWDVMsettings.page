@@ -1,0 +1,42 @@
+Menu="NetworkServices"
+Type="xmenu"
+Title="Data Volume Monitor"
+Icon="pie-chart"
+Tag="pie-chart"
+Markdown="false"
+---
+<?PHP
+/* Copyright Derek Macias (parts of code from NUT package)
+ * Copyright macester (parts of code from NUT package)
+ * Copyright gfjardim (parts of code from NUT package)
+ * Copyright SimonF (parts of code from NUT package)
+ * Copyright desertwitch
+ *
+ * Copyright Dan Landon
+ * Copyright Bergware International
+ * Copyright Lime Technology
+ *
+ * This program is free software; you can redistribute it and/or
+ * modify it under the terms of the GNU General Public License 2
+ * as published by the Free Software Foundation.
+ *
+ * The above copyright notice and this permission notice shall be
+ * included in all copies or substantial portions of the Software.
+ *
+ */
+?>
+<span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM Support Thread"><i class="fa fa-medkit"></i> <u>Support Thread</u></a></span>
+
+<script>
+$(function() {
+    showStatus('vnstatd');
+
+    // dynamix plugin update api
+    <?if (function_exists('plugin_update_available') && $version = plugin_update_available('dwdvm')):?>
+        showNotice('DVM <?=htmlspecialchars($version);?> available. <a>Update</a>','dwdvm');
+        $('#user-notice a').on('click', function () {
+        $('#user-notice').empty();
+    });
+    <?endif;?>
+});
+</script>
