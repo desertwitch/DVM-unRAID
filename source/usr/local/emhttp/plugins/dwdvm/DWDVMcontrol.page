@@ -34,7 +34,7 @@ Markdown="false"
     <dl>
         <dt>Start DVM service:</dt>
         <dd>
-            <select id="SERVICE" name="SERVICE" class="dwdvm-run" size="1">
+            <select id="SERVICE" name="SERVICE" size="1">
                 <?=mk_option($dwdvm_service, "disable", "No");?>
                 <?=mk_option($dwdvm_service, "enable", "Yes");?>
             </select>
