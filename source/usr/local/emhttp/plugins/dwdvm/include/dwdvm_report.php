@@ -1,10 +1,58 @@
 <?PHP
 require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 
+function IsNullOrEmptyString($str){
+    return ($str === null || trim($str) === '');
+}
+
+function humanFileSize($size,$unit="") {
+    if(intval($size)) {
+        if( (!$unit && $size >= 1<<30) || $unit == "GB")
+            return number_format($size/(1<<30),2)."GB";
+        if( (!$unit && $size >= 1<<20) || $unit == "MB")
+            return number_format($size/(1<<20),2)."MB";
+        if( (!$unit && $size >= 1<<10) || $unit == "KB")
+            return number_format($size/(1<<10),2)."KB";
+        return number_format($size)." bytes";
+    } else {
+        return "-";
+    }
+}
+
 function filterVirts($string) {
     $virt_ifaces = shell_exec("find /sys/class/net/ -type l -lname '*/devices/virtual/net/*' 2>/dev/null");
     return strpos($virt_ifaces, $string) === false;
 }
+
+function build_report_light() {
+    global $dwdvm_report;
+    global $dwdvm_vifaces;
+    $db_ifaces = shell_exec("vnstat --dbiflist | sed 's/Interfaces in database: //g' 2>/dev/null");
+    
+    $db_ifaces_array = explode(" ", trim($db_ifaces));
+
+    if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
+
+    foreach($db_ifaces_array as $db_iface) {
+      
+    $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml"));
+    echo("<tr>");
+    echo("<td>". $db_iface . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx) . "</td>");
+    echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx) . "</td>");
+
+    }
+}
+
+
 
 function build_report() {
     global $dwdvm_report;
