@@ -74,7 +74,7 @@ backup_db() {
     vnstat_stop
     sleep 2
     echo -n "Backing up the DVM database to the flash drive..."
-    cp -f /var/lib/vnstat/vnstat.db /boot/config/plugins/dwdvm/vnstat.db
+    cp -f /var/lib/vnstat/vnstat.db $PLGPATH/vnstat.db
     echo " DONE"
   fi
 }
@@ -101,10 +101,10 @@ write_config() {
         sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db' -e //N /etc/rc.d/rc.local_shutdown
     fi
 
-    if [ -f /boot/config/plugins/dwdvm/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
+    if [ -f $PLGPATH/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
         echo "No local DVM database found, restoring DVM database backup from flash drive..."
         mkdir -p /var/lib/vnstat
-        cp -n /boot/config/plugins/dwdvm/vnstat.db /var/lib/vnstat/vnstat.db
+        cp -n $PLGPATH/vnstat.db /var/lib/vnstat/vnstat.db
         chown root:root /var/lib/vnstat/vnstat.db
         chmod 644 /var/lib/vnstat/vnstat.db
     fi
