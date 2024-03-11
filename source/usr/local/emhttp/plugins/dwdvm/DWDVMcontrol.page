@@ -115,7 +115,7 @@ Markdown="false"
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
     <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
     <dl>
-        <dt>Data Volume Report:</dt>
+        <dt>Data Volume Reporting Format:</dt>
         <dd>
             <select id="REPORT" name="REPORT" size="1">
                 <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
