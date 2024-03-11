@@ -24,6 +24,7 @@ Markdown="false"
  *
  */
 ?>
+<? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/codemirror.min.css');?>">
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/dracula.min.css');?>">
 

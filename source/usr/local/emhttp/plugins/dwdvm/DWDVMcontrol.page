@@ -23,8 +23,8 @@ Markdown="false"
  * included in all copies or substantial portions of the Software.
  *
  */
-
-require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
+?>
+<? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
 
 <form markdown="0" id="dwdvm-settings" name="dwdvm_settings" method="POST" action="/update.php" target="progressFrame">
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
