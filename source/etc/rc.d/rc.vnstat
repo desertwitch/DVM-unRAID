@@ -88,15 +88,6 @@ write_config() {
   echo "Writing DVM configuration..."
   cp -rf /etc/vnstat/* $PLGPATH/vnstat/ >/dev/null 2>&1
 
-  if [ -d /etc/vnstat ]; then
-      echo "Updating permissions for DVM..."
-      chown root:root /etc/vnstat
-      chmod 755 /etc/vnstat
-      chown root:root /etc/vnstat/*
-      chmod 644 /etc/vnstat/*
-      chmod 755 /etc/vnstat/dvm-custom.sh
-  fi
-
   if [ "$BACKUPDB" == "enable" ]; then
     if [ "$( grep -ic "/etc/rc.d/rc.vnstat" /etc/rc.d/rc.local_shutdown )" -eq 0 ]; then
         echo "Adding DVM database backup line to rc.local_shutdown script..."
@@ -145,6 +136,15 @@ write_config() {
       sleep 1
       echo " DONE"
     fi
+  fi
+
+  if [ -d /etc/vnstat ]; then
+      echo "Updating permissions for DVM..."
+      chown root:root /etc/vnstat
+      chmod 755 /etc/vnstat
+      chown root:root /etc/vnstat/*
+      chmod 644 /etc/vnstat/*
+      chmod 755 /etc/vnstat/dvm-custom.sh
   fi
 
   sleep 1
