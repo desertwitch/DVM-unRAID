@@ -48,7 +48,7 @@ chown root:root /etc/vnstat
 chmod 755 /etc/vnstat
 chown root:root /etc/vnstat/*
 chmod 644 /etc/vnstat/*
-chmod 755 /etc/vnstat/dvm-custom.sh
+chmod 755 /etc/vnstat/dvm-alarms.sh
 
 if [ -x /etc/rc.d/rc.vnstat ]; then
     /etc/rc.d/rc.vnstat write_config 1>/dev/null

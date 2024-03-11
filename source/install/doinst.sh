@@ -47,5 +47,5 @@ if [ -d /etc/vnstat ]; then
     chmod 755 /etc/vnstat
     chown root:root /etc/vnstat/*
     chmod 644 /etc/vnstat/*
-    chmod 755 /etc/vnstat/dvm-custom.sh
+    chmod 755 /etc/vnstat/dvm-alarms.sh
 fi

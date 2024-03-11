@@ -109,19 +109,19 @@ write_config() {
     if [ "$CRONINT" == "01min" ]; then
       sleep 1
     elif [ "$CRONINT" == "15min" ]; then
-      sed -i '/dvm-custom/s,^\*,*/15,' /boot/config/plugins/dynamix/dwdvm.cron
+      sed -i '/dvm-alarms/s,^\*,*/15,' /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
     elif [ "$CRONINT" == "30min" ]; then
-      sed -i '/dvm-custom/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
+      sed -i '/dvm-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
     elif [ "$CRONINT" == "45min" ]; then
-      sed -i '/dvm-custom/s,^\*,*/45,' /boot/config/plugins/dynamix/dwdvm.cron
+      sed -i '/dvm-alarms/s,^\*,*/45,' /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
     elif [ "$CRONINT" == "60min" ]; then
-      sed -i '/dvm-custom/s,^\*,0,' /boot/config/plugins/dynamix/dwdvm.cron
+      sed -i '/dvm-alarms/s,^\*,0,' /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
     else
-      sed -i '/dvm-custom/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
+      sed -i '/dvm-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm.cron
       sleep 1
     fi
     update_cron
@@ -144,7 +144,7 @@ write_config() {
       chmod 755 /etc/vnstat
       chown root:root /etc/vnstat/*
       chmod 644 /etc/vnstat/*
-      chmod 755 /etc/vnstat/dvm-custom.sh
+      chmod 755 /etc/vnstat/dvm-alarms.sh
   fi
 
   sleep 1

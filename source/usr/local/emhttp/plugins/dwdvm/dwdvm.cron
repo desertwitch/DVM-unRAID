@@ -1,2 +1,2 @@
-# Data Volume Monitor Custom Alarms Script:
-* * * * * /etc/vnstat/dvm-custom.sh > /dev/null 2>&1
+# Data Volume Monitor Alarms Script:
+* * * * * /etc/vnstat/dvm-alarms.sh > /dev/null 2>&1
