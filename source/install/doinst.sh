@@ -41,6 +41,7 @@ cp -nr $DOCROOT/vnstat/* $BOOT/vnstat/ >/dev/null 2>&1
 cp -rf $BOOT/vnstat/* /etc/vnstat/ >/dev/null 2>&1
 
 if [ -f /boot/config/plugins/dwdvm/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
+    mkdir -p /var/lib/vnstat
     cp -n /boot/config/plugins/dwdvm/vnstat.db /var/lib/vnstat/vnstat.db
     chown root:root /var/lib/vnstat/vnstat.db
     chmod 644 /var/lib/vnstat/vnstat.db
