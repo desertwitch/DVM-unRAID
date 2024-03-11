@@ -48,5 +48,10 @@ chown root:root /etc/vnstat
 chmod 755 /etc/vnstat
 chown root:root /etc/vnstat/*
 chmod 644 /etc/vnstat/*
+chmod 755 /etc/vnstat/dvm-custom.sh
+
+if [ -x /etc/rc.d/rc.vnstat ]; then
+    /etc/rc.d/rc.vnstat write_config
+fi
 
 echo "DVM configuration is now reset to defaults, reboot or reinstall plugin in case of any problems."
