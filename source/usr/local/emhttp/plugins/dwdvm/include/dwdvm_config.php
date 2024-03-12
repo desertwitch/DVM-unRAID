@@ -41,7 +41,7 @@ $dwdvm_dunit   = isset($dwdvm_cfg['DUNIT'])   ? htmlspecialchars($dwdvm_cfg['DUN
 $dwdvm_mlimit  = isset($dwdvm_cfg['MLIMIT'])  ? htmlspecialchars($dwdvm_cfg['MLIMIT'])  : '-1';
 $dwdvm_munit   = isset($dwdvm_cfg['MUNIT'])   ? htmlspecialchars($dwdvm_cfg['MUNIT'])   : 'GB';
 $dwdvm_ylimit  = isset($dwdvm_cfg['YLIMIT'])  ? htmlspecialchars($dwdvm_cfg['YLIMIT'])  : '-1';
-$dwdvm_yunit   = isset($dwdvm_cfg['YUNIT'])   ? htmlspecialchars($dwdvm_cfg['YDUNIT'])  : 'GB';
+$dwdvm_yunit   = isset($dwdvm_cfg['YUNIT'])   ? htmlspecialchars($dwdvm_cfg['YUNIT'])   : 'GB';
 
 $dwdvm_running      = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));
