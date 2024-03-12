@@ -22,6 +22,11 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 
 SUBJECT="[${HOST}] DVM (${PRIMARY}):"
 
+if [ ! "$GOODNOTIFY" == "enable" ] && [ ! "$BADNOTIFY" == "enable" ]; then
+    echo "DVM all notifications disabled... exiting"
+    exit 0
+fi
+
 if ! pgrep -x vnstatd >/dev/null 2>&1; then
     echo "DVM not running... exiting"
     exit 0
@@ -52,11 +57,11 @@ for i in "${!allLimits[@]}"; do
             if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
                 $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
-                touch "/tmp/${allBadFiles[$i]}"
                 echo "EXCEEDED (NOTIFIED)"
             else
                 echo "EXCEEDED (QUIET)"
             fi
+            touch "/tmp/${allBadFiles[$i]}"
         else
             if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
