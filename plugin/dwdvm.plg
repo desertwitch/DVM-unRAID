@@ -115,7 +115,6 @@ rm -rf &plgPATH;
 rm -rf &emhttp;
 rm -rf /etc/vnstat
 rm -rf /var/lib/vnstat
-
 rm -f /etc/vnstat.conf
 
 echo ""
