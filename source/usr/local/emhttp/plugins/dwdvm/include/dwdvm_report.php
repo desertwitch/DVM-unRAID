@@ -64,7 +64,7 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
             if($returnStr == "1") {
                 return "<span class='red-text'>$str</span>";
             } else {
-                return "<span style='color:darkgreen;'>$str</span>";
+                return "<span class='green-text'>$str</span>";
             }
         }
     } catch (Throwable $e) { // For PHP 7
@@ -103,7 +103,11 @@ global $dwdvm_primary;
 
             if($xml) {
                 if($db_iface == $dwdvm_primary) {
-                    $returnStr .= "<tr>";
+                    if(count($db_ifaces_array) > 1) {
+                        $returnStr .= "<tr style='border:2px solid;'>";
+                    } else {
+                        $returnStr .= "<tr>";
+                    }
                     $returnStr .= "<td>". $db_iface . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</td>";
@@ -246,6 +250,7 @@ function build_report()
 {
     global $dwdvm_report;
     global $dwdvm_vifaces;
+    global $dwdvm_primary;
 
     $returnStr = "";
 
@@ -261,7 +266,15 @@ function build_report()
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
 
-                $returnStr .= "<tr>";
+                if($db_iface == $dwdvm_primary) {
+                    if(count($db_ifaces_array) > 1) {
+                        $returnStr .= "<tr style='border:2px solid;'>";
+                    } else {
+                        $returnStr .= "<tr>";
+                    }
+                } else {
+                    $returnStr .= "<tr>";
+                }
                 $returnStr .= "<td>". $db_iface ."</td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
@@ -278,7 +291,15 @@ function build_report()
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
 
-                $returnStr .= "<tr>";
+                if($db_iface == $dwdvm_primary) {
+                    if(count($db_ifaces_array) > 1) {
+                        $returnStr .= "<tr style='border:2px solid;'>";
+                    } else {
+                        $returnStr .= "<tr>";
+                    }
+                } else {
+                    $returnStr .= "<tr>";
+                }
                 $returnStr .= "<td>". $db_iface ."</td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'></details></td>";
@@ -288,7 +309,15 @@ function build_report()
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'></details></td>";
                 $returnStr .= "</tr>";
             } else {
-                $returnStr .= "<tr>";
+                if($db_iface == $dwdvm_primary) {
+                    if(count($db_ifaces_array) > 1) {
+                        $returnStr .= "<tr style='border:2px solid;'>";
+                    } else {
+                        $returnStr .= "<tr>";
+                    }
+                } else {
+                    $returnStr .= "<tr>";
+                }
                 $returnStr .= "<td>". $db_iface ."</td>";
                 $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
