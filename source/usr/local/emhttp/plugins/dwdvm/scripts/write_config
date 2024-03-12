@@ -15,4 +15,4 @@
 # included in all copies or substantial portions of the Software.
 #
 echo "Writing DVM configuration..."
-/etc/rc.d/rc.vnstat write_config | logger -t "DVMGUI"
+/etc/rc.d/rc.vnstat write_config | logger -t "dvm-gui"

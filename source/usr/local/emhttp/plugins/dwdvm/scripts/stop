@@ -15,4 +15,4 @@
 # included in all copies or substantial portions of the Software.
 #
 echo "Stopping DVM services..."
-/etc/rc.d/rc.vnstat stop | logger -t "DVMGUI"
+/etc/rc.d/rc.vnstat stop | logger -t "dvm-gui"

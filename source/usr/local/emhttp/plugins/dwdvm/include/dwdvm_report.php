@@ -83,7 +83,7 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
             if($returnStr == "1") {
                 return "<span class='red-text'>$str</span>";
             } else {
-                return "<span class='green-text'>$str</span>";
+                return $str;
             }
         }
     } catch (Throwable $e) { // For PHP 7
