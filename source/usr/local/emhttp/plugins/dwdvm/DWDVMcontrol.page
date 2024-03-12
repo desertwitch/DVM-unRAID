@@ -244,6 +244,8 @@ Markdown="false"
         <p>This setting will enable notifications when the data limit is reset or cleared again on the primary interface (enough time has passed).</p>
     </blockquote>
 
+    <br><hr><br>
+
     <dl>
         <dt>Last Hour <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
