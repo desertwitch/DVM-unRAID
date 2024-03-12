@@ -245,7 +245,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last 5 Minutes Limit:</dt>
+        <dt>Last 5 Minutes Notification Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="5LIMIT" name="5LIMIT" maxlength="40" value="<?=$dwdvm_5limit;?>">
             <select id="5UNIT" name="5UNIT" size="1">
@@ -263,7 +263,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Hour Limit:</dt>
+        <dt>Last Hour Notification Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="HLIMIT" name="HLIMIT" maxlength="40" value="<?=$dwdvm_hlimit;?>">
             <select id="HUNIT" name="HUNIT" size="1">
@@ -281,7 +281,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Day Limit:</dt>
+        <dt>Last Day Notification Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="DLIMIT" name="DLIMIT" maxlength="40" value="<?=$dwdvm_dlimit;?>">
             <select id="DUNIT" name="DUNIT" size="1">
@@ -299,7 +299,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Month Limit:</dt>
+        <dt>Last Month Notification Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="MLIMIT" name="MLIMIT" maxlength="40" value="<?=$dwdvm_mlimit;?>">
             <select id="MUNIT" name="MUNIT" size="1">
@@ -317,7 +317,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Year Limit:</dt>
+        <dt>Last Year Notification Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="YLIMIT" name="YLIMIT" maxlength="40" value="<?=$dwdvm_ylimit;?>">
             <select id="YUNIT" name="YUNIT" size="1">
