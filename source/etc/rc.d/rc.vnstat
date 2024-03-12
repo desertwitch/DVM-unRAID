@@ -117,7 +117,7 @@ write_config() {
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Removing DVM notification agent from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
-      
+      rm -f /tmp/dvm*notified
     fi
   fi
 
