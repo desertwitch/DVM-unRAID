@@ -58,21 +58,20 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
     $returnStr = "";
     try {
         if($limit == "-1") {
-            $returnStr = "<strong>" . $str . "</strong>";
+            return $str;
         } else {
             $returnStr = shell_exec("if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 {$time} {$mode} {$limit} {$unit} {$iface} >/dev/null 2>&1; then echo 1; else echo 0; fi");
             if($returnStr == "1") {
-                $returnStr = "<span class='red-text'><strong>$str</strong></span>";
+                return "<span class='red-text'>$str</span>";
             } else {
-                $returnStr = "<span class='green-text'><strong>$str</strong></span>";
+                return "<span style='color:darkgreen;'>$str</span>";
             }
         }
     } catch (Throwable $e) { // For PHP 7
-        return "<strong>$str</strong>";
+        return $str;
     } catch (Exception $e) { // For PHP 5
-        return "<strong>$str</strong>";
+        return $str;
     }
-    return $returnStr;
 }
 
 function build_report_light()
@@ -106,8 +105,8 @@ global $dwdvm_primary;
                 if($db_iface == $dwdvm_primary) {
                     $returnStr .= "<tr>";
                     $returnStr .= "<td>". $db_iface . "</td>";
-                    $returnStr .= "<td><strong>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</strong></td>";
-                    $returnStr .= "<td><strong>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</strong></td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx)) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx)) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx)) . "</td>";
@@ -171,8 +170,8 @@ function build_footer()
     if($xml) {
         switch ($dwdvm_footerformat) {
             case '5':
-                $trafficRx = "<strong>" . humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</strong>";
-                $trafficTx = "<strong>" . humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</strong>";
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx);
                 break;
             case 'h':
                 $trafficRx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx));
@@ -222,9 +221,8 @@ function getMetricsForPrimary()
     $xml = getXMLforInterface($dwdvm_primary);
 
     if($xml) {
-
-        $trafficTotal[0][0] = "<strong>" . humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</strong>";
-        $trafficTotal[0][1] = "<strong>" . humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</strong>";
+        $trafficTotal[0][0] = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx);
+        $trafficTotal[0][1] = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx);
 
         $trafficTotal[1][0] = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx));
         $trafficTotal[1][1] = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx));
@@ -237,7 +235,6 @@ function getMetricsForPrimary()
 
         $trafficTotal[4][0] = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx));
         $trafficTotal[4][1] = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx));
-
     } else {
         return false;
     }

@@ -6,7 +6,7 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 
 [ -e "$CONFIG" ] && source $CONFIG
 
-SUBJECT="[${HOST}] DVM(${PRIMARY}):"
+SUBJECT="[${HOST}] DVM (${PRIMARY}):"
 
 if ! pgrep -x vnstatd >/dev/null 2>&1; then
     echo "DVM not running... exiting"
@@ -40,7 +40,7 @@ do
         if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
             if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricModesCaps[$i]} ${allMetricsCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume threshold has been exceeded." -i "alert"
+                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume threshold has been exceeded." -i "alert"
                 touch "/tmp/${allBadFiles[$i]}"
                 echo "EXCEEDED (NOTIFIED)"
             else
@@ -50,7 +50,7 @@ do
         else
             if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ] && [ ! -f "/tmp/${allGoodFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricModesCaps[$i]} ${allMetricsCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
+                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
                 touch "/tmp/${allGoodFiles[$i]}"
                 echo "NORMAL (NOTIFIED)"
             else

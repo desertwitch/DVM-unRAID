@@ -32,6 +32,7 @@ vnstat_start() {
   elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
     echo "Starting DVM service..."
     /usr/sbin/vnstatd --config $CONFIGFILE --daemon
+    rm -f /tmp/dvm*notified
   fi
 }
 
@@ -52,6 +53,7 @@ vnstat_stop() {
   else
     echo "No running DVM service has been found!"
   fi
+  rm -f /tmp/dvm*notified
 }
 
 vnstat_status() {
@@ -105,8 +107,6 @@ write_config() {
       chmod 644 /var/lib/vnstat/vnstat.db
     fi
   fi
-
-  rm -f /tmp/dvm*notified
 
   if [ "$GOODNOTIFY" == "enable" ] || [ "$BADNOTIFY" == "enable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
