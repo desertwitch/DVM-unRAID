@@ -1,0 +1,22 @@
+<style type="text/css">
+#dvm_footer {
+    float: right;
+    margin-right: 6px;
+}
+#dvm_footer.minimal {
+    font-family: bitstream;
+    font-size: 1.1rem;
+    padding-right: 10px;
+}
+</style>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
+
+<?if ($dwdvm_running):?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
+<script type="text/javascript">
+$(function()
+{
+    var dvm_footer = $("<span id='dvm_footer minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
+});
+</script>
+<?endif;?>

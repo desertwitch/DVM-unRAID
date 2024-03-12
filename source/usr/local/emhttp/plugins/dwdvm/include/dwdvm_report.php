@@ -52,7 +52,14 @@ function build_report_light() {
     }
 }
 
+function build_footer() {
+    $db_iface="eth0";
+    $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml"));
+    $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx);
+    $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx);
 
+    return("<i class='fa fa-arrow-down'</i> " . $trafficRx . "<i class='fa fa-arrow-up'</i> " . $trafficTx . " ");
+}
 
 function build_report() {
     global $dwdvm_report;
