@@ -3,12 +3,12 @@ require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 
 function humanFileSize($size,$unit="") {
     if(intval($size)) {
-        if( (!$unit && $size >= 1<<30) || $unit == "GB")
-            return number_format($size/(1<<30),2)."GB";
-        if( (!$unit && $size >= 1<<20) || $unit == "MB")
-            return number_format($size/(1<<20),2)."MB";
-        if( (!$unit && $size >= 1<<10) || $unit == "KB")
-            return number_format($size/(1<<10),2)."KB";
+        if( (!$unit && $size >= 1<<30) || $unit == " GB")
+            return number_format($size/(1<<30),2)." GB";
+        if( (!$unit && $size >= 1<<20) || $unit == " MB")
+            return number_format($size/(1<<20),2)." MB";
+        if( (!$unit && $size >= 1<<10) || $unit == " KB")
+            return number_format($size/(1<<10),2)." KB";
         return number_format($size)." bytes";
     } else {
         return "-";
@@ -26,7 +26,10 @@ function getInterfaces()
     
     $db_ifaces_array = "";
     try {
-        $db_ifaces = shell_exec("vnstat --dbiflist | sed 's/Interfaces in database: //g' 2>/dev/null");
+        $db_ifaces_temp = shell_exec("vnstat --dbiflist 2>/dev/null");
+        $db_ifaces_regex = '/Interfaces in database\: (.*)/';
+        preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
+        $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
         if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
     } catch (\Throwable $e) { // For PHP 7
@@ -123,7 +126,7 @@ function build_footer()
         $trafficRx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
         $trafficTx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
     }
-    return("<i class='fa fa-arrow-down'></i>&thinsp;" . $trafficRx . " <i class='fa fa-arrow-up'></i>&thinsp;" . $trafficTx);
+    return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
 }
 
 function getMetricsForPrimary() 
