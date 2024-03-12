@@ -26,16 +26,16 @@ function getInterfaces()
     
     $db_ifaces_array = "";
     try {
-        $db_ifaces_temp = shell_exec("vnstat --dbiflist 2>/dev/null");
+        $db_ifaces_temp = shell_exec("vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null");
         $db_ifaces_regex = '/Interfaces in database\: (.*)/';
         preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
         $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
         if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
     } catch (\Throwable $e) { // For PHP 7
-            return false;
+        return false;
     } catch (\Exception $e) { // For PHP 5
-            return false;
+        return false;
     }
     return $db_ifaces_array; 
 }
@@ -44,11 +44,11 @@ function getXMLforInterface($iface)
 {
     $xml = "";
     try {
-            $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($iface) ." --limit 1 --xml 2>/dev/null"));
+        $xml = new SimpleXMLElement(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null"));
     } catch (\Throwable $e) { // For PHP 7
-            return false;
+        return false;
     } catch (\Exception $e) { // For PHP 5
-            return false;
+        return false;
     }
     return $xml;
 }
@@ -122,8 +122,8 @@ function build_footer()
                 break;
         }
     } else {
-        $trafficRx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
-        $trafficTx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
+        $trafficRx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+        $trafficTx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
     }
     return("<i class='fa fa-arrow-down'></i>&thinsp;" . $trafficRx . " <i class='fa fa-arrow-up'></i>&thinsp;" . $trafficTx);
 }

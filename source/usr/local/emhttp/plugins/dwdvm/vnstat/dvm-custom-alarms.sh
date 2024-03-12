@@ -5,7 +5,7 @@ if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 # THIS BASH SCRIPT IS FOR CUSTOM DATA VOLUME RELATED ALARMS
 # IT IS RUN PERIODICALLY BY THE CRONTAB WHEN ENABLED SO IN GUI
 #
-# vnstat --alert <output> <exit> <type> <condition> <limit> <unit>
+# vnstat --config /etc/vnstat/vnstat.conf --alert <output> <exit> <type> <condition> <limit> <unit>
 #
 #  <output>
 #     0 - no output
@@ -41,7 +41,7 @@ if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 #
 # EXAMPLE PERIODIC CHECKING USAGE IN THIS SCRIPT
 #
-# if ! vnstat --alert 0 3 d total 100 GB eth0 >/dev/null 2>&1; then
+# if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 d total 100 GB eth0 >/dev/null 2>&1; then
 #   echo "Stopping Syncthing... (data limit has been exceeded)"
 #   docker stop librespeed
 # else
