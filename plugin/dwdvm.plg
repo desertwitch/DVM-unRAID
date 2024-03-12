@@ -28,6 +28,17 @@ stop already existing services before doing anything
 -->
 <FILE Run="/bin/bash">
 <INLINE>
+echo "Checking for conflicting network statistics software packages..."
+if [ -f /boot/config/plugins/networkstats.plg ]; then
+    echo ""
+    echo "-----------------------------------------------------------"
+    echo "ERROR: THIS PLUGIN CANNOT INSTALL TOGETHER WITH THE Network Stats PLUGIN"
+    echo "Please remove the conflicting software package from your system to continue."
+    echo "-----------------------------------------------------------"
+    echo ""
+    exit 1
+fi
+
 echo "Making sure all existing DVM services are stopped (before install/upgrade)..."
 if [ -x /etc/rc.d/rc.vnstat ]; then
     if ! /etc/rc.d/rc.vnstat stop >/dev/null 2>&amp;1; then
