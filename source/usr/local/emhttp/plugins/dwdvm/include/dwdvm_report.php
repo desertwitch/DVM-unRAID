@@ -125,7 +125,7 @@ function build_footer()
         $trafficRx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
         $trafficTx = "<i class='fa fa-times red-text' title='Interface not found - check configuration!'></i>";
     }
-    return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
+    return("<i class='fa fa-arrow-down'></i>&thinsp;" . $trafficRx . " <i class='fa fa-arrow-up'></i>&thinsp;" . $trafficTx);
 }
 
 function getMetricsForPrimary() 
