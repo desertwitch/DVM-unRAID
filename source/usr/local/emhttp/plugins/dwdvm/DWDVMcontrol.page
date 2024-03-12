@@ -247,7 +247,7 @@ Markdown="false"
     <br><hr><br>
 
     <dl>
-        <dt>Last Hour <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="HLIMITRX" name="HLIMITRX" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
             <select id="HUNITRX" name="HUNITRX" size="1">
@@ -265,7 +265,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Hour <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="HLIMITTX" name="HLIMITTX" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
             <select id="HUNITTX" name="HUNITTX" size="1">
@@ -283,7 +283,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Day <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="DLIMITRX" name="DLIMITRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
             <select id="DUNITRX" name="DUNITRX" size="1">
@@ -301,7 +301,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Day <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="DLIMITTX" name="DLIMITTX" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
             <select id="DUNITTX" name="DUNITTX" size="1">
@@ -319,7 +319,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Month <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="MLIMITRX" name="MLIMITRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
             <select id="MUNITRX" name="MUNITRX" size="1">
@@ -337,7 +337,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Month <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="MLIMITTX" name="MLIMITTX" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
             <select id="MUNITTX" name="MUNITTX" size="1">
@@ -355,7 +355,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Year <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="YLIMITRX" name="YLIMITRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
             <select id="YUNITRX" name="YUNITRX" size="1">
@@ -373,7 +373,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Year <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
+        <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="YLIMITTX" name="YLIMITTX" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
             <select id="YUNITTX" name="YUNITTX" size="1">
