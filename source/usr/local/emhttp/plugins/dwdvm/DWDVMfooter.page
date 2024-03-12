@@ -15,11 +15,31 @@ Link="nav-user"
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
 <?if($dwdvm_running && $dwdvm_footer == "enable" && !empty($dwdvm_primary)):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
+<?
+require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';
+$dvm_footer_descr = "";
+switch ($dwdvm_footerformat) {
+    case '5':
+        $dvm_footer_descr = "Last 5 Minutes Volume";
+        break;
+    case 'h':
+        $dvm_footer_descr = "Last Hour Volume";
+        break;
+    case 'd':
+        $dvm_footer_descr = "Last Day Volume";
+        break;
+    case 'm':
+        $dvm_footer_descr = "Last Month Volume";
+        break;
+    case 'y':
+        $dvm_footer_descr = "Last Year Volume";
+        break;
+}
+?>
 <script type="text/javascript">
 $(function()
 {
-    var dvm_footer = $("<span id='dvm_footer' class='minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
+    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> - <?=$dvm_footer_descr?>' class='minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
 });
 </script>
 <?endif;?>

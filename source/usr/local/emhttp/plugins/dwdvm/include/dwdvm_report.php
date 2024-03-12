@@ -132,6 +132,7 @@ function build_footer()
 function getMetricsForPrimary() 
 {
     global $dwdvm_primary;
+    
     $trafficTotal = [];
     $db_iface = $dwdvm_primary;
     $xml = getXMLforInterface($db_iface);
@@ -162,9 +163,10 @@ function getMetricsForPrimary()
 
 function build_report() 
 {
-    $returnStr = "";
     global $dwdvm_report;
     global $dwdvm_vifaces;
+
+    $returnStr = "";
 
     $db_ifaces_array = getInterfaces();
 

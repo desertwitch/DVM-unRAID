@@ -1,3 +1,3 @@
-**DVM - Data Volume Monitor (vnStat) for UNRAID**
+**DVM - Data Volume Monitor for UNRAID**
 
-A plugin that lets you monitor your consumed data volume and take action on it.
+A plugin that lets you monitor and act on your consumed data volume utilizing vnStat.
