@@ -100,6 +100,14 @@ Markdown="false"
 <form markdown="0" id="dwdvm-display" name="dwdvm_display" method="POST" action="/update.php" target="progressFrame">
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
     <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
+
+    <dl>
+        <dt>Primary Network Interface:</dt>
+        <dd>
+            <input type="text" class="narrow" id="PRIMARY" name="PRIMARY" maxlength="40" value="<?=$dwdvm_primary;?>">
+        </dd>
+    </dl>
+
     <dl>
         <dt>Data Volume Reporting Format:</dt>
         <dd>
@@ -117,6 +125,29 @@ Markdown="false"
             <select id="VIFACES" name="VIFACES" size="1">
                 <?=mk_option($dwdvm_vifaces, "disable", "No");?>
                 <?=mk_option($dwdvm_vifaces, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>Show Data Volume in Footer:</dt>
+        <dd>
+            <select id="FOOTER" name="FOOTER" size="1">
+                <?=mk_option($dwdvm_footer, "disable", "No");?>
+                <?=mk_option($dwdvm_footer, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>Footer Data Volume Reporting Format:</dt>
+        <dd>
+            <select id="FOOTERFORMAT" name="FOOTERFORMAT" size="1">
+                <?=mk_option($dwdvm_footerformat, "5", "Last 5 Minutes");?>
+                <?=mk_option($dwdvm_footerformat, "h", "Last Hour");?>
+                <?=mk_option($dwdvm_footerformat, "d", "Last Day");?>
+                <?=mk_option($dwdvm_footerformat, "m", "Last Month");?>
+                <?=mk_option($dwdvm_footerformat, "y", "Last Year");?>
             </select>
         </dd>
     </dl>

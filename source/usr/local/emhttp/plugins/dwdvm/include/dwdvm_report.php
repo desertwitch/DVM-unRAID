@@ -35,7 +35,7 @@ function build_report_light() {
 
     foreach($db_ifaces_array as $db_iface) {
       
-    $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml"));
+    $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml 2>/dev/null"));
     echo("<tr>");
     echo("<td>". $db_iface . "</td>");
     echo("<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</td>");
@@ -53,12 +53,41 @@ function build_report_light() {
 }
 
 function build_footer() {
-    $db_iface="eth0";
-    $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml"));
-    $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx);
-    $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx);
+    global $dwdvm_primary;
+    global $dwdvm_footerformat;
 
-    return("<i class='fa fa-arrow-down'</i> " . $trafficRx . "<i class='fa fa-arrow-up'</i> " . $trafficTx . " ");
+    $db_iface = $dwdvm_primary;
+    if(!empty($db_iface)) {
+        $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml 2>/dev/null"));
+
+        switch ($dwdvm_footerformat) {
+            case '5':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx);
+                break;
+            case 'h':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx);
+                break;
+            case 'd':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx);
+                break;
+            case 'm':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx);
+                break;
+            case 'y':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx);
+                break;
+        }
+        
+        return("<i class='fa fa-arrow-down'></i>&thinsp;" . $trafficRx . " <i class='fa fa-arrow-up'></i>&thinsp;" . $trafficTx);
+    }
+    else {
+        return "";
+    }
 }
 
 function build_report() {

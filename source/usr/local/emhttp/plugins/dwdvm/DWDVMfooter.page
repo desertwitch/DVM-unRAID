@@ -1,3 +1,6 @@
+Menu="Buttons:198"
+Link="nav-user"
+---
 <style type="text/css">
 #dvm_footer {
     float: right;
@@ -11,12 +14,12 @@
 </style>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
-<?if ($dwdvm_running):?>
+<?if($dwdvm_running && $dwdvm_footer == "enable" && !empty($dwdvm_primary)):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <script type="text/javascript">
 $(function()
 {
-    var dvm_footer = $("<span id='dvm_footer minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
+    var dvm_footer = $("<span id='dvm_footer' class='minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
 });
 </script>
 <?endif;?>
