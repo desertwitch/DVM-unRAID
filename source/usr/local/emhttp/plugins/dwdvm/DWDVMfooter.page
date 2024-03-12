@@ -20,26 +20,26 @@ require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';
 $dvm_footer_descr = "";
 switch ($dwdvm_footerformat) {
     case '5':
-        $dvm_footer_descr = "Last 5 Minutes Volume";
+        $dvm_footer_descr = "Last 5 Minutes";
         break;
     case 'h':
-        $dvm_footer_descr = "Last Hour Volume";
+        $dvm_footer_descr = "Last Hour";
         break;
     case 'd':
-        $dvm_footer_descr = "Last Day Volume";
+        $dvm_footer_descr = "Last Day";
         break;
     case 'm':
-        $dvm_footer_descr = "Last Month Volume";
+        $dvm_footer_descr = "Last Month";
         break;
     case 'y':
-        $dvm_footer_descr = "Last Year Volume";
+        $dvm_footer_descr = "Last Year";
         break;
 }
 ?>
 <script type="text/javascript">
 $(function()
 {
-    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> - <?=$dvm_footer_descr?>' class='minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
+    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> / <?=$dvm_footer_descr?>' class='minimal'><?=build_footer();?></span>").insertAfter("div#footer > span#copyright");
 });
 </script>
 <?endif;?>
@@ -87,7 +87,7 @@ $mytiles[$pluginname]['column2'] =
 <td>
 <i class="fa fa-pie-chart f32"></i>
 <div class="section">Data Volume Monitor (DVM)<br>
-<span>$dwdvm_primary - $dvm_mini_descr $dvm_mini</span>
+<span>$dwdvm_primary / $dvm_mini_descr $dvm_mini</span>
 <br><br>
 </div>
 <a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
