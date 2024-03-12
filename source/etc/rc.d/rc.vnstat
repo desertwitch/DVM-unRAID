@@ -27,9 +27,9 @@ CONFIG=$PLGPATH/dwdvm.cfg
 [ -e "$CONFIG" ] && source $CONFIG
 
 vnstat_start() {
-  if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
+  if [ -e $PIDFILE ] && [ -n "$(pidof $DAEMON)" ]; then
     echo "DVM service is already running with PID: $(cat $PIDFILE) !"
-  elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
+  elif [ -x /usr/sbin/vnstatd ] && [ -r $CONFIGFILE ]; then
     echo "Starting DVM service..."
     /usr/sbin/vnstatd --config $CONFIGFILE --daemon
     rm -f /tmp/dvm*notified
@@ -57,7 +57,7 @@ vnstat_stop() {
 }
 
 vnstat_status() {
-  if [ -e $PIDFILE -a -n "$(pidof $DAEMON)" ]; then
+  if [ -e $PIDFILE ] && [ -n "$(pidof $DAEMON)" ]; then
     echo "DVM service is running with PID: $(cat $PIDFILE)"
   else
     echo "DVM service is not running."
