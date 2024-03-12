@@ -3,7 +3,7 @@ Title="DVM Configuration Editor"
 Tag="cog"
 Markdown="false"
 ---
-<?PHP
+<?
 /* Copyright Derek Macias (parts of code from NUT package)
  * Copyright macester (parts of code from NUT package)
  * Copyright gfjardim (parts of code from NUT package)
@@ -24,7 +24,7 @@ Markdown="false"
  *
  */
 ?>
-<? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/codemirror.min.css');?>">
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/dracula.min.css');?>">
 

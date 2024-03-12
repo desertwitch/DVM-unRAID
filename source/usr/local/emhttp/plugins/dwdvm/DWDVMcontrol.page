@@ -3,7 +3,7 @@ Title="DVM Settings"
 Tag="wrench"
 Markdown="false"
 ---
-<?PHP
+<?
 /* Copyright Derek Macias (parts of code from NUT package)
  * Copyright macester (parts of code from NUT package)
  * Copyright gfjardim (parts of code from NUT package)
@@ -24,7 +24,7 @@ Markdown="false"
  *
  */
 ?>
-<? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
 <span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 

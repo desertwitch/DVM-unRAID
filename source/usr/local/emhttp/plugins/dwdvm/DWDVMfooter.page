@@ -15,8 +15,8 @@ Link="nav-user"
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
 <?if($dwdvm_running && $dwdvm_footer == "enable" && !empty($dwdvm_primary)):?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?
-require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';
 $dvm_footer_descr = "";
 switch ($dwdvm_footerformat) {
     case '5':
@@ -47,13 +47,12 @@ $(function()
 <?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'6.12.0-beta5', '>')):?>
 <?if(stripos($path, "dashboard") !== false && $dwdvm_running && $dwdvm_dashb == "enable"):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
-<?PHP
+<?
 $pluginname = "DVM";
 
 $dvm_mini = build_footer();
-$dvm_mini_descr = "";
-
 $dvm_metrics = getMetricsForPrimary();
+$dvm_mini_descr = "";
 
 if($dvm_metrics) {
 $dvm_5 = $dvm_metrics[0];

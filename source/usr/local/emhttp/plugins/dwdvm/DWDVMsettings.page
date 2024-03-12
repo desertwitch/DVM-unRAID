@@ -5,7 +5,7 @@ Icon="pie-chart"
 Tag="pie-chart"
 Markdown="false"
 ---
-<?PHP
+<?
 /* Copyright Derek Macias (parts of code from NUT package)
  * Copyright macester (parts of code from NUT package)
  * Copyright gfjardim (parts of code from NUT package)
@@ -35,7 +35,7 @@ Markdown="false"
 <tr><th></th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th></tr>
 </thead>
 <tbody>
-<?if ($dwdvm_running):?>
+<?if($dwdvm_running):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?=build_report_light();?>
 <?endif;?>
@@ -48,7 +48,7 @@ Markdown="false"
 <table class="tablesorter">
 <thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
 <tbody>
-<?if ($dwdvm_running):?>
+<?if($dwdvm_running):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?=build_report();?>
 <?endif;?>

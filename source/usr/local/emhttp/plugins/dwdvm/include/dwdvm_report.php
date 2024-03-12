@@ -1,4 +1,4 @@
-<?PHP
+<?
 require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 
 function humanFileSize($size,$unit="") {
