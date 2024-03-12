@@ -6,7 +6,7 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 
 [ -e "$CONFIG" ] && source $CONFIG
 
-SUBJECT="[${HOST}.${PRIMARY}] DVM:"
+SUBJECT="[${HOST}] DVM(${PRIMARY}): "
 
 if ! pgrep -x vnstatd >/dev/null 2>&1; then
     echo "DVM not running... exiting"
