@@ -43,9 +43,9 @@ if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 #
 # if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 d total 100 GB eth0 >/dev/null 2>&1; then
 #   echo "Stopping Syncthing... (data limit has been exceeded)"
-#   docker stop librespeed
+#   docker stop syncthing
 # else
 #   echo "Starting Syncthing... (data limit has not been exceeded)"
-#   docker start librespeed
+#   docker start syncthing
 # fi
 #

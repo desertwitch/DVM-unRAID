@@ -35,7 +35,6 @@ fi
 allLimits=("$HLIMITRX" "$DLIMITRX" "$MLIMITRX" "$YLIMITRX" "$HLIMITTX" "$DLIMITTX" "$MLIMITTX" "$YLIMITTX")
 allUnits=("$HUNITRX" "$DUNITRX" "$MUNITRX" "$YUNITRX" "$HUNITTX" "$DUNITTX" "$MUNITTX" "$YUNITTX")
 allBadFiles=("dvm_h_bad_rx_notified" "dvm_d_bad_rx_notified" "dvm_m_bad_rx_notified" "dvm_y_bad_rx_notified" "dvm_h_bad_tx_notified" "dvm_d_bad_tx_notified" "dvm_m_bad_tx_notified" "dvm_y_bad_tx_notified")
-allGoodFiles=("dvm_h_good_rx_notified" "dvm_d_good_rx_notified" "dvm_m_good_rx_notified" "dvm_y_good_rx_notified" "dvm_h_good_tx_notified" "dvm_d_good_tx_notified" "dvm_m_good_tx_notified" "dvm_y_good_tx_notified")
 allMetrics=("hour" "day" "month" "year" "hour" "day" "month" "year")
 allMetricsCaps=("Hour" "Day" "Month" "Year" "Hour" "Day" "Month" "Year")
 allMetricModes=("rx" "rx" "rx" "rx" "tx" "tx" "tx" "tx")
@@ -48,7 +47,6 @@ do
     if [ "${allLimits[$i]}" == "-1" ]; then
         echo "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... disabled"
         rm -f "/tmp/${allBadFiles[$i]}"
-        rm -f "/tmp/${allGoodFiles[$i]}"
     else
         echo -n "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
         if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
@@ -60,12 +58,10 @@ do
             else
                 echo "EXCEEDED (QUIET)"
             fi
-            rm -f "/tmp/${allGoodFiles[$i]}"
         else
-            if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ] && [ ! -f "/tmp/${allGoodFiles[$i]}" ]; then
+            if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
                 $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
-                touch "/tmp/${allGoodFiles[$i]}"
                 echo "NORMAL (NOTIFIED)"
             else
                 echo "NORMAL (QUIET)"
