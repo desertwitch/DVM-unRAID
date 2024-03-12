@@ -25,18 +25,23 @@ $(function()
 <?endif;?>
 
 <?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'6.12.0-beta5', '>')):?>
-<?if(stripos($path, "dashboard") !== false && $dwdvm_running):?>
+<?if(stripos($path, "dashboard") !== false && $dwdvm_running && $dwdvm_dashb == "enable"):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?PHP
-$pluginname = "DVM"; 
+$pluginname = "DVM";
+
 $dvm_mini = build_footer();
+$dvm_mini_descr = "";
+
 $dvm_metrics = getMetricsForPrimary();
+
+if($dvm_metrics) {
 $dvm_5 = $dvm_metrics[0];
 $dvm_h = $dvm_metrics[1];
 $dvm_d = $dvm_metrics[2];
 $dvm_m = $dvm_metrics[3];
 $dvm_y = $dvm_metrics[4];
-$dvm_mini_descr = "";
+
 switch ($dwdvm_footerformat) {
     case '5':
         $dvm_mini_descr = "Last 5 Minutes:";
@@ -74,44 +79,23 @@ $mytiles[$pluginname]['column2'] =
 <tr><td><span class="w36">Last Year:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_y[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_y[1]</span></td></tr>
 </tbody>
 EOT;
-?>
-<?endif;?>
-<?endif;?>
-
-<?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'6.12.0-beta6', '<')):?>
-<?if(stripos($path, "dashboard") !== false && $nut_running):?>
-<table id="nut_dashboard" style="display: none;">
-<thead sort=''><tr class='hidden'><td></td><td colspan='3'></td><td></td></tr></thead>
-<tbody sort='' class='sortable'>
-<tr><td></td><td colspan='3' class='next'><i class='icon-ups'></i><div class='section'>UPS(NUT)<br>
-<span style="margin-right:6px;">Status: <i class="nutdsicon fa fa-question-circle black-text"></i></span>
-<span style="margin-right:6px;">Battery: <span class="nutdcc green-text"></span></span>
-<span>Load: <span class='nut_loadpct'></span></span><br><br></div>
-<i class='fa fa-fw chevron' id='nut_view' onclick='toggleChevron("nut_view",0)'></i>
-<a href='/Dashboard/NUTsettings' title='Go to NUT Settings'><i class='fa fa-fw fa-cog chevron'></i></a>
-</td><td></td></tr>
-<tr class='nut_view' style="display:none"><td></td><td colspan='3'>
-<span class='ups'>UPS Status:</span><span class='nut_status'></span><br>
-<span class='ups'>Battery Charge:</span><span class='nut_bcharge'></span><br>
-<span class='ups'>Runtime Left:</span><span class='nut_timeleft'></span><br>
-<span class='ups'>Nominal Power:</span><span class='nut_nompower'></span><br>
-</td><td></td></tr>
+} else {
+$mytiles[$pluginname]['column2'] =
+<<<EOT
+<tbody id="tblDVMDash" title="DVM">
+<tr>
+<td>
+<i class="fa fa-pie-chart f32"></i>
+<div class="section">Data Volume Monitor (DVM)<br>
+<span>$dvm_mini_descr $dvm_mini</span>
+<br><br>
+</div>
+<a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
+</td></tr>
+<tr><td><span><em>Error Querying Network Interface - Misspelled Primary Interface?</em></span></td></tr>
 </tbody>
-</table>
-<script type="text/javascript">
-  function addNUTDashboard() {
-    if ($("#db-box1").length) {
-      var i = $("#db-box1 > tbody.sortable").length;
-      nut_dashboard = $("#nut_dashboard").detach();
-      nut_dashboard.find("thead, tbody").attr("sort",i);
-      nut_dashboard.find("thead, tbody").appendTo('#db-box1');
-      toggleView('nut_view',true);
-      sortTable($('#db-box1'),$.cookie('db-box1'));
-    }
-  }
-  $(function(){
-    addNUTDashboard();
-  });
-</script>
+EOT;
+}
+?>
 <?endif;?>
 <?endif;?>

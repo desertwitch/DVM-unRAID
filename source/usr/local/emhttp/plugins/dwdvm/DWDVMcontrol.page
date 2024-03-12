@@ -130,6 +130,16 @@ Markdown="false"
     </dl>
 
     <dl>
+        <dt>Show Data Volume in Dashboard:</dt>
+        <dd>
+            <select id="DASHB" name="DASHB" size="1">
+                <?=mk_option($dwdvm_dashb, "disable", "No");?>
+                <?=mk_option($dwdvm_dashb, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
         <dt>Show Data Volume in Footer:</dt>
         <dd>
             <select id="FOOTER" name="FOOTER" size="1">
@@ -140,7 +150,7 @@ Markdown="false"
     </dl>
 
     <dl>
-        <dt>Footer Data Volume Reporting Format:</dt>
+        <dt>Miniature Data Volume Reporting Time:</dt>
         <dd>
             <select id="FOOTERFORMAT" name="FOOTERFORMAT" size="1">
                 <?=mk_option($dwdvm_footerformat, "5", "Last 5 Minutes");?>
