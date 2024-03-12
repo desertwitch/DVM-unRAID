@@ -5,7 +5,7 @@ if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 # THIS BASH SCRIPT IS FOR CUSTOM DATA VOLUME RELATED ALARMS
 # IT IS RUN PERIODICALLY BY THE CRONTAB WHEN ENABLED SO IN GUI
 #
-# vnstat --config /etc/vnstat/vnstat.conf --alert <output> <exit> <type> <condition> <limit> <unit>
+# vnstat --config /etc/vnstat/vnstat.conf --alert <output> <exit> <type> <condition> <limit> <unit> <interface>
 #
 #  <output>
 #     0 - no output
