@@ -96,8 +96,7 @@ function build_footer()
     global $dwdvm_primary;
     global $dwdvm_footerformat;
 
-    $db_iface = $dwdvm_primary;
-    $xml = getXMLforInterface($db_iface);
+    $xml = getXMLforInterface($dwdvm_primary);
 
     if($xml) {
         switch ($dwdvm_footerformat) {
@@ -134,8 +133,7 @@ function getMetricsForPrimary()
     global $dwdvm_primary;
     
     $trafficTotal = [];
-    $db_iface = $dwdvm_primary;
-    $xml = getXMLforInterface($db_iface);
+    $xml = getXMLforInterface($dwdvm_primary);
 
     if($xml) {
 
