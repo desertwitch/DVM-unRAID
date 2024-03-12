@@ -28,7 +28,7 @@ Markdown="false"
 
 <span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 
-<div id="title">
+<div>
     <span class="left"><i class="icon fa fa-power-off"></i> Service Settings</span>
 </div>
 
@@ -98,8 +98,8 @@ Markdown="false"
 
 </form>
 
-<div id="title">
-    <span class="left"><i class="icon fa fa-desktop"></i> Runtime Settings</span>
+<div>
+    <span class="left"><i class="icon fa fa-cogs"></i> Runtime Settings</span>
 </div>
 
 <br>
@@ -112,17 +112,6 @@ Markdown="false"
         <dt>Primary Network Interface:</dt>
         <dd>
             <input type="text" class="narrow" id="PRIMARY" name="PRIMARY" maxlength="40" value="<?=$dwdvm_primary;?>">
-        </dd>
-    </dl>
-
-    <dl>
-        <dt>Data Volume Reporting Format:</dt>
-        <dd>
-            <select id="REPORT" name="REPORT" size="1">
-                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
-                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
-                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
-            </select>
         </dd>
     </dl>
 
@@ -152,6 +141,17 @@ Markdown="false"
             <select id="FOOTER" name="FOOTER" size="1">
                 <?=mk_option($dwdvm_footer, "disable", "No");?>
                 <?=mk_option($dwdvm_footer, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <dl>
+        <dt>General Data Volume Reporting Format:</dt>
+        <dd>
+            <select id="REPORT" name="REPORT" size="1">
+                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
+                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
+                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
             </select>
         </dd>
     </dl>
