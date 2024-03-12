@@ -31,12 +31,13 @@ Markdown="false"
 <div> 
 <table class="tablesorter shift" border="1">
 <thead>
-<tr><th>Network Interface</th><th colspan="2">Last 5 Minutes</th><th colspan="2">Last Hour</th><th colspan="2">Last Day</th><th colspan="2">Last Month</th><th colspan="2">Last Year</th></tr>
-<tr><th></th><th>INCOMING</th><th>OUTGOING</th><th>INCOMING</th><th>OUTGOING</th><th>INCOMING</th><th>OUTGOING</th><th>INCOMING</th><th>OUTGOING</th><th>INCOMING</th><th>OUTGOING</th></tr>
+<tr><th><strong>Network Interface</strong></th><th colspan="2"><strong>Last 5 Minutes</strong></th><th colspan="2"><strong>Last Hour</strong></th><th colspan="2"><strong>Last Day</strong></th><th colspan="2"><strong>Last Month</strong></th><th colspan="2"><strong>Last Year</strong></th></tr>
+<tr><th></th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th></tr>
 </thead>
 <tbody>
 <?if ($dwdvm_running):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php'; build_report_light(); ?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
+<?=build_report_light();?>
 <?endif;?>
 </tbody>
 </table>
@@ -45,10 +46,11 @@ Markdown="false"
 
 <div> 
 <table class="tablesorter">
-<thead><tr><th>Network Interface</th><th>Summary</th><th>Report (5 Minutes)</th><th>Report (Hours)</th><th>Report (Days)</th><th>Report (Months)</th><th>Report (Years)</th></tr></thead>
+<thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
 <tbody>
 <?if ($dwdvm_running):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php'; build_report(); ?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
+<?=build_report();?>
 <?endif;?>
 </tbody>
 </table>

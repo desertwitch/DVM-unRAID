@@ -26,7 +26,7 @@ $dwdvm_vifaces      = isset($dwdvm_cfg['VIFACES'])      ? htmlspecialchars($dwdv
 $dwdvm_cronint      = isset($dwdvm_cfg['CRONINT'])      ? htmlspecialchars($dwdvm_cfg['CRONINT'])       : 'disable';
 $dwdvm_footer       = isset($dwdvm_cfg['FOOTER'])       ? htmlspecialchars($dwdvm_cfg['FOOTER'])        : 'disable';
 $dwdvm_footerformat = isset($dwdvm_cfg['FOOTERFORMAT']) ? htmlspecialchars($dwdvm_cfg['FOOTERFORMAT'])  : 'd';
-$dwdvm_primary      = isset($dwdvm_cfg['PRIMARY'])      ? htmlspecialchars($dwdvm_cfg['PRIMARY'])       : 'eth0';
+$dwdvm_primary      = trim(isset($dwdvm_cfg['PRIMARY'])      ? htmlspecialchars($dwdvm_cfg['PRIMARY'])       : 'eth0');
 $dwdvm_running      = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));
 
