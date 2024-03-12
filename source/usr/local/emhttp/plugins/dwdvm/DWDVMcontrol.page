@@ -119,11 +119,11 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls what interface is used for the data volume metrics shown in the dashboard and footer.</p>
+        <p>This setting controls what network interface is used for the data volume metrics shown in the dashboard and footer.</p>
     </blockquote>
 
     <dl>
-        <dt>Show Virtual Interfaces:</dt>
+        <dt>Show Virtual Network Interfaces:</dt>
         <dd>
             <select id="VIFACES" name="VIFACES" size="1">
                 <?=mk_option($dwdvm_vifaces, "disable", "No");?>
@@ -133,9 +133,9 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls if virtual interfaces should also be displayed on this page.</p>
-        <p>By default only physical network interfaces are shown and virtual interfaces remain hidden.</p>
-        <p>Virtual interfaces are not always monitorable and the data reported for virtual interfaces may be inconsistent.</p>
+        <p>This setting controls if virtual network interfaces should also be displayed on this page.</p>
+        <p>By default only physical network interfaces are shown and virtual network interfaces remain hidden.</p>
+        <p>Virtual network interfaces are not always monitorable and the data reported for virtual interfaces may be inconsistent.</p>
     </blockquote>
 
     <dl>
@@ -149,7 +149,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting will enable a dashboard with data volume metrics for the primary interface (as configured above) on your system's front page.</p>
+        <p>This setting will enable a dashboard with data volume metrics for the primary network interface (as configured above) on your system's front page.</p>
     </blockquote>
 
     <dl>
@@ -163,7 +163,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting will enable a footer with data volume metrics for the primary interface (as configured above) on all of your system's pages.</p>
+        <p>This setting will enable a footer with data volume metrics for the primary network interface (as configured above) on all of your system's pages.</p>
     </blockquote>
 
     <dl>
@@ -227,7 +227,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting will enable notifications when a certain data volume threshold has been reached on the primary interface.</p>
+        <p>This setting will enable notifications when a certain data volume threshold has been reached on the primary network interface.</p>
     </blockquote>
 
     <dl>
@@ -241,7 +241,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting will enable notifications when the data limit is reset or cleared again on the primary interface (enough time has passed).</p>
+        <p>This setting will enable notifications when the data limit is reset or cleared again on the primary network interface (enough time has passed).</p>
     </blockquote>
 
     <br><hr><br>
@@ -261,7 +261,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last hour inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last hour inbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -279,7 +279,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last hour outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last hour outbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -297,7 +297,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last day inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last day inbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -315,7 +315,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last day outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last day outbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -333,7 +333,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last month inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last month inbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -351,7 +351,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last month outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last month outbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -369,7 +369,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last year inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last year inbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
@@ -387,7 +387,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last year outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+        <p>This setting controls the last year outbound data volume threshold on notifications, footer and dashboard (for the primary network interface).</p>
     </blockquote>
 
     <dl>
