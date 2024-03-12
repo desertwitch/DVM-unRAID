@@ -72,11 +72,11 @@ $mytiles[$pluginname]['column2'] =
 </div>
 <a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
 </td></tr>
-<tr><td><span class="w36">Last 5 Minutes:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_5[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_5[1]</span></td></tr>
-<tr><td><span class="w36">Last Hour:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_h[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_h[1]</span></td></tr>
-<tr><td><span class="w36">Last Day:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_d[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_d[1]</span></td></tr>
-<tr><td><span class="w36">Last Month:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_m[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_m[1]</span></td></tr>
-<tr><td><span class="w36">Last Year:</span><span class="w26"><i class="fa fa-arrow-down"></i>&thinsp;$dvm_y[0]</span><span class="w26"><i class="fa fa-arrow-up"></i>&thinsp;$dvm_y[1]</span></td></tr>
+<tr><td><span class="w36">Last 5 Minutes:</span><span class="w26"><i class="fa fa-arrow-down"></i> $dvm_5[0]</span><span class="w26"><i class="fa fa-arrow-up"></i> $dvm_5[1]</span></td></tr>
+<tr><td><span class="w36">Last Hour:</span><span class="w26"><i class="fa fa-arrow-down"></i> $dvm_h[0]</span><span class="w26"><i class="fa fa-arrow-up"></i> $dvm_h[1]</span></td></tr>
+<tr><td><span class="w36">Last Day:</span><span class="w26"><i class="fa fa-arrow-down"></i> $dvm_d[0]</span><span class="w26"><i class="fa fa-arrow-up"></i> $dvm_d[1]</span></td></tr>
+<tr><td><span class="w36">Last Month:</span><span class="w26"><i class="fa fa-arrow-down"></i> $dvm_m[0]</span><span class="w26"><i class="fa fa-arrow-up"></i> $dvm_m[1]</span></td></tr>
+<tr><td><span class="w36">Last Year:</span><span class="w26"><i class="fa fa-arrow-down"></i> $dvm_y[0]</span><span class="w26"><i class="fa fa-arrow-up"></i> $dvm_y[1]</span></td></tr>
 </tbody>
 EOT;
 } else {
