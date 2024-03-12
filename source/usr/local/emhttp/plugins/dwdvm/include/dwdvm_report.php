@@ -9,7 +9,7 @@ function humanFileSize($size,$unit="") {
             return number_format($size/(1<<20),2)." MB";
         if( (!$unit && $size >= 1<<10) || $unit == " KB")
             return number_format($size/(1<<10),2)." KB";
-        return number_format($size)." bytes";
+        return number_format($size)." B";
     } else {
         return "-";
     }
