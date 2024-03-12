@@ -187,9 +187,9 @@ Markdown="false"
         <dt>General Data Volume Reporting Format:</dt>
         <dd>
             <select id="REPORT" name="REPORT" size="1">
-                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
-                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
-                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
+                <?=mk_option($dwdvm_report, 'text', 'Textual Metrics');?>
+                <?=mk_option($dwdvm_report, 'images', 'Image Metrics');?>
+                <?=mk_option($dwdvm_report, 'both', 'Dual Metrics');?>
             </select>
         </dd>
     </dl>
