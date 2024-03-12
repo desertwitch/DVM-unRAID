@@ -83,7 +83,8 @@ Markdown="false"
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
-            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset DVM">
+            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
+            <input id="RESETALL" class="dwdvm-run" type="button" value="Reset All">
         </dt>
         <dd>
             <input type="submit" id="btnApply" name="#apply" value="Apply">
@@ -93,7 +94,8 @@ Markdown="false"
     </dl>
     <br>
     <blockquote class="inline_help">
-    <p><strong>Reset DVM</strong> will return your DVM configuration and database to the default state.</p>
+    <p><strong>Reset All</strong> will return your DVM configuration and database to the default state.</p>
+    <p><strong>Reset Config</strong> will return your DVM configuration to the default state (preserving the database).</p>
     <p><strong>Restart DVM</strong> will restart the DVM service.</p>
     </blockquote>
 
@@ -364,7 +366,11 @@ function Restart(){
 }
 function ResetConfig(){
     $('#command').val('');
-    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetconf', 'DVM Reset', 600, 600, true);
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetconf', 'DVM Reset Config', 600, 600, true);
+}
+function ResetAll(){
+    $('#command').val('');
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetall', 'DVM Reset All', 600, 600, true);
 }
 $(function() {
 
@@ -382,9 +388,11 @@ $(function() {
     $('#RESTART').click(Restart);
 
     if (typeof swal === "function") { 
-        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration and database will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
+        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
+        $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration and database will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetAll); });
     } else {
         $('#RESETCONF').click(ResetConfig);
+        $('#RESETALL').click(ResetAll);
     }
 
     $('#SERVICE').change(checkRUNNING);

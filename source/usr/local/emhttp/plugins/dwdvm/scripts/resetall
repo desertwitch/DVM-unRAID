@@ -17,13 +17,15 @@
 BOOT="/boot/config/plugins/dwdvm"
 DOCROOT="/usr/local/emhttp/plugins/dwdvm"
 
-echo "Making sure all existing DVM services are stopped (before config reset)..."
+echo "Making sure all existing DVM services are stopped (before config and db reset)..."
 if [ -x /etc/rc.d/rc.vnstat ]; then
     /etc/rc.d/rc.vnstat stop
 fi
 
 echo "Deleting existing configuration files and folders..."
 rm -f $BOOT/dwdvm.cfg
+rm -f $BOOT/vnstat.db
+rm -rf /var/lib/vnstat
 rm -rf /etc/vnstat
 rm -rf $BOOT/vnstat
 
@@ -52,4 +54,4 @@ if [ -x /etc/rc.d/rc.vnstat ]; then
     /etc/rc.d/rc.vnstat write_config 1>/dev/null
 fi
 
-echo "DVM configuration is now reset to defaults (database was preserved), reboot or reinstall plugin in case of any problems."
+echo "DVM configuration and database is now reset to defaults, reboot or reinstall plugin in case of any problems."
