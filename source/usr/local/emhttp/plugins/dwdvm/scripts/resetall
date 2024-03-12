@@ -28,6 +28,7 @@ rm -f $BOOT/vnstat.db
 rm -rf /var/lib/vnstat
 rm -rf /etc/vnstat
 rm -rf $BOOT/vnstat
+rm -f /tmp/dvm*notified
 
 echo "Recreating configuration folders..."
 if [ ! -d /etc/vnstat ]; then

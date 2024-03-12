@@ -116,6 +116,7 @@ rm -rf &emhttp;
 rm -rf /etc/vnstat
 rm -rf /var/lib/vnstat
 rm -f /etc/vnstat.conf
+rm -f /tmp/dvm*notified
 
 if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ] || [ -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
     rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron

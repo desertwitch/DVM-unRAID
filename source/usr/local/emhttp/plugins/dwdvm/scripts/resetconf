@@ -26,6 +26,7 @@ echo "Deleting existing configuration files and folders..."
 rm -f $BOOT/dwdvm.cfg
 rm -rf /etc/vnstat
 rm -rf $BOOT/vnstat
+rm -f /tmp/dvm*notified
 
 echo "Recreating configuration folders..."
 if [ ! -d /etc/vnstat ]; then

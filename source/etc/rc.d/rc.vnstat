@@ -32,6 +32,7 @@ vnstat_start() {
   elif [ -x /usr/sbin/vnstatd -a -r $CONFIGFILE ]; then
     echo "Starting DVM service..."
     /usr/sbin/vnstatd --config $CONFIGFILE --daemon
+    rm -f /tmp/dvm*notified
   fi
 }
 
@@ -52,6 +53,7 @@ vnstat_stop() {
   else
     echo "No running DVM service has been found!"
   fi
+  rm -f /tmp/dvm*notified
 }
 
 vnstat_status() {
@@ -115,6 +117,7 @@ write_config() {
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Removing DVM notification agent from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
+      rm -f /tmp/dvm*notified
     fi
   fi
 
