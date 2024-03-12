@@ -67,7 +67,7 @@ $mytiles[$pluginname]['column2'] =
 <td>
 <i class="fa fa-pie-chart f32"></i>
 <div class="section">Data Volume Monitor (DVM)<br>
-<span>$dwdvm_primary / $dvm_mini_descr $dvm_mini</span>
+<span>$dwdvm_primary - $dvm_mini_descr $dvm_mini</span>
 <br><br>
 </div>
 <a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
