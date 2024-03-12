@@ -245,93 +245,147 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last 5 Minutes Notification Threshold:</dt>
+        <dt>Last Hour Inbound Notification Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="5LIMIT" name="5LIMIT" maxlength="40" value="<?=$dwdvm_5limit;?>">
-            <select id="5UNIT" name="5UNIT" size="1">
-            <?=mk_option($dwdvm_5unit, "B", "B");?>
-            <?=mk_option($dwdvm_5unit, "KB", "KB");?>
-            <?=mk_option($dwdvm_5unit, "MB", "MB");?>
-            <?=mk_option($dwdvm_5unit, "GB", "GB");?>
-            <?=mk_option($dwdvm_5unit, "TB", "TB");?>
+            <input type="text" class="narrow" id="HLIMITRX" name="HLIMITRX" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
+            <select id="HUNITRX" name="HUNITRX" size="1">
+            <?=mk_option($dwdvm_hunit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_hunit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_hunit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_hunit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_hunit_rx, "TB", "TB");?>
             </select>
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last 5 minutes data volume notification threshold.</p>
+        <p>This setting controls the last hour inbound data volume notification threshold.</p>
     </blockquote>
 
     <dl>
-        <dt>Last Hour Notification Threshold:</dt>
+        <dt>Last Day Inbound Notification Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="HLIMIT" name="HLIMIT" maxlength="40" value="<?=$dwdvm_hlimit;?>">
-            <select id="HUNIT" name="HUNIT" size="1">
-            <?=mk_option($dwdvm_hunit, "B", "B");?>
-            <?=mk_option($dwdvm_hunit, "KB", "KB");?>
-            <?=mk_option($dwdvm_hunit, "MB", "MB");?>
-            <?=mk_option($dwdvm_hunit, "GB", "GB");?>
-            <?=mk_option($dwdvm_hunit, "TB", "TB");?>
+            <input type="text" class="narrow" id="DLIMITRX" name="DLIMITRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
+            <select id="DUNITRX" name="DUNITRX" size="1">
+            <?=mk_option($dwdvm_dunit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_dunit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_dunit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_dunit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_dunit_rx, "TB", "TB");?>
             </select>
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last hour data volume notification threshold.</p>
+        <p>This setting controls the last day inbound data volume notification threshold.</p>
     </blockquote>
 
     <dl>
-        <dt>Last Day Notification Threshold:</dt>
+        <dt>Last Month Inbound Notification Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="DLIMIT" name="DLIMIT" maxlength="40" value="<?=$dwdvm_dlimit;?>">
-            <select id="DUNIT" name="DUNIT" size="1">
-            <?=mk_option($dwdvm_dunit, "B", "B");?>
-            <?=mk_option($dwdvm_dunit, "KB", "KB");?>
-            <?=mk_option($dwdvm_dunit, "MB", "MB");?>
-            <?=mk_option($dwdvm_dunit, "GB", "GB");?>
-            <?=mk_option($dwdvm_dunit, "TB", "TB");?>
+            <input type="text" class="narrow" id="MLIMITRX" name="MLIMITRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
+            <select id="MUNITRX" name="MUNITRX" size="1">
+            <?=mk_option($dwdvm_munit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_munit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_munit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_munit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_munit_rx, "TB", "TB");?>
             </select>
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last day data volume notification threshold.</p>
+        <p>This setting controls the last month inbound data volume notification threshold.</p>
     </blockquote>
 
     <dl>
-        <dt>Last Month Notification Threshold:</dt>
+        <dt>Last Year Inbound Notification Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="MLIMIT" name="MLIMIT" maxlength="40" value="<?=$dwdvm_mlimit;?>">
-            <select id="MUNIT" name="MUNIT" size="1">
-            <?=mk_option($dwdvm_munit, "B", "B");?>
-            <?=mk_option($dwdvm_munit, "KB", "KB");?>
-            <?=mk_option($dwdvm_munit, "MB", "MB");?>
-            <?=mk_option($dwdvm_munit, "GB", "GB");?>
-            <?=mk_option($dwdvm_munit, "TB", "TB");?>
+            <input type="text" class="narrow" id="YLIMITRX" name="YLIMITRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
+            <select id="YUNITRX" name="YUNITRX" size="1">
+            <?=mk_option($dwdvm_yunit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_yunit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_yunit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_yunit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_yunit_rx, "TB", "TB");?>
             </select>
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last month data volume notification threshold.</p>
+        <p>This setting controls the last year inbound data volume notification threshold.</p>
     </blockquote>
 
     <dl>
-        <dt>Last Year Notification Threshold:</dt>
+        <dt>Last Hour Outbound Notification Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="YLIMIT" name="YLIMIT" maxlength="40" value="<?=$dwdvm_ylimit;?>">
-            <select id="YUNIT" name="YUNIT" size="1">
-            <?=mk_option($dwdvm_yunit, "B", "B");?>
-            <?=mk_option($dwdvm_yunit, "KB", "KB");?>
-            <?=mk_option($dwdvm_yunit, "MB", "MB");?>
-            <?=mk_option($dwdvm_yunit, "GB", "GB");?>
-            <?=mk_option($dwdvm_yunit, "TB", "TB");?>
+            <input type="text" class="narrow" id="HLIMITTX" name="HLIMITTX" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
+            <select id="HUNITTX" name="HUNITTX" size="1">
+            <?=mk_option($dwdvm_hunit_tx, "B", "B");?>
+            <?=mk_option($dwdvm_hunit_tx, "KB", "KB");?>
+            <?=mk_option($dwdvm_hunit_tx, "MB", "MB");?>
+            <?=mk_option($dwdvm_hunit_tx, "GB", "GB");?>
+            <?=mk_option($dwdvm_hunit_tx, "TB", "TB");?>
             </select>
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last year data volume notification threshold.</p>
+        <p>This setting controls the last hour outbound data volume notification threshold.</p>
+    </blockquote>
+
+    <dl>
+        <dt>Last Day Outbound Notification Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="DLIMITTX" name="DLIMITTX" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
+            <select id="DUNITTX" name="DUNITTX" size="1">
+            <?=mk_option($dwdvm_dunit_tx, "B", "B");?>
+            <?=mk_option($dwdvm_dunit_tx, "KB", "KB");?>
+            <?=mk_option($dwdvm_dunit_tx, "MB", "MB");?>
+            <?=mk_option($dwdvm_dunit_tx, "GB", "GB");?>
+            <?=mk_option($dwdvm_dunit_tx, "TB", "TB");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last day outbound data volume notification threshold.</p>
+    </blockquote>
+
+    <dl>
+        <dt>Last Month Outbound Notification Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="MLIMITTX" name="MLIMITTX" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
+            <select id="MUNITTX" name="MUNITTX" size="1">
+            <?=mk_option($dwdvm_munit_tx, "B", "B");?>
+            <?=mk_option($dwdvm_munit_tx, "KB", "KB");?>
+            <?=mk_option($dwdvm_munit_tx, "MB", "MB");?>
+            <?=mk_option($dwdvm_munit_tx, "GB", "GB");?>
+            <?=mk_option($dwdvm_munit_tx, "TB", "TB");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last month outbound data volume notification threshold.</p>
+    </blockquote>
+
+    <dl>
+        <dt>Last Year Outbound Notification Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="YLIMITTX" name="YLIMITTX" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
+            <select id="YUNITTX" name="YUNITTX" size="1">
+            <?=mk_option($dwdvm_yunit_tx, "B", "B");?>
+            <?=mk_option($dwdvm_yunit_tx, "KB", "KB");?>
+            <?=mk_option($dwdvm_yunit_tx, "MB", "MB");?>
+            <?=mk_option($dwdvm_yunit_tx, "GB", "GB");?>
+            <?=mk_option($dwdvm_yunit_tx, "TB", "TB");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last year outbound data volume notification threshold.</p>
     </blockquote>
 
     <dl>

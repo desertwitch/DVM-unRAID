@@ -148,6 +148,8 @@ write_config() {
     fi
   fi
 
+  cp -f $CONFIG /etc/vnstat/dwdvm.cfg
+
   if [ -d /etc/vnstat ]; then
       echo "Updating permissions for DVM..."
       chown root:root /etc/vnstat
