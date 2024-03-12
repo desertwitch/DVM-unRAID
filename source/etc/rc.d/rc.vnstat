@@ -91,6 +91,8 @@ write_config() {
   fi
 
   echo "Writing DVM configuration..."
+
+  cp -f $CONFIG /etc/vnstat/dwdvm.cfg
   cp -rf /etc/vnstat/* $PLGPATH/vnstat/ >/dev/null 2>&1
 
   if [ "$BACKUPDB" == "enable" ]; then
@@ -150,8 +152,6 @@ write_config() {
       rm -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
     fi
   fi
-
-  cp -f $CONFIG /etc/vnstat/dwdvm.cfg
 
   if [ -d /etc/vnstat ]; then
       echo "Updating permissions for DVM..."
