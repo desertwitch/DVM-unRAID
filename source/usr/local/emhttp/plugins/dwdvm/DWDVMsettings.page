@@ -32,7 +32,7 @@ Markdown="false"
 <table class="tablesorter shift" border="1">
 <thead>
 <tr><th><strong>Network Interface</strong></th><th colspan="2"><strong>Last 5 Minutes</strong></th><th colspan="2"><strong>Last Hour</strong></th><th colspan="2"><strong>Last Day</strong></th><th colspan="2"><strong>Last Month</strong></th><th colspan="2"><strong>Last Year</strong></th></tr>
-<tr><th></th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th><th>INCOMING (RX)</th><th>OUTGOING (TX)</th></tr>
+<tr><th></th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th></tr>
 </thead>
 <tbody>
 <?if ($dwdvm_running):?>
