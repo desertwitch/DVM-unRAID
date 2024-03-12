@@ -58,8 +58,7 @@ function build_footer() {
 
     $db_iface = $dwdvm_primary;
     if(!empty($db_iface)) {
-        $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml 2>/dev/null"));
-
+	try { $xml = new SimpleXMLElement(shell_exec("vnstat -i ". trim($db_iface) ." --limit 1 --xml 2>/dev/null")); } catch (\Throwable $e) { return ""; }
         switch ($dwdvm_footerformat) {
             case '5':
                 $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx);
