@@ -109,61 +109,44 @@ write_config() {
   if [ "$GOODNOTIFY" == "enable" ] || [ "$BADNOTIFY" == "enable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Adding DVM notification agent to crontab..."
-      cp -f $DOCROOT/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
-      update_cron
-      sleep 1
-    else
-      update_cron
-      sleep 1
     fi
+    cp -f $DOCROOT/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Removing DVM notification agent from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
-      sleep 1
-      update_cron
-      sleep 1
     fi
   fi
 
   if [ ! "$CRONINT" == "disable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
       echo "Adding DVM custom periodic execution script to crontab (${CRONINT})..."
-      cp -f $DOCROOT/dwdvm-custom-alarms.cron /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-      if [ "$CRONINT" == "01min" ]; then
-        sleep 1
-      elif [ "$CRONINT" == "15min" ]; then
-        sed -i '/dvm-custom-alarms/s,^\*,*/15,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-        sleep 1
-      elif [ "$CRONINT" == "30min" ]; then
-        sed -i '/dvm-custom-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-        sleep 1
-      elif [ "$CRONINT" == "45min" ]; then
-        sed -i '/dvm-custom-alarms/s,^\*,*/45,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-        sleep 1
-      elif [ "$CRONINT" == "60min" ]; then
-        sed -i '/dvm-custom-alarms/s,^\*,0,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-        sleep 1
-      else
-        sed -i '/dvm-custom-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-        sleep 1
-      fi
-      update_cron
+    fi
+    cp -f $DOCROOT/dwdvm-custom-alarms.cron /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+    if [ "$CRONINT" == "01min" ]; then
+      sleep 1
+    elif [ "$CRONINT" == "15min" ]; then
+      sed -i '/dvm-custom-alarms/s,^\*,*/15,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+      sleep 1
+    elif [ "$CRONINT" == "30min" ]; then
+      sed -i '/dvm-custom-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+      sleep 1
+    elif [ "$CRONINT" == "45min" ]; then
+      sed -i '/dvm-custom-alarms/s,^\*,*/45,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+      sleep 1
+    elif [ "$CRONINT" == "60min" ]; then
+      sed -i '/dvm-custom-alarms/s,^\*,0,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
       sleep 1
     else
-      update_cron
+      sed -i '/dvm-custom-alarms/s,^\*,*/30,' /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
       sleep 1
     fi
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
       echo "Removing DVM custom periodic execution script from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
-      sleep 1
-      update_cron
-      sleep 1
     fi
   fi
-
 
   if [ -d /etc/vnstat ]; then
       echo "Updating permissions for DVM..."
@@ -174,6 +157,7 @@ write_config() {
       chmod 755 /etc/vnstat/dvm-custom-alarms.sh
   fi
 
+  update_cron
   sleep 1
 }
 
