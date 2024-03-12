@@ -32,9 +32,9 @@ function getInterfaces()
         $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
         if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
-    } catch (\Throwable $e) { // For PHP 7
+    } catch (Throwable $e) { // For PHP 7
         return false;
-    } catch (\Exception $e) { // For PHP 5
+    } catch (Exception $e) { // For PHP 5
         return false;
     }
     return $db_ifaces_array; 
@@ -45,9 +45,9 @@ function getXMLforInterface($iface)
     $xml = "";
     try {
         $xml = new SimpleXMLElement(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null"));
-    } catch (\Throwable $e) { // For PHP 7
+    } catch (Throwable $e) { // For PHP 7
         return false;
-    } catch (\Exception $e) { // For PHP 5
+    } catch (Exception $e) { // For PHP 5
         return false;
     }
     return $xml;
