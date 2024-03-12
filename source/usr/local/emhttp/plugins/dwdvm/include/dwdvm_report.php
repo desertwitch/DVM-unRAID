@@ -4,12 +4,12 @@ require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 function humanFileSize($size,$unit="") {
     if(intval($size)) {
         if( (!$unit && $size >= 1<<30) || $unit == "GB")
-            return number_format($size/(1<<30),2)."&thinsp;GB";
+            return number_format($size/(1<<30),2)." GB";
         if( (!$unit && $size >= 1<<20) || $unit == "MB")
-            return number_format($size/(1<<20),2)."&thinsp;MB";
+            return number_format($size/(1<<20),2)." MB";
         if( (!$unit && $size >= 1<<10) || $unit == "KB")
-            return number_format($size/(1<<10),2)."&thinsp;KB";
-        return number_format($size)."&thinsp;bytes";
+            return number_format($size/(1<<10),2)." KB";
+        return number_format($size)." B";
     } else {
         return "-";
     }
