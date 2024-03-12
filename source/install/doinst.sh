@@ -20,6 +20,7 @@ DOCROOT="/usr/local/emhttp/plugins/dwdvm"
 # Update file permissions of scripts
 chmod +0755 $DOCROOT/scripts/*
 chmod +0755 /etc/rc.d/rc.vnstat
+chmod +0755 /usr/sbin/dvm-notify
 
 # copy the default
 cp -n $DOCROOT/default.cfg $BOOT/dwdvm.cfg >/dev/null 2>&1

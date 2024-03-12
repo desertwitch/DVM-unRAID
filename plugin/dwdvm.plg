@@ -117,6 +117,14 @@ rm -rf /etc/vnstat
 rm -rf /var/lib/vnstat
 rm -f /etc/vnstat.conf
 
+if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ] || [ -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
+    rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
+    rm -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+    sleep 1
+    update_cron
+    sleep 1
+fi
+
 echo ""
 echo "-------------------------------------------------------------"
 echo " DVM - Data Volume Monitor for UNRAID (&version;)"
