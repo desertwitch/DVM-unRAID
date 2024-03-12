@@ -265,60 +265,6 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Last Day <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
-        <dd>
-            <input type="text" class="narrow" id="DLIMITRX" name="DLIMITRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
-            <select id="DUNITRX" name="DUNITRX" size="1">
-            <?=mk_option($dwdvm_dunit_rx, "B", "B");?>
-            <?=mk_option($dwdvm_dunit_rx, "KB", "KB");?>
-            <?=mk_option($dwdvm_dunit_rx, "MB", "MB");?>
-            <?=mk_option($dwdvm_dunit_rx, "GB", "GB");?>
-            <?=mk_option($dwdvm_dunit_rx, "TB", "TB");?>
-            </select><em style="font-size:x-small">disable: -1</em>
-        </dd>
-    </dl>
-
-    <blockquote class="inline_help">
-        <p>This setting controls the last day inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
-    </blockquote>
-
-    <dl>
-        <dt>Last Month <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
-        <dd>
-            <input type="text" class="narrow" id="MLIMITRX" name="MLIMITRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
-            <select id="MUNITRX" name="MUNITRX" size="1">
-            <?=mk_option($dwdvm_munit_rx, "B", "B");?>
-            <?=mk_option($dwdvm_munit_rx, "KB", "KB");?>
-            <?=mk_option($dwdvm_munit_rx, "MB", "MB");?>
-            <?=mk_option($dwdvm_munit_rx, "GB", "GB");?>
-            <?=mk_option($dwdvm_munit_rx, "TB", "TB");?>
-            </select><em style="font-size:x-small">disable: -1</em>
-        </dd>
-    </dl>
-
-    <blockquote class="inline_help">
-        <p>This setting controls the last month inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
-    </blockquote>
-
-    <dl>
-        <dt>Last Year <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
-        <dd>
-            <input type="text" class="narrow" id="YLIMITRX" name="YLIMITRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
-            <select id="YUNITRX" name="YUNITRX" size="1">
-            <?=mk_option($dwdvm_yunit_rx, "B", "B");?>
-            <?=mk_option($dwdvm_yunit_rx, "KB", "KB");?>
-            <?=mk_option($dwdvm_yunit_rx, "MB", "MB");?>
-            <?=mk_option($dwdvm_yunit_rx, "GB", "GB");?>
-            <?=mk_option($dwdvm_yunit_rx, "TB", "TB");?>
-            </select><em style="font-size:x-small">disable: -1</em>
-        </dd>
-    </dl>
-
-    <blockquote class="inline_help">
-        <p>This setting controls the last year inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
-    </blockquote>
-
-    <dl>
         <dt>Last Hour <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="HLIMITTX" name="HLIMITTX" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
@@ -334,6 +280,24 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls the last hour outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+    </blockquote>
+
+    <dl>
+        <dt>Last Day <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="DLIMITRX" name="DLIMITRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
+            <select id="DUNITRX" name="DUNITRX" size="1">
+            <?=mk_option($dwdvm_dunit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_dunit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_dunit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_dunit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_dunit_rx, "TB", "TB");?>
+            </select><em style="font-size:x-small">disable: -1</em>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last day inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
     </blockquote>
 
     <dl>
@@ -355,6 +319,24 @@ Markdown="false"
     </blockquote>
 
     <dl>
+        <dt>Last Month <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="MLIMITRX" name="MLIMITRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
+            <select id="MUNITRX" name="MUNITRX" size="1">
+            <?=mk_option($dwdvm_munit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_munit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_munit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_munit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_munit_rx, "TB", "TB");?>
+            </select><em style="font-size:x-small">disable: -1</em>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last month inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+    </blockquote>
+
+    <dl>
         <dt>Last Month <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow" id="MLIMITTX" name="MLIMITTX" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
@@ -370,6 +352,24 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls the last month outbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
+    </blockquote>
+
+    <dl>
+        <dt>Last Year <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
+        <dd>
+            <input type="text" class="narrow" id="YLIMITRX" name="YLIMITRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
+            <select id="YUNITRX" name="YUNITRX" size="1">
+            <?=mk_option($dwdvm_yunit_rx, "B", "B");?>
+            <?=mk_option($dwdvm_yunit_rx, "KB", "KB");?>
+            <?=mk_option($dwdvm_yunit_rx, "MB", "MB");?>
+            <?=mk_option($dwdvm_yunit_rx, "GB", "GB");?>
+            <?=mk_option($dwdvm_yunit_rx, "TB", "TB");?>
+            </select><em style="font-size:x-small">disable: -1</em>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls the last year inbound data volume threshold on notifications, footer and dashboard (for the primary interface).</p>
     </blockquote>
 
     <dl>
