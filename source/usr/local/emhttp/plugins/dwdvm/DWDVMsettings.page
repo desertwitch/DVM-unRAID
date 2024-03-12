@@ -1,6 +1,6 @@
-Menu="NetworkServices"
+Menu="Utilities"
 Type="xmenu"
-Title="DVM"
+Title="Data Volume Monitor"
 Icon="pie-chart"
 Tag="pie-chart"
 Markdown="false"
