@@ -84,7 +84,7 @@ find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor (vnStat) for UNRAID (&version;)"
+echo " DVM - Data Volume Monitor for UNRAID (&version;)"
 echo " has been installed. Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
@@ -119,7 +119,7 @@ rm -f /etc/vnstat.conf
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor (vnStat) for UNRAID (&version;)"
+echo " DVM - Data Volume Monitor for UNRAID (&version;)"
 echo " has been removed. Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
