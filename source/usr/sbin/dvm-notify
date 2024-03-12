@@ -42,8 +42,7 @@ allMetricModesCaps=("RX" "RX" "RX" "RX" "TX" "TX" "TX" "TX")
 allMetricParameters=("h" "d" "m" "y" "h" "d" "m" "y")
 allMetricModesAlt=("IN" "IN" "IN" "IN" "OUT" "OUT" "OUT" "OUT")
 
-for i in "${!allLimits[@]}"
-do
+for i in "${!allLimits[@]}"; do
     if [ "${allLimits[$i]}" == "-1" ]; then
         echo "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... disabled"
         rm -f "/tmp/${allBadFiles[$i]}"
