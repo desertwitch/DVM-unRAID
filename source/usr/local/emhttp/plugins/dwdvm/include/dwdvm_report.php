@@ -3,13 +3,13 @@ require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
 
 function humanFileSize($size,$unit="") {
     if(intval($size)) {
-        if( (!$unit && $size >= 1<<30) || $unit == " GB")
-            return number_format($size/(1<<30),2)." GB";
-        if( (!$unit && $size >= 1<<20) || $unit == " MB")
-            return number_format($size/(1<<20),2)." MB";
-        if( (!$unit && $size >= 1<<10) || $unit == " KB")
-            return number_format($size/(1<<10),2)." KB";
-        return number_format($size)." B";
+        if( (!$unit && $size >= 1<<30) || $unit == "GB")
+            return number_format($size/(1<<30),2)."&thinsp;GB";
+        if( (!$unit && $size >= 1<<20) || $unit == "MB")
+            return number_format($size/(1<<20),2)."&thinsp;MB";
+        if( (!$unit && $size >= 1<<10) || $unit == "KB")
+            return number_format($size/(1<<10),2)."&thinsp;KB";
+        return number_format($size)."&thinsp;bytes";
     } else {
         return "-";
     }
@@ -180,12 +180,12 @@ function build_report()
 
                 $returnStr .= "<tr>";
                 $returnStr .= "<td>". $db_iface ."</td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -h -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_d.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -d -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_m.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -m -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'><pre style='font-size:x-small;'>".shell_exec("vnstat -y -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_d.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_m.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
                 $returnStr .= "</tr>";
             } else if ($dwdvm_report == "images") {
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
@@ -207,12 +207,12 @@ function build_report()
             } else {
                 $returnStr .= "<tr>";
                 $returnStr .= "<td>". $db_iface ."</td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -h -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -d -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -m -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat -y -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". $db_iface ." 2>/dev/null")."</pre></details></td>";
                 $returnStr .= "</tr>";
             }
         }
