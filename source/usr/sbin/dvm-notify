@@ -6,7 +6,7 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 
 [ -e "$CONFIG" ] && source $CONFIG
 
-SUBJECT="[${HOST}] DVM(${PRIMARY}): "
+SUBJECT="[${HOST}] DVM(${PRIMARY}):"
 
 if ! pgrep -x vnstatd >/dev/null 2>&1; then
     echo "DVM not running... exiting"
@@ -29,7 +29,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 h rx "$HLIMITRX" "$HUNITRX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_h_bad_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per hour IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Hour RX Limit" -d "The per hour IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} RX Hour" -d "The per hour IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_h_bad_rx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -39,7 +39,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_h_bad_rx_notified ] && [ ! -f /tmp/dvm_h_good_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per hour IN-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Hour RX Limit OK" -d "The per hour IN-bound data volume is is no longer exceeded." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} RX Hour OK" -d "The per hour IN-bound data volume is is no longer exceeded." -i "normal"
             touch /tmp/dvm_h_good_rx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -58,7 +58,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 d rx "$DLIMITRX" "$DUNITRX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_d_bad_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per day IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Day RX Limit" -d "The per day IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} RX Day" -d "The per day IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_d_bad_rx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -68,7 +68,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_d_bad_rx_notified ] && [ ! -f /tmp/dvm_d_good_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per day IN-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Day RX Limit OK" -d "The per day IN-bound data volume is is no longer exceeded." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} RX Day OK" -d "The per day IN-bound data volume is is no longer exceeded." -i "normal"
             touch /tmp/dvm_d_good_rx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -87,7 +87,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 m rx "$MLIMITRX" "$MUNITRX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_m_bad_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per month IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Month RX Limit" -d "The per month IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} RX Month" -d "The per month IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_m_bad_rx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -97,7 +97,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_m_bad_rx_notified ] && [ ! -f /tmp/dvm_m_good_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per month IN-bound data volume is is no longer exceeded.." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Month RX Limit OK" -d "The per month IN-bound data volume is is no longer exceeded.." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} RX Month OK" -d "The per month IN-bound data volume is is no longer exceeded.." -i "normal"
             touch /tmp/dvm_m_good_rx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -116,7 +116,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 y rx "$YLIMITRX" "$YUNITRX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_y_bad_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per year IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Year RX Limit" -d "The per year IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} RX Year" -d "The per year IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_y_bad_rx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -126,7 +126,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_y_bad_rx_notified ] && [ ! -f /tmp/dvm_y_good_rx_notified ]; then
             echo "[${PRIMARY}] DVM: The per year IN-bound data volume is is no longer exceeded.." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Year RX Limit OK" -d "The per year IN-bound data volume is is no longer exceeded.." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} RX Year OK" -d "The per year IN-bound data volume is is no longer exceeded.." -i "normal"
             touch /tmp/dvm_y_good_rx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -147,7 +147,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 h tx "$HLIMITTX" "$HUNITTX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_h_bad_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per hour IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Hour TX Limit" -d "The per hour IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} TX Hour" -d "The per hour IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_h_bad_tx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -157,7 +157,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_h_bad_tx_notified ] && [ ! -f /tmp/dvm_h_good_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per hour IN-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Hour TX Limit OK" -d "The per hour IN-bound data volume is is no longer exceeded." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} TX Hour OK" -d "The per hour IN-bound data volume is is no longer exceeded." -i "normal"
             touch /tmp/dvm_h_good_tx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -176,7 +176,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 d tx "$DLIMITTX" "$DUNITTX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_d_bad_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per day IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Day TX Limit" -d "The per day IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} TX Day" -d "The per day IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_d_bad_tx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -186,7 +186,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_d_bad_tx_notified ] && [ ! -f /tmp/dvm_d_good_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per day IN-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Day TX Limit OK" -d "The per day IN-bound data volume is is no longer exceeded." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} TX Day OK" -d "The per day IN-bound data volume is is no longer exceeded." -i "normal"
             touch /tmp/dvm_d_good_tx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -205,7 +205,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 m tx "$MLIMITTX" "$MUNITTX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_m_bad_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per month IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Month TX Limit" -d "The per month IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} TX Month" -d "The per month IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_m_bad_tx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -215,7 +215,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_m_bad_tx_notified ] && [ ! -f /tmp/dvm_m_good_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per month IN-bound data volume is is no longer exceeded.." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Month TX Limit OK" -d "The per month IN-bound data volume is is no longer exceeded.." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} TX Month OK" -d "The per month IN-bound data volume is is no longer exceeded.." -i "normal"
             touch /tmp/dvm_m_good_tx_notified
             echo "NORMAL (NOTIFIED)"
         else
@@ -234,7 +234,7 @@ else
     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 y tx "$YLIMITTX" "$YUNITTX" "$PRIMARY" >/dev/null 2>&1; then
         if [ "$BADNOTIFY" == "enable" ] && [ ! -f /tmp/dvm_y_bad_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per year IN-bound data volume threshold has been exceeded." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} Year TX Limit" -d "The per year IN-bound data volume threshold has been exceeded." -i "alert"
+            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} TX Year" -d "The per year IN-bound data volume threshold has been exceeded." -i "alert"
             touch /tmp/dvm_y_bad_tx_notified
             echo "EXCEEDED (NOTIFIED)"
         else
@@ -244,7 +244,7 @@ else
     else
         if [ "$GOODNOTIFY" == "enable" ] && [ -f /tmp/dvm_y_bad_tx_notified ] && [ ! -f /tmp/dvm_y_good_tx_notified ]; then
             echo "[${PRIMARY}] DVM: The per year IN-bound data volume is is no longer exceeded.." | logger -t "dvm-notify"
-            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} Year TX Limit OK" -d "The per year IN-bound data volume is is no longer exceeded.." -i "normal"
+            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} TX Year OK" -d "The per year IN-bound data volume is is no longer exceeded.." -i "normal"
             touch /tmp/dvm_y_good_tx_notified
             echo "NORMAL (NOTIFIED)"
         else
