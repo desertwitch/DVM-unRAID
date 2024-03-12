@@ -46,7 +46,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>The currently installed NUT backend is shown here to make sure any backend changes were applied after a reboot.</p>
+        <p>The version of the vnStat backend that is installed on your system.</p>
     </blockquote>
 
     <dl>
@@ -60,8 +60,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>Set to <strong>'Yes'</strong> to enable DVM, the service will start when the system boots.</p>
-        <p>Set to <strong>'No'</strong> to disable DVM, the service will not start when the system boots.</p>
+        <p>Set to <strong>'Yes'</strong> to start and enable DVM, so that the service will start when the system boots.</p>
+        <p>Set to <strong>'No'</strong> to stop and disable DVM, so that the service will not start when the system boots.</p>
     </blockquote>
 
     <dl>
@@ -75,14 +75,15 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>Set to <strong>'Yes'</strong> to make the DVM database survive regular system reboots.</p>
+        <p>Set to <strong>'Yes'</strong> to make the DVM database persist regular system reboots.</p>
         <p>Set to <strong>'No'</strong> to always start with a fresh DVM database on system reboot.</p>
+        <p>In case of a power outage the last available database remaining on the flash drive will be restored (when enabled).</p>
     </blockquote>
 
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
-            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
+            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset DVM">
         </dt>
         <dd>
             <input type="submit" id="btnApply" name="#apply" value="Apply">
@@ -92,7 +93,7 @@ Markdown="false"
     </dl>
     <br>
     <blockquote class="inline_help">
-    <p><strong>Reset Config/DB</strong> will return your DVM configuration to the defaults.</p>
+    <p><strong>Reset DVM</strong> will return your DVM configuration and database to the default state.</p>
     <p><strong>Restart DVM</strong> will restart the DVM service.</p>
     </blockquote>
 
@@ -115,6 +116,10 @@ Markdown="false"
         </dd>
     </dl>
 
+    <blockquote class="inline_help">
+        <p>This setting controls what interface is used for the metrics shown in the dashboard (when enabled) and footer (when enabled).</p>
+    </blockquote>
+
     <dl>
         <dt>Show Virtual Interfaces:</dt>
         <dd>
@@ -124,6 +129,12 @@ Markdown="false"
             </select>
         </dd>
     </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls if virtual interfaces should also be displayed on this page.</p>
+        <p>By default only physical network interfaces are shown and virtual interfaces remain hidden.</p>
+        <p>Virtual interfaces are not always monitorable and the data reported for virtual interfaces may be inconsistent.</p>
+    </blockquote>
 
     <dl>
         <dt>Show Data Volume in Dashboard:</dt>
@@ -135,6 +146,10 @@ Markdown="false"
         </dd>
     </dl>
 
+    <blockquote class="inline_help">
+        <p>This setting will enable a dashboard with metrics for the primary interface (as configured above) on your system's front page.</p>
+    </blockquote>
+
     <dl>
         <dt>Show Data Volume in Footer:</dt>
         <dd>
@@ -145,16 +160,9 @@ Markdown="false"
         </dd>
     </dl>
 
-    <dl>
-        <dt>General Data Volume Reporting Format:</dt>
-        <dd>
-            <select id="REPORT" name="REPORT" size="1">
-                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
-                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
-                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
-            </select>
-        </dd>
-    </dl>
+    <blockquote class="inline_help">
+        <p>This setting will enable a footer with metrics for the primary interface (as configured above) on all of your system's pages.</p>
+    </blockquote>
 
     <dl>
         <dt>Miniature Data Volume Reporting Time:</dt>
@@ -169,6 +177,25 @@ Markdown="false"
         </dd>
     </dl>
 
+    <blockquote class="inline_help">
+        <p>This setting controls how the miniature metrics in the footer (when enabled) and dashboard (when enabled) are displayed.</p>
+    </blockquote>
+
+    <dl>
+        <dt>General Data Volume Reporting Format:</dt>
+        <dd>
+            <select id="REPORT" name="REPORT" size="1">
+                <?=mk_option($dwdvm_report, 'text', 'Show Text');?>
+                <?=mk_option($dwdvm_report, 'images', 'Show Images');?>
+                <?=mk_option($dwdvm_report, 'both', 'Show Both');?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls how the data volume metrics are displayed on this page.</p>
+    </blockquote>
+
     <dl>
         <dt>Custom Alarms Script Execution Frequency:</dt>
             <dd>
@@ -182,6 +209,10 @@ Markdown="false"
                 </select>
             </dd>
     </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls how often the custom alarms script (editable below) is executed by the crontab.</p>
+    </blockquote>
 
     <dl>
         <dt>
@@ -215,7 +246,7 @@ function Restart(){
 }
 function ResetConfig(){
     $('#command').val('');
-    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetconf', 'DVM Configuration Reset', 600, 600, true);
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetconf', 'DVM Reset', 600, 600, true);
 }
 $(function() {
 
@@ -233,7 +264,7 @@ $(function() {
     $('#RESTART').click(Restart);
 
     if (typeof swal === "function") { 
-        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"This action will return any existing DVM configuration to their defaults!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
+        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration and database will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
     } else {
         $('#RESETCONF').click(ResetConfig);
     }
