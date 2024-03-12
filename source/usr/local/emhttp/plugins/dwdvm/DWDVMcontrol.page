@@ -26,11 +26,18 @@ Markdown="false"
 ?>
 <? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
 
+<span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
+
+<div id="title">
+    <span class="left"><i class="icon fa fa-power-off"></i> Service Settings</span>
+</div>
+
+<br>
+
 <form markdown="0" id="dwdvm-settings" name="dwdvm_settings" method="POST" action="/update.php" target="progressFrame">
     <input type="hidden" name="#file" value="dwdvm/dwdvm.cfg">
     <input type="hidden" id="command" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
-    <span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
-
+    
     <dl>
         <dt>DVM Backend:</dt>
         <dd>
