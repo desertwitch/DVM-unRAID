@@ -28,13 +28,13 @@ stop already existing services before doing anything
 -->
 <FILE Run="/bin/bash">
 <INLINE>
-echo "Checking for conflicting network statistics software packages..."
+echo "Checking for conflicting network statistics software..."
 if [ -f /boot/config/plugins/networkstats.plg ]; then
     echo ""
-    echo "-----------------------------------------------------------"
+    echo "----------------------------------------------------------------------"
     echo "ERROR: THIS PLUGIN CANNOT INSTALL TOGETHER WITH THE Network Stats PLUGIN"
-    echo "Please remove the conflicting software package from your system to continue."
-    echo "-----------------------------------------------------------"
+    echo "Please remove conflicting software from the system to continue install."
+    echo "----------------------------------------------------------------------"
     echo ""
     exit 1
 fi
