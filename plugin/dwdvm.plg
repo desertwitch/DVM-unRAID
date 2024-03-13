@@ -17,7 +17,7 @@
 <PLUGIN name="&name;" author="&author;" version="&version;" launch="&launch;" pluginURL="&pluginURL;" support="" min="6.8.3">
 
 <CHANGES>
-## DVM - Data Volume Monitor (vnStat) for UNRAID
+## Data Volume Monitor (DVM) for UNRAID
 ###2023.03.11
 - release note: welcome to the first version of the DVM package.
 - release note: please report any problems in the support topic.
@@ -65,7 +65,7 @@ install or upgrade dependency files
 <!--
 install or upgrade the plugin itself
 -->
-<FILE Name="&plgPATH;/&plgNAME;.txz" Min="6.10" Run="upgradepkg --install-new">
+<FILE Name="&plgPATH;/&plgNAME;.txz" Min="6.8.3" Run="upgradepkg --install-new">
 <URL>&gitURL;/archive/&plgNAME;.txz</URL>
 <MD5>&plgMD5;</MD5>
 </FILE>
@@ -95,7 +95,7 @@ find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor for UNRAID (&version;) was installed."
+echo " Data Volume Monitor (DVM) for UNRAID (&version;) was installed."
 echo " Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
@@ -139,7 +139,7 @@ fi
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor for UNRAID (&version;) was removed."
+echo " Data Volume Monitor (DVM) for UNRAID (&version;) was removed."
 echo " Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
