@@ -14,8 +14,8 @@
 # The above copyright notice and this permission notice shall be
 # included in all copies or substantial portions of the Software.
 #
-DBLIST="$(vnstat --config /etc/vnstat/vnstat.conf --dbiflist)"
-IFLIST="$(vnstat --config /etc/vnstat/vnstat.conf --iflist)"
+DBLIST="$(vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null)"
+IFLIST="$(vnstat --config /etc/vnstat/vnstat.conf --iflist 2>/dev/null)"
 
 echo ""
 echo "Retrieving the network interfaces from the database and the system..."
@@ -29,7 +29,7 @@ if (echo "$DBLIST" | grep "Interfaces in database:" >/dev/null 2>&1) && (echo "$
     echo ""
     for i in "${DBIFACES[@]}"; do
         if ! (echo "$IFLIST" | grep "$i" >/dev/null 2>&1); then
-           vnstat --remove --force "$i" 2>&1
+           vnstat --config /etc/vnstat/vnstat.conf --remove --force "$i" 2>&1
            echo ""
         fi
     done
