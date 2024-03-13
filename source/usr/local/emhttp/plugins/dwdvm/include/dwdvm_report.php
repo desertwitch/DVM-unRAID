@@ -81,11 +81,11 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
 {
     $returnStr = "";
     try {
-        if($limit == "-1") {
+        if(intval($limit) < 0) {
             return $str;
         } else {
             $returnStr = shell_exec("if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 {$time} {$mode} {$limit} {$unit} {$iface} >/dev/null 2>&1; then echo 1; else echo 0; fi");
-            if($returnStr == "1") {
+            if(intval($returnStr) > 0) {
                 return "<span class='red-text'>$str</span>";
             } else {
                 return $str;
