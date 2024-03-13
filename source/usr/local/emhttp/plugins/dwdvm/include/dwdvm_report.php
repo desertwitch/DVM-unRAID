@@ -48,7 +48,7 @@ function filterVirts($string) {
 }
 
 function filterNonExisting($string) {
-    return file_exists("/sys/class/net/$string") === true;
+    return is_link("/sys/class/net/$string") === true;
 }
 
 function getInterfaces()

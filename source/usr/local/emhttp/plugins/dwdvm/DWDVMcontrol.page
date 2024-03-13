@@ -413,6 +413,7 @@ Markdown="false"
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
+            <input id="CLEANDB" type="button" value="Clean Database">
         </dt>
         <dd>
             <input type="submit" value="Apply"><input type="button" value="Done" onclick="done()">
@@ -448,6 +449,10 @@ function ResetAll(){
     $('#command').val('');
     openBox('/usr/local/emhttp/plugins/dwdvm/scripts/resetall', 'DVM Reset All', 600, 600, true);
 }
+function CleanDB(){
+    $('#command').val('');
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/clean_db', 'DVM Database Cleaner', 600, 600, true);
+}
 $(function() {
 
     $('form input:not([type="submit"])').keydown(function(e) {
@@ -466,9 +471,11 @@ $(function() {
     if (typeof swal === "function") { 
         $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
         $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration and database will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetAll); });
+        $('#CLEANDB').click(function(){ swal({title:"Are you sure?",text:"All not currently existing network interfaces and their recorded data volume information will be removed from the database!",type:"warning",html:true,showCancelButton:true}, CleanDB); });
     } else {
         $('#RESETCONF').click(ResetConfig);
         $('#RESETALL').click(ResetAll);
+        $('#CLEANDB').click(CleanDB);
     }
 
     $('#SERVICE').change(checkRUNNING);
