@@ -63,7 +63,12 @@ function getXMLforInterface($iface)
 {
     $xml = "";
     try {
-        $xml = new SimpleXMLElement(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null"));
+        $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null");
+        if(strpos($xml_raw, "xmlversion")) {
+            $xml = new SimpleXMLElement($xml_raw);
+        } else {
+            return false;
+        }
     } catch (Throwable $e) { // For PHP 7
         return false;
     } catch (Exception $e) { // For PHP 5

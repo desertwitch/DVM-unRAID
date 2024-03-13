@@ -29,8 +29,8 @@ $dwdvm_footer       = isset($dwdvm_cfg['FOOTER'])       ? htmlspecialchars($dwdv
 $dwdvm_footerformat = isset($dwdvm_cfg['FOOTERFORMAT']) ? htmlspecialchars($dwdvm_cfg['FOOTERFORMAT'])  : 'd';
 $dwdvm_primary      = trim(isset($dwdvm_cfg['PRIMARY']) ? htmlspecialchars($dwdvm_cfg['PRIMARY'])       : 'eth0');
 
-$dwdvm_good_notify = isset($dwdvm_cfg['BADNOTIFY'])  ? htmlspecialchars($dwdvm_cfg['BADNOTIFY'])  : 'disable';
-$dwdvm_bad_notify  = isset($dwdvm_cfg['GOODNOTIFY']) ? htmlspecialchars($dwdvm_cfg['GOODNOTIFY']) : 'disable';
+$dwdvm_good_notify = isset($dwdvm_cfg['GOODNOTIFY'])  ? htmlspecialchars($dwdvm_cfg['GOODNOTIFY'])  : 'disable';
+$dwdvm_bad_notify  = isset($dwdvm_cfg['BADNOTIFY']) ? htmlspecialchars($dwdvm_cfg['BADNOTIFY']) : 'disable';
 
 $dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['HLIMITRX'])  ? htmlspecialchars($dwdvm_cfg['HLIMITRX'])  : '-1');
 $dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['HUNITRX'])   ? htmlspecialchars($dwdvm_cfg['HUNITRX'])   : 'GB');
