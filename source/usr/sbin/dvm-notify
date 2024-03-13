@@ -39,8 +39,8 @@ if ! (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PR
     exit 0
 fi
 
-allLimits=("$HlimitRX" "$DlimitRX" "$MlimitRX" "$YlimitRX" "$HlimitTX" "$DlimitTX" "$MlimitTX" "$YlimitTX")
-allUnits=("$HunitRX" "$DunitRX" "$MunitRX" "$YunitRX" "$HunitTX" "$DunitTX" "$MunitTX" "$YunitTX")
+allLimits=("$HLIMITRX" "$DLIMITRX" "$MLIMITRX" "$YLIMITRX" "$HLIMITTX" "$DLIMITTX" "$MLIMITTX" "$YLIMITTX")
+allUnits=("$HUNITRX" "$DUNITRX" "$MUNITRX" "$YUNITRX" "$HUNITTX" "$DUNITTX" "$MUNITTX" "$YUNITTX")
 allBadFiles=("dvm_h_bad_rx_notified" "dvm_d_bad_rx_notified" "dvm_m_bad_rx_notified" "dvm_y_bad_rx_notified" "dvm_h_bad_tx_notified" "dvm_d_bad_tx_notified" "dvm_m_bad_tx_notified" "dvm_y_bad_tx_notified")
 allMetrics=("hour" "day" "month" "year" "hour" "day" "month" "year")
 allMetricsCaps=("Hour" "Day" "Month" "Year" "Hour" "Day" "Month" "Year")

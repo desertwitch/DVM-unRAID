@@ -254,8 +254,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="HlimitRX" name="HlimitRX" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
-            <select id="HunitRX" name="HunitRX" size="1">
+            <input type="text" class="narrow" id="HLIMITRX" name="HLIMITRX" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
+            <select id="HUNITRX" name="HUNITRX" size="1">
             <?=mk_option($dwdvm_hunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_hunit_rx, "KB", "KB");?>
             <?=mk_option($dwdvm_hunit_rx, "MB", "MB");?>
@@ -272,8 +272,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="HlimitTX" name="HlimitTX" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
-            <select id="HunitTX" name="HunitTX" size="1">
+            <input type="text" class="narrow" id="HLIMITTX" name="HLIMITTX" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
+            <select id="HUNITTX" name="HUNITTX" size="1">
             <?=mk_option($dwdvm_hunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_hunit_tx, "KB", "KB");?>
             <?=mk_option($dwdvm_hunit_tx, "MB", "MB");?>
@@ -290,8 +290,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="DlimitRX" name="DlimitRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
-            <select id="DunitRX" name="DunitRX" size="1">
+            <input type="text" class="narrow" id="DLIMITRX" name="DLIMITRX" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
+            <select id="DUNITRX" name="DUNITRX" size="1">
             <?=mk_option($dwdvm_dunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_dunit_rx, "KB", "KB");?>
             <?=mk_option($dwdvm_dunit_rx, "MB", "MB");?>
@@ -308,8 +308,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="DlimitTX" name="DlimitTX" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
-            <select id="DunitTX" name="DunitTX" size="1">
+            <input type="text" class="narrow" id="DLIMITTX" name="DLIMITTX" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
+            <select id="DUNITTX" name="DUNITTX" size="1">
             <?=mk_option($dwdvm_dunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_dunit_tx, "KB", "KB");?>
             <?=mk_option($dwdvm_dunit_tx, "MB", "MB");?>
@@ -326,8 +326,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="MlimitRX" name="MlimitRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
-            <select id="MunitRX" name="MunitRX" size="1">
+            <input type="text" class="narrow" id="MLIMITRX" name="MLIMITRX" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
+            <select id="MUNITRX" name="MUNITRX" size="1">
             <?=mk_option($dwdvm_munit_rx, "B", "B");?>
             <?=mk_option($dwdvm_munit_rx, "KB", "KB");?>
             <?=mk_option($dwdvm_munit_rx, "MB", "MB");?>
@@ -344,8 +344,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="MlimitTX" name="MlimitTX" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
-            <select id="MunitTX" name="MunitTX" size="1">
+            <input type="text" class="narrow" id="MLIMITTX" name="MLIMITTX" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
+            <select id="MUNITTX" name="MUNITTX" size="1">
             <?=mk_option($dwdvm_munit_tx, "B", "B");?>
             <?=mk_option($dwdvm_munit_tx, "KB", "KB");?>
             <?=mk_option($dwdvm_munit_tx, "MB", "MB");?>
@@ -362,8 +362,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="YlimitRX" name="YlimitRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
-            <select id="YunitRX" name="YunitRX" size="1">
+            <input type="text" class="narrow" id="YLIMITRX" name="YLIMITRX" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
+            <select id="YUNITRX" name="YUNITRX" size="1">
             <?=mk_option($dwdvm_yunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_yunit_rx, "KB", "KB");?>
             <?=mk_option($dwdvm_yunit_rx, "MB", "MB");?>
@@ -380,8 +380,8 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="YlimitTX" name="YlimitTX" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
-            <select id="YunitTX" name="YunitTX" size="1">
+            <input type="text" class="narrow" id="YLIMITTX" name="YLIMITTX" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
+            <select id="YUNITTX" name="YUNITTX" size="1">
             <?=mk_option($dwdvm_yunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_yunit_tx, "KB", "KB");?>
             <?=mk_option($dwdvm_yunit_tx, "MB", "MB");?>
