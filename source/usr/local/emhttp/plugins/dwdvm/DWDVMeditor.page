@@ -40,7 +40,7 @@ Markdown="false"
 <div style="color:red;"><strong>WARNING:</strong></div>
 <div>By default the Data Volume Monitor comes pre-configured for the smoothest possible user experience.</div>
 <div>More advanced users can tune configuration parameters and user scripts using the below DVM Configuration Editor.</div>
-<div>Be advised that careless shell scripting can potentially wreak havoc on your system - do read the manuals and take care.</div>
+<div><strong><u>Be advised that careless shell scripting can potentially wreak havoc on your system - do read the manuals and take care.</u></strong></div>
 
 <br>
 
