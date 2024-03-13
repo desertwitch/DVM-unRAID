@@ -49,8 +49,8 @@ Markdown="false"
     <dd><input type="button" value="Save" id="btnSubmit" title="Save the configuration changes." />
     <input type="button" value="Cancel" id="btnCancel" />
     </dd>
-</form>
 </dl>
+</form>
 
 <blockquote class="inline_help">
     <p>The <strong>Save</strong> button saves any configuration changes made.</p>
