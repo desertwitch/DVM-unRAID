@@ -196,6 +196,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls how the data volume metrics are displayed on this page.</p>
+        <p>Not all versions of UNRAID include the required image libraries, in the worst case the image metrics will not show.</p>
     </blockquote>
 
     <dl>
