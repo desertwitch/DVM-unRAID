@@ -72,7 +72,13 @@ $(function()
 $pluginname = "DVM";
 $dvm_mini = "";
 $dvm_mini_descr = "";
-$dvm_metrics = "";
+$dvm_metrics = [];
+
+$dvm_5 = []; 
+$dvm_h = []; 
+$dvm_d = []; 
+$dvm_m = []; 
+$dvm_y = []; 
 
 $dvm_mini = build_footer();
 $dvm_metrics = getMetricsForPrimary();
@@ -152,7 +158,13 @@ EOT;
 <?
 $dvm_mini = "";
 $dvm_mini_descr = "";
-$dvm_metrics = "";
+$dvm_metrics = [];
+
+$dvm_5 = []; 
+$dvm_h = []; 
+$dvm_d = []; 
+$dvm_m = []; 
+$dvm_y = []; 
 
 $dvm_mini = build_footer();
 $dvm_metrics = getMetricsForPrimary();
@@ -185,6 +197,13 @@ if($dvm_metrics) {
             $dvm_mini_descr = "Last Year:";
             break;
     }
+}
+else {
+    $dvm_5[0] = "<em>error</em>"; $dvm_5[1] = "<em>error</em>";
+    $dvm_h[0] = "<em>error</em>"; $dvm_h[1] = "<em>error</em>";
+    $dvm_d[0] = "<em>error</em>"; $dvm_d[1] = "<em>error</em>";
+    $dvm_m[0] = "<em>error</em>"; $dvm_m[1] = "<em>error</em>";
+    $dvm_y[0] = "<em>error</em>"; $dvm_y[1] = "<em>error</em>";
 }
 ?>
 <table id="dvm_dashboard" style="display: none;">
