@@ -41,15 +41,15 @@ fi
 
 allLimits=("$HlimitRX" "$DlimitRX" "$MlimitRX" "$YlimitRX" "$HlimitTX" "$DlimitTX" "$MlimitTX" "$YlimitTX")
 allUnits=("$HunitRX" "$DunitRX" "$MunitRX" "$YunitRX" "$HunitTX" "$DunitTX" "$MunitTX" "$YunitTX")
-allBadFiles=("dvm_H_bad_RX_notified" "dvm_D_bad_RX_notified" "dvm_M_bad_RX_notified" "dvm_Y_bad_RX_notified" "dvm_H_bad_TX_notified" "dvm_D_bad_TX_notified" "dvm_M_bad_TX_notified" "dvm_Y_bad_TX_notified")
+allBadFiles=("dvm_h_bad_rx_notified" "dvm_d_bad_rx_notified" "dvm_m_bad_rx_notified" "dvm_y_bad_rx_notified" "dvm_h_bad_tx_notified" "dvm_d_bad_tx_notified" "dvm_m_bad_tx_notified" "dvm_y_bad_tx_notified")
 allMetrics=("hour" "day" "month" "year" "hour" "day" "month" "year")
 allMetricsCaps=("Hour" "Day" "Month" "Year" "Hour" "Day" "Month" "Year")
 allMetricModes=("rx" "rx" "rx" "rx" "tx" "tx" "tx" "tx")
 allMetricModesCaps=("RX" "RX" "RX" "RX" "TX" "TX" "TX" "TX")
 allMetricParameters=("h" "d" "m" "y" "h" "d" "m" "y")
 allMetricModesAlt=("IN" "IN" "IN" "IN" "OUT" "OUT" "OUT" "OUT")
-allBadFunctions=("hour_RX_reached" "day_RX_reached" "month_RX_reached" "year_RX_reached" "hour_TX_reached" "day_TX_reached" "month_TX_reached" "year_TX_reached")
-allGoodFunctions=("hour_RX_normal_again" "day_RX_normal_again" "month_RX_normal_again" "year_RX_normal_again" "hour_TX_normal_again" "day_TX_normal_again" "month_TX_normal_again" "year_TX_normal_again")
+allBadFunctions=("hour_rx_reached" "day_rx_reached" "month_rx_reached" "year_rx_reached" "hour_tx_reached" "day_tx_reached" "month_tx_reached" "year_tx_reached")
+allGoodFunctions=("hour_rx_normal_again" "day_rx_normal_again" "month_rx_normal_again" "year_rx_normal_again" "hour_tx_normal_again" "day_tx_normal_again" "month_tx_normal_again" "year_tx_normal_again")
 
 for i in "${!allLimits[@]}"; do
     if [ "${allLimits[$i]}" == "-1" ]; then
