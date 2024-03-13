@@ -150,7 +150,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls if interfaces that are in the database, but no longer exist on the system, should be shown on this page.</p>
+        <p>This setting controls if network interfaces that are in the database, but no longer exist on the system, should be shown on this page.</p>
+        <p>You can purge any removed network interfaces from the database using the <strong>'Purge Database'</strong> button at the bottom of this page.</p>
     </blockquote>
 
     <dl>
@@ -413,12 +414,16 @@ Markdown="false"
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
-            <input id="CLEANDB" type="button" value="Clean Database">
+            <input id="CLEANDB" type="button" value="Purge Database">
         </dt>
         <dd>
             <input type="submit" value="Apply"><input type="button" value="Done" onclick="done()">
         </dd>
     </dl>
+
+    <blockquote class="inline_help">
+    <p><strong>Purge Database</strong> cleans no longer existing network interfaces and their recorded data volume information from the database.</p>
+    </blockquote>
 </form>
 
 <script src="<?=autov('/plugins/dwdvm/js/jquery.mask.min.js');?>"></script>
@@ -453,7 +458,7 @@ function ResetAll(){
 }
 function CleanDB(){
     $('#command').val('');
-    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/clean_db', 'DVM Database Cleaner', 600, 600, true);
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/clean_db', 'DVM Database Purger', 600, 600, true);
 }
 $(function() {
 
