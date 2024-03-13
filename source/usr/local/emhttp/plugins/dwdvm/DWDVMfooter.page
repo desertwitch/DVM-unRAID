@@ -150,7 +150,6 @@ EOT;
 <?if(stripos($path, "dashboard") !== false && $dwdvm_running && $dwdvm_dashb == "enable"):?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?
-$pluginname = "DVM";
 $dvm_mini = "";
 $dvm_mini_descr = "";
 $dvm_metrics = "";
@@ -194,7 +193,7 @@ if($dvm_metrics) {
 <tr><td></td><td colspan='3' class='next'><i class='icon-diagnostics'></i><div class='section'>Data Volume Monitor (DVM)<br>
 <?echo("<span>$dwdvm_primary / $dvm_mini_descr $dvm_mini</span>");?><br><br></div>
 <i class='fa fa-fw chevron' id='dvm_view' onclick='toggleChevron("dvm_view",0)'></i>
-<a href='/Dashboard/DVMsettings' title='Go to DVM Settings'><i class='fa fa-fw fa-cog chevron'></i></a>
+<a href='/Dashboard/DWDVMsettings' title='Go to DVM Settings'><i class='fa fa-fw fa-cog chevron'></i></a>
 </td><td></td></tr>
 <tr class='dvm_view'><td></td><td><span>Last 5 Minutes:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_5[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_5[1];?></span></td><td></td></tr>
 <tr class='dvm_view'><td></td><td><span>Last Hour:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_h[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_h[1];?></span></td><td></td></tr>
