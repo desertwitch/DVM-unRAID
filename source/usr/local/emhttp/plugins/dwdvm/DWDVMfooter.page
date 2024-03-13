@@ -70,10 +70,16 @@ $(function()
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?
 $pluginname = "DVM";
+$dvm_mini = "";
+$dvm_mini_descr = "";
+$dvm_metrics = "";
 
 $dvm_mini = build_footer();
 $dvm_metrics = getMetricsForPrimary();
-$dvm_mini_descr = "";
+
+if(!$dvm_mini) {
+    $dvm_mini = ""; 
+}
 
 if($dvm_metrics) {
 $dvm_5 = $dvm_metrics[0];
@@ -137,5 +143,80 @@ $mytiles[$pluginname]['column2'] =
 EOT;
 }
 ?>
+<?endif;?>
+<?endif;?>
+
+<?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'6.12.0-beta6', '<')):?>
+<?if(stripos($path, "dashboard") !== false && $dwdvm_running && $dwdvm_dashb == "enable"):?>
+<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
+<?
+$pluginname = "DVM";
+$dvm_mini = "";
+$dvm_mini_descr = "";
+$dvm_metrics = "";
+
+$dvm_mini = build_footer();
+$dvm_metrics = getMetricsForPrimary();
+
+if(!$dvm_mini) {
+    $dvm_mini = ""; 
+}
+
+if($dvm_metrics) {
+    $dvm_5 = $dvm_metrics[0];
+    $dvm_h = $dvm_metrics[1];
+    $dvm_d = $dvm_metrics[2];
+    $dvm_m = $dvm_metrics[3];
+    $dvm_y = $dvm_metrics[4];
+
+    switch ($dwdvm_footerformat) {
+        case '5':
+            $dvm_mini_descr = "Last 5 Minutes:";
+            break;
+        case 'h':
+            $dvm_mini_descr = "Last Hour:";
+            break;
+        case 'd':
+            $dvm_mini_descr = "Last Day:";
+            break;
+        case 'm':
+            $dvm_mini_descr = "Last Month:";
+            break;
+        case 'y':
+            $dvm_mini_descr = "Last Year:";
+            break;
+    }
+}
+?>
+<table id="dvm_dashboard" style="display: none;">
+<thead sort=''><tr class='hidden'><td></td><td colspan='3'></td></tr></thead>
+<tbody sort='' class='sortable'>
+<tr><td></td><td colspan='3' class='next'><i class='icon-diagnostics'></i><div class='section'>Data Volume Monitor (DVM)<br>
+<?echo("<span>$dwdvm_primary / $dvm_mini_descr $dvm_mini</span>");?><br><br></div>
+<i class='fa fa-fw chevron' id='dvm_view' onclick='toggleChevron("dvm_view",0)'></i>
+<a href='/Dashboard/DVMsettings' title='Go to DVM Settings'><i class='fa fa-fw fa-cog chevron'></i></a>
+</td><td></td></tr>
+<tr class='dvm_view'><td></td><td><span>Last 5 Minutes:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_5[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_5[1];?></span></td><td></td></tr>
+<tr class='dvm_view'><td></td><td><span>Last Hour:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_h[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_h[1];?></span></td><td></td></tr>
+<tr class='dvm_view'><td></td><td><span>Last Day:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_d[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_d[1];?></span></td><td></td></tr>
+<tr class='dvm_view'"><td></td><td><span>Last Month:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_m[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_m[1];?></span></td><td></td></tr>
+<tr class='dvm_view'"><td></td><td><span>Last Year:</span></td><td><span><i class="ups fa fa-arrow-down"></i> <?=$dvm_y[0];?></span></td><td><span><i class="ups fa fa-arrow-up"></i> <?=$dvm_y[1];?></span></td><td></td></tr>
+</tbody>
+</table>
+<script type="text/javascript">
+  function addDVMDashboard() {
+    if ($("#db-box1").length) {
+      var i = $("#db-box1 > tbody.sortable").length;
+      nut_dashboard = $("#dvm_dashboard").detach();
+      nut_dashboard.find("thead, tbody").attr("sort",i);
+      nut_dashboard.find("thead, tbody").appendTo('#db-box1');
+      toggleView('dvm_view',true);
+      sortTable($('#db-box1'),$.cookie('db-box1'));
+    }
+  }
+  $(function(){
+    addDVMDashboard();
+  });
+</script>
 <?endif;?>
 <?endif;?>
