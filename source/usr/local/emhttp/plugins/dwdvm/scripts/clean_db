@@ -1,5 +1,19 @@
 #!/bin/bash
-
+#
+# Copyright Derek Macias (parts of code from NUT package)
+# Copyright macester (parts of code from NUT package)
+# Copyright gfjardim (parts of code from NUT package)
+# Copyright SimonF (parts of code from NUT package)
+# Copyright Mohamed Emad (icon from vnstat-client package)
+# Copyright desertwitch
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License 2
+# as published by the Free Software Foundation.
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
 DBLIST="$(vnstat --config /etc/vnstat/vnstat.conf --dbiflist)"
 IFLIST="$(vnstat --config /etc/vnstat/vnstat.conf --iflist)"
 
@@ -15,13 +29,13 @@ if (echo "$DBLIST" | grep "Interfaces in database:" >/dev/null 2>&1) && (echo "$
     echo ""
     for i in "${DBIFACES[@]}"; do
         if ! (echo "$IFLIST" | grep "$i" >/dev/null 2>&1); then
-           echo ""
            vnstat --remove --force "$i" 2>&1
            echo ""
         fi
     done
-    echo ""
     echo "THE OPERATION HAS FINISHED - YOU MAY CLOSE THIS WINDOW NOW."
+    echo ""
 else
     echo "ERROR RETRIEVING NETWORK INTERFACES FROM BACKEND - PLEASE TRY AGAIN."
+    echo ""
 fi
