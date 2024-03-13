@@ -214,7 +214,7 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls how often the custom alarms script (<strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
+        <p>This setting controls how often the custom alarms script (inside <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
     </blockquote>
 
     <dl>
@@ -229,7 +229,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when a certain data volume threshold has been exceeded on the primary network interface.</p>
-        <p>This setting will enable and execute user defined actions (<strong>dvm-user-actions.sh</strong>) when a certain data volume threshold has been exceeded on the primary network interface.</p>
+        <p>This setting will enable and execute user defined actions (inside <strong>dvm-user-actions.sh</strong>) when a certain data volume threshold has been exceeded on the primary network interface.</p>
     </blockquote>
 
     <dl>
@@ -244,7 +244,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
-        <p>This setting will enable and execute user defined actions (<strong>dvm-user-actions.sh</strong>) when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
+        <p>This setting will enable and execute user defined actions (inside <strong>dvm-user-actions.sh</strong>) when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
     </blockquote>
 
     <br><hr><br>
