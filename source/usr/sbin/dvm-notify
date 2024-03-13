@@ -61,7 +61,7 @@ for i in "${!allLimits[@]}"; do
             if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
                 $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
-                ${allBadFunctions[$i]}
+                ${allBadFunctions[$i]} | logger -t "dvm-user-actions"
                 echo "EXCEEDED (NOTIFIED)"
             else
                 echo "EXCEEDED (QUIET)"
@@ -71,7 +71,7 @@ for i in "${!allLimits[@]}"; do
             if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ]; then
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
                 $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
-                ${allGoodFunctions[$i]}
+                ${allGoodFunctions[$i]} | logger -t "dvm-user-actions"
                 echo "NOT EXCEEDED (NOTIFIED)"
             else
                 echo "NOT EXCEEDED (QUIET)"
