@@ -46,7 +46,7 @@ function filterVirts($string) {
     return strpos($virt_ifaces, $string) === false;
 }
 
-function getInterfaces()
+function getInterfaces($showall=false)
 {
     global $dwdvm_vifaces;
     
@@ -57,7 +57,7 @@ function getInterfaces()
         preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
         $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
-        if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
+        if ($dwdvm_vifaces !== "enable" && !$showall) { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
     } catch (Throwable $e) { // For PHP 7
         return false;
     } catch (Exception $e) { // For PHP 5
