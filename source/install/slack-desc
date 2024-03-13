@@ -1,4 +1,4 @@
-dwdvm: vnStat (a console-based network traffic monitor) for UNRAID
+dwdvm: Data Volume Monitor (DVM) for UNRAID
 dwdvm:
 dwdvm: vnStat is a network traffic monitor for Linux that keeps a log of
 dwdvm: daily network traffic for the selected interface(s). vnStat isn't a

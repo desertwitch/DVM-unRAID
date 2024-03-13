@@ -19,8 +19,9 @@
  *
  */
 $dwdvm_cfg          = parse_ini_file("/boot/config/plugins/dwdvm/dwdvm.cfg");
+
 $dwdvm_service      = isset($dwdvm_cfg['SERVICE'])      ? htmlspecialchars($dwdvm_cfg['SERVICE'])       : 'disable';
-$dwdvm_backupdb     = isset($dwdvm_cfg['BACKUPDB'])     ? htmlspecialchars($dwdvm_cfg['BACKUPDB'])      : 'disable';
+$dwdvm_backupdb     = isset($dwdvm_cfg['BACKUPDB'])     ? htmlspecialchars($dwdvm_cfg['BACKUPDB'])      : 'enable';
 $dwdvm_report       = isset($dwdvm_cfg['REPORT'])       ? htmlspecialchars($dwdvm_cfg['REPORT'])        : 'text';
 $dwdvm_vifaces      = isset($dwdvm_cfg['VIFACES'])      ? htmlspecialchars($dwdvm_cfg['VIFACES'])       : 'disable';
 $dwdvm_cronint      = isset($dwdvm_cfg['CRONINT'])      ? htmlspecialchars($dwdvm_cfg['CRONINT'])       : 'disable';
@@ -33,21 +34,23 @@ $dwdvm_good_notify = isset($dwdvm_cfg['GOODNOTIFY'])  ? htmlspecialchars($dwdvm_
 $dwdvm_bad_notify  = isset($dwdvm_cfg['BADNOTIFY'])   ? htmlspecialchars($dwdvm_cfg['BADNOTIFY']) : 'disable';
 
 $dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITH'])  : '-1');
-$dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['RXUNITH'])   ? htmlspecialchars($dwdvm_cfg['RXUNITH'])   : 'GB');
-$dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITD'])  : '-1');
-$dwdvm_dunit_rx   = trim(isset($dwdvm_cfg['RXUNITD'])   ? htmlspecialchars($dwdvm_cfg['RXUNITD'])   : 'GB');
-$dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITM'])  : '-1');
-$dwdvm_munit_rx   = trim(isset($dwdvm_cfg['RXUNITM'])   ? htmlspecialchars($dwdvm_cfg['RXUNITM'])   : 'GB');
-$dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['RXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITY'])  : '-1');
-$dwdvm_yunit_rx   = trim(isset($dwdvm_cfg['RXUNITY'])   ? htmlspecialchars($dwdvm_cfg['RXUNITY'])   : 'GB');
-
 $dwdvm_hlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITH'])  : '-1');
+$dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['RXUNITH'])   ? htmlspecialchars($dwdvm_cfg['RXUNITH'])   : 'GB');
 $dwdvm_hunit_tx   = trim(isset($dwdvm_cfg['TXUNITH'])   ? htmlspecialchars($dwdvm_cfg['TXUNITH'])   : 'GB');
+
+$dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITD'])  : '-1');
 $dwdvm_dlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITD'])  : '-1');
+$dwdvm_dunit_rx   = trim(isset($dwdvm_cfg['RXUNITD'])   ? htmlspecialchars($dwdvm_cfg['RXUNITD'])   : 'GB');
 $dwdvm_dunit_tx   = trim(isset($dwdvm_cfg['TXUNITD'])   ? htmlspecialchars($dwdvm_cfg['TXUNITD'])   : 'GB');
+
+$dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITM'])  : '-1');
 $dwdvm_mlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITM'])  : '-1');
+$dwdvm_munit_rx   = trim(isset($dwdvm_cfg['RXUNITM'])   ? htmlspecialchars($dwdvm_cfg['RXUNITM'])   : 'GB');
 $dwdvm_munit_tx   = trim(isset($dwdvm_cfg['TXUNITM'])   ? htmlspecialchars($dwdvm_cfg['TXUNITM'])   : 'GB');
+
+$dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['RXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITY'])  : '-1');
 $dwdvm_ylimit_tx  = trim(isset($dwdvm_cfg['TXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITY'])  : '-1');
+$dwdvm_yunit_rx   = trim(isset($dwdvm_cfg['RXUNITY'])   ? htmlspecialchars($dwdvm_cfg['RXUNITY'])   : 'GB');
 $dwdvm_yunit_tx   = trim(isset($dwdvm_cfg['TXUNITY'])   ? htmlspecialchars($dwdvm_cfg['TXUNITY'])   : 'GB');
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );

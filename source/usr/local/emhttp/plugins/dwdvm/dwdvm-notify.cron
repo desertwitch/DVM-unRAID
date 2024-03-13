@@ -1,2 +1,2 @@
-# Data Volume Monitor Notification Agent:
+# Data Volume Monitor Notification Service:
 * * * * * /usr/sbin/dvm-notify > /dev/null 2>&1

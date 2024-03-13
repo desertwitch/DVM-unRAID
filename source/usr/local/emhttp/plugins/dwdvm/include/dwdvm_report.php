@@ -87,6 +87,8 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
             $returnStr = shell_exec("if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 {$time} {$mode} {$limit} {$unit} {$iface} >/dev/null 2>&1; then echo 1; else echo 0; fi");
             if(intval($returnStr) > 0) {
                 return "<span class='red-text'>$str</span>";
+            } else if (intval($returnStr) == 0) {
+                return "<span class='green-text'>$str</span>";
             } else {
                 return $str;
             }
@@ -100,23 +102,23 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
 
 function build_report_light()
 {
-global $dwdvm_hlimit_rx;
-global $dwdvm_hunit_rx;
-global $dwdvm_dlimit_rx;
-global $dwdvm_dunit_rx;
-global $dwdvm_mlimit_rx;
-global $dwdvm_munit_rx;
-global $dwdvm_ylimit_rx;
-global $dwdvm_yunit_rx;
-global $dwdvm_hlimit_tx;
-global $dwdvm_hunit_tx;
-global $dwdvm_dlimit_tx;
-global $dwdvm_dunit_tx;
-global $dwdvm_mlimit_tx;
-global $dwdvm_munit_tx;
-global $dwdvm_ylimit_tx;
-global $dwdvm_yunit_tx;
-global $dwdvm_primary;
+    global $dwdvm_hlimit_rx;
+    global $dwdvm_hunit_rx;
+    global $dwdvm_dlimit_rx;
+    global $dwdvm_dunit_rx;
+    global $dwdvm_mlimit_rx;
+    global $dwdvm_munit_rx;
+    global $dwdvm_ylimit_rx;
+    global $dwdvm_yunit_rx;
+    global $dwdvm_hlimit_tx;
+    global $dwdvm_hunit_tx;
+    global $dwdvm_dlimit_tx;
+    global $dwdvm_dunit_tx;
+    global $dwdvm_mlimit_tx;
+    global $dwdvm_munit_tx;
+    global $dwdvm_ylimit_tx;
+    global $dwdvm_yunit_tx;
+    global $dwdvm_primary;
 
     $returnStr = "";
     $db_ifaces_array = getInterfaces();
@@ -136,13 +138,13 @@ global $dwdvm_primary;
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx)) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx)) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx)) . "</td>";
                     $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx)) . "</td>";
                 } else {
                     $returnStr .= "<tr>";
                     $returnStr .= "<td>". $db_iface . "</td>";
@@ -203,19 +205,19 @@ function build_footer()
                 break;
             case 'h':
                 $trafficRx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx));
                 break;
             case 'd':
                 $trafficRx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx));
                 break;
             case 'm':
                 $trafficRx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx));
                 break;
             case 'y':
                 $trafficRx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx));
                 break;
         }
     } else {
@@ -256,13 +258,13 @@ function getMetricsForPrimary()
         $trafficTotal[1][1] = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx));
 
         $trafficTotal[2][0] = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx));
-        $trafficTotal[2][1] = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx));
+        $trafficTotal[2][1] = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx));
 
         $trafficTotal[3][0] = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx));
-        $trafficTotal[3][1] = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx));
+        $trafficTotal[3][1] = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx));
 
         $trafficTotal[4][0] = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx));
-        $trafficTotal[4][1] = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_rx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx));
+        $trafficTotal[4][1] = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx));
     } else {
         return false;
     }
@@ -277,7 +279,6 @@ function build_report()
     global $dwdvm_primary;
 
     $returnStr = "";
-
     $db_ifaces_array = getInterfaces();
 
     if($db_ifaces_array) {

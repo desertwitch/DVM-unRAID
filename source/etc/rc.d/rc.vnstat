@@ -73,8 +73,6 @@ vnstat_restart() {
 
 backup_db() {
   if [ "$BACKUPDB" == "enable" ] && [ -f /var/lib/vnstat/vnstat.db ]; then
-    write_config
-    vnstat_stop
     sleep 2
     echo "Backing up the DVM database to the flash drive..."
     cp -f /var/lib/vnstat/vnstat.db $PLGPATH/vnstat.db
@@ -112,12 +110,12 @@ write_config() {
 
   if [ "$GOODNOTIFY" == "enable" ] || [ "$BADNOTIFY" == "enable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
-      echo "Adding DVM notification agent to crontab..."
+      echo "Adding DVM notification service to crontab..."
     fi
     cp -f $DOCROOT/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
-      echo "Removing DVM notification agent from crontab..."
+      echo "Removing DVM notification service from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
       rm -f /tmp/dvm*notified
     fi
@@ -125,7 +123,7 @@ write_config() {
 
   if [ ! "$CRONINT" == "disable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
-      echo "Adding DVM custom periodic execution script to crontab (${CRONINT})..."
+      echo "Adding DVM custom alarms script to crontab (${CRONINT})..."
     fi
     cp -f $DOCROOT/dwdvm-custom-alarms.cron /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
     if [ "$CRONINT" == "01min" ]; then
@@ -148,7 +146,7 @@ write_config() {
     fi
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
-      echo "Removing DVM custom periodic execution script from crontab..."
+      echo "Removing DVM custom alarms script from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
     fi
   fi
@@ -187,6 +185,8 @@ case "$1" in
     write_config
     ;;
   'backup_db')
+    write_config
+    vnstat_stop
     backup_db
     ;;
   *)
