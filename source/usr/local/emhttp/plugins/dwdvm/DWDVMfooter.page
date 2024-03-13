@@ -199,11 +199,11 @@ if($dvm_metrics) {
     }
 }
 else {
-    $dvm_5[0] = "<em>error</em>"; $dvm_5[1] = "<em>error</em>";
-    $dvm_h[0] = "<em>error</em>"; $dvm_h[1] = "<em>error</em>";
-    $dvm_d[0] = "<em>error</em>"; $dvm_d[1] = "<em>error</em>";
-    $dvm_m[0] = "<em>error</em>"; $dvm_m[1] = "<em>error</em>";
-    $dvm_y[0] = "<em>error</em>"; $dvm_y[1] = "<em>error</em>";
+    $dvm_5[0] = "-"; $dvm_5[1] = "-";
+    $dvm_h[0] = "-"; $dvm_h[1] = "-";
+    $dvm_d[0] = "-"; $dvm_d[1] = "-";
+    $dvm_m[0] = "-"; $dvm_m[1] = "-";
+    $dvm_y[0] = "-"; $dvm_y[1] = "-";
 }
 ?>
 <table id="dvm_dashboard" style="display: none;">
