@@ -151,7 +151,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls if network interfaces that are in the database, but no longer exist on the system, should be shown on this page.</p>
-        <p>You can purge any removed network interfaces from the database using the <strong>'Purge Database'</strong> button at the bottom of this page.</p>
+        <p>You can purge any removed network interfaces and their recorded data volume information from the database using the <strong>'Purge Database'</strong> button at the bottom of this page.</p>
     </blockquote>
 
     <dl>
