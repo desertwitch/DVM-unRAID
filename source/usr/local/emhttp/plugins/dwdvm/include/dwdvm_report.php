@@ -54,6 +54,7 @@ function filterNonExisting($string) {
 function getInterfaces()
 {
     global $dwdvm_vifaces;
+    global $dwdvm_oifaces;
     
     $db_ifaces_array = "";
     try {
