@@ -31,10 +31,10 @@ stop already existing services before doing anything
 echo "Checking for conflicting network statistics software..."
 if [ -f /boot/config/plugins/networkstats.plg ]; then
     echo ""
-    echo "----------------------------------------------------------------------"
+    echo "-------------------------------------------------------------------------"
     echo "ERROR: THIS PLUGIN CANNOT INSTALL TOGETHER WITH THE Network Stats PLUGIN"
     echo "Please remove conflicting software from the system to continue install."
-    echo "----------------------------------------------------------------------"
+    echo "-------------------------------------------------------------------------"
     echo ""
     exit 1
 fi
@@ -94,10 +94,10 @@ fi
 find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
 echo ""
-echo "----------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------"
 echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been installed."
 echo " Copyright 2023 - &author;"
-echo "----------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
@@ -138,10 +138,10 @@ if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ] || [ -f /boot/config/pl
 fi
 
 echo ""
-echo "----------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------"
 echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been removed."
 echo " Copyright 2023 - &author;"
-echo "----------------------------------------------------------------------"
+echo "-------------------------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
