@@ -53,7 +53,7 @@ allGoodFunctions=("hour_rx_normal_again" "day_rx_normal_again" "month_rx_normal_
 
 for i in "${!allLimits[@]}"; do
     if [ "${allLimits[$i]}" == "-1" ]; then
-        echo "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... disabled"
+        echo "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... DISABLED (-1)"
         rm -f "/tmp/${allBadFiles[$i]}"
     else
         echo -n "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
@@ -72,9 +72,9 @@ for i in "${!allLimits[@]}"; do
                 echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
                 $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
                 ${allGoodFunctions[$i]}
-                echo "NORMAL (NOTIFIED)"
+                echo "NOT EXCEEDED (NOTIFIED)"
             else
-                echo "NORMAL (QUIET)"
+                echo "NOT EXCEEDED (QUIET)"
             fi
             rm -f "/tmp/${allBadFiles[$i]}"
         fi

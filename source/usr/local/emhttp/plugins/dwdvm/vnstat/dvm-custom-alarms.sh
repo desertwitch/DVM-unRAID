@@ -1,18 +1,18 @@
 #!/bin/bash
 #
-# DO NOT TOUCH THIS FILE IF YOU HAVE NEVER USED A LINUX TERMINAL
-# ESPECIALLY DO NOT TOUCH THIS FILE IF YOU DO NOT KNOW WHAT YOU ARE DOING
+# DO NOT TOUCH THIS FILE IF YOU DO NOT KNOW WHAT YOU ARE DOING
+# ESPECIALLY DO NOT TOUCH THIS FILE IF YOU HAVE NEVER USED A LINUX TERMINAL
 #
-# THIS BASH SCRIPT IS FOR CUSTOM DATA VOLUME RELATED ALARMS
-# IT IS FOR ADVANCED SCRIPTING, FOR SIMPLE COMMANDS USE: DVM-USER-ACTIONS.SH
+# This bash script is for scripting custom data volume related alarm functions
+# If not needed DVM-USER-ACTIONS.SH provides easier and more ready to use functions
 #
-# THIS BASH SCRIPT IS RUN - PERIODIC AS CONFIGURED - BY THE CRONTAB WHEN ENABLED IN GUI
-# IT OPERATES INDEPENDENTLY FROM THE NOTIFICATION SETTINGS AND DVM-USER-ACTIONS.SH
+# This bash script is run periodically as a cronjob when enabled in the GUI settings
+# It operates independently from the notification settings and also DVM-USER-ACTIONS.SH
 #
-# KEEP THIS LINE TO PREVENT SCRIPT EXECUTION WHEN DVM IS NOT RUNNING:
+# Please keep the below line to ensure that the script is only executed when DVM is running:
 if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi
 #
-# VNSTAT ALARM CHECK USAGE MANUAL
+# This is a usage summary for the command through which the data volume limits could be queried:
 #
 # vnstat --config /etc/vnstat/vnstat.conf --alert <output> <exit> <type> <condition> <limit> <unit> <interface>
 #
