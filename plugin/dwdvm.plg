@@ -94,10 +94,10 @@ fi
 find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
 echo ""
-echo "-------------------------------------------------------------"
-echo " Data Volume Monitor (DVM) for UNRAID (&version;) was installed."
+echo "----------------------------------------------------------------------"
+echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been installed."
 echo " Copyright 2023 - &author;"
-echo "-------------------------------------------------------------"
+echo "----------------------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
@@ -138,10 +138,10 @@ if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ] || [ -f /boot/config/pl
 fi
 
 echo ""
-echo "-------------------------------------------------------------"
-echo " Data Volume Monitor (DVM) for UNRAID (&version;) was removed."
+echo "----------------------------------------------------------------------"
+echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been removed."
 echo " Copyright 2023 - &author;"
-echo "-------------------------------------------------------------"
+echo "----------------------------------------------------------------------"
 echo ""
 </INLINE>
 </FILE>
