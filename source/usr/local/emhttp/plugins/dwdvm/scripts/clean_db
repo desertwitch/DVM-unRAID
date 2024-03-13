@@ -18,14 +18,14 @@ DBLIST="$(vnstat --config /etc/vnstat/vnstat.conf --dbiflist)"
 IFLIST="$(vnstat --config /etc/vnstat/vnstat.conf --iflist)"
 
 echo ""
-echo "RETRIEVING NETWORK INTERFACES..."
+echo "Retrieving the network interfaces from the database and the system..."
 echo ""
 
 if (echo "$DBLIST" | grep "Interfaces in database:" >/dev/null 2>&1) && (echo "$IFLIST" | grep "Available interfaces:" >/dev/null 2>&1); then
     DBLIST="${DBLIST//Interfaces in database: /}"
     DBIFACES=""
     read -r -a DBIFACES <<< "$DBLIST"
-    echo "CHECKING NETWORK INTERFACES..."
+    echo "Checking the database's network interfaces against the system's network interfaces..."
     echo ""
     for i in "${DBIFACES[@]}"; do
         if ! (echo "$IFLIST" | grep "$i" >/dev/null 2>&1); then
@@ -36,6 +36,6 @@ if (echo "$DBLIST" | grep "Interfaces in database:" >/dev/null 2>&1) && (echo "$
     echo "THE OPERATION HAS FINISHED - YOU MAY CLOSE THIS WINDOW NOW."
     echo ""
 else
-    echo "ERROR RETRIEVING NETWORK INTERFACES FROM BACKEND - PLEASE TRY AGAIN."
+    echo "ERROR RETRIEVING NETWORK INTERFACES FROM BACKEND - PLEASE TRY AGAIN LATER."
     echo ""
 fi
