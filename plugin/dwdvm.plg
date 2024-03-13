@@ -95,8 +95,8 @@ find &plgPATH;/ -type f -iname "&name;*.txz" ! -iname "*&plgNAME;*" -delete
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor for UNRAID (&version;)"
-echo " has been installed. Copyright 2023 - &author;"
+echo " DVM - Data Volume Monitor for UNRAID (&version;) was installed."
+echo " Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
 </INLINE>
@@ -139,8 +139,8 @@ fi
 
 echo ""
 echo "-------------------------------------------------------------"
-echo " DVM - Data Volume Monitor for UNRAID (&version;)"
-echo " has been removed. Copyright 2023 - &author;"
+echo " DVM - Data Volume Monitor for UNRAID (&version;) was removed."
+echo " Copyright 2023 - &author;"
 echo "-------------------------------------------------------------"
 echo ""
 </INLINE>
