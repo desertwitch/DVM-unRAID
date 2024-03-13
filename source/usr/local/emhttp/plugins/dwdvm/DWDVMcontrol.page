@@ -140,6 +140,20 @@ Markdown="false"
     </blockquote>
 
     <dl>
+        <dt>Show Removed Network Interfaces:</dt>
+        <dd>
+            <select id="OIFACES" name="OIFACES" size="1">
+                <?=mk_option($dwdvm_oifaces, "disable", "No");?>
+                <?=mk_option($dwdvm_oifaces, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls if interfaces that are in the database, but no longer exist on the system, should be shown on this page.</p>
+    </blockquote>
+
+    <dl>
         <dt>Show Data Volume Metrics in Dashboard:</dt>
         <dd>
             <select id="DASHB" name="DASHB" size="1">

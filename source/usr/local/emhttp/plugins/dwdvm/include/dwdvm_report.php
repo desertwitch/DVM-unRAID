@@ -43,7 +43,12 @@ function humanFileSize($sizeObj,$unit="") {
 
 function filterVirts($string) {
     $virt_ifaces = shell_exec("find /sys/class/net/ -type l -lname '*/devices/virtual/net/*' 2>/dev/null");
+    if(strpos($string, "veth") !== false) { return false; }
     return strpos($virt_ifaces, $string) === false;
+}
+
+function filterNonExisting($string) {
+    return file_exists("/sys/class/net/$string") === true;
 }
 
 function getInterfaces()
@@ -58,6 +63,7 @@ function getInterfaces()
         $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
         if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
+        if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterNonExisting'); }
     } catch (Throwable $e) { // For PHP 7
         return false;
     } catch (Exception $e) { // For PHP 5
