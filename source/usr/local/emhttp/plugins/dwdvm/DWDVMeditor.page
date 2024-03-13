@@ -27,7 +27,6 @@ Markdown="false"
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/codemirror.min.css');?>">
 <link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/dracula.min.css');?>">
-
 <style type="text/css">
     .CodeMirror { border: 1px solid #eee; cursor: text; margin-top: 15px; margin-bottom: 10px; }
     .CodeMirror pre.CodeMirror-placeholder { color: #999; }
@@ -35,7 +34,15 @@ Markdown="false"
     .fileTree {color:#486dba;width:305px;max-height:150px;overflow:scroll;position:absolute;z-index:100;display:none;}
 </style>
 <link type="text/css" rel="stylesheet" href="<?=autov('/webGui/styles/jquery.filetree.css');?>">
+
 <span style="float:right;margin-right:10px"><a href="https://humdi.net/vnstat/man/vnstat.conf.html" target="_blank" title="DVM Configuration Manual"><i class="fa fa-file-text-o"></i> <u>Configuration Manual</u></a></span>
+
+<div style="color:red;"><strong>WARNING:</strong></div>
+<div>By default the Data Volume Monitor comes pre-configured for the smoothest possible user experience.</div>
+<div>More advanced users can tune configuration parameters and user scripts using the below DVM Configuration Editor.</div>
+<div>Be advised that careless shell scripting can potentially wreak havoc on your system - do read the manuals and take care.</div>
+
+<br>
 
 <form id="editform" method="POST">
 <img id="editfolder" style="cursor:pointer;margin-left: 10px;" src="/webGui/images/explore.png" >
