@@ -432,9 +432,11 @@ function checkRUNNING(){
     if ("<?=$dwdvm_running;?>" == 1){
         $('.dwdvm-run').prop('disabled', true);
         $('#RESTART').prop('disabled', false);
+        $('#CLEANDB').prop('disabled', false);
     }else{
         $('.dwdvm-run').prop('disabled', false);
         $('#RESTART').prop('disabled', true);
+        $('#CLEANDB').prop('disabled', true);
     }
 }
 function Restart(){
