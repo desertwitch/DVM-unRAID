@@ -218,7 +218,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Volume Limit Exceeded Notifications and Actions:</dt>
+        <dt>Volume Exceeded Notifications and Actions:</dt>
         <dd>
             <select id="BADNOTIFY" name="BADNOTIFY" size="1">
                 <?=mk_option($dwdvm_bad_notify, "disable", "No");?>
@@ -233,7 +233,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Volume Limit Normal Again Notifications and Actions:</dt>
+        <dt>Volume Normal Again Notifications and Actions:</dt>
         <dd>
             <select id="GOODNOTIFY" name="GOODNOTIFY" size="1">
                 <?=mk_option($dwdvm_good_notify, "disable", "No");?>
