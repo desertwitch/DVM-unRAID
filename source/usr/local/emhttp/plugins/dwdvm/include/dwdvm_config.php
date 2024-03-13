@@ -32,23 +32,23 @@ $dwdvm_primary      = trim(isset($dwdvm_cfg['PRIMARY']) ? htmlspecialchars($dwdv
 $dwdvm_good_notify = isset($dwdvm_cfg['GOODNOTIFY'])  ? htmlspecialchars($dwdvm_cfg['GOODNOTIFY'])  : 'disable';
 $dwdvm_bad_notify  = isset($dwdvm_cfg['BADNOTIFY'])   ? htmlspecialchars($dwdvm_cfg['BADNOTIFY']) : 'disable';
 
-$dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['HLIMITRX'])  ? htmlspecialchars($dwdvm_cfg['HLIMITRX'])  : '-1');
-$dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['HUNITRX'])   ? htmlspecialchars($dwdvm_cfg['HUNITRX'])   : 'GB');
-$dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['DLIMITRX'])  ? htmlspecialchars($dwdvm_cfg['DLIMITRX'])  : '-1');
-$dwdvm_dunit_rx   = trim(isset($dwdvm_cfg['DUNITRX'])   ? htmlspecialchars($dwdvm_cfg['DUNITRX'])   : 'GB');
-$dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['MLIMITRX'])  ? htmlspecialchars($dwdvm_cfg['MLIMITRX'])  : '-1');
-$dwdvm_munit_rx   = trim(isset($dwdvm_cfg['MUNITRX'])   ? htmlspecialchars($dwdvm_cfg['MUNITRX'])   : 'GB');
-$dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['YLIMITRX'])  ? htmlspecialchars($dwdvm_cfg['YLIMITRX'])  : '-1');
-$dwdvm_yunit_rx   = trim(isset($dwdvm_cfg['YUNITRX'])   ? htmlspecialchars($dwdvm_cfg['YUNITRX'])   : 'GB');
+$dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITH'])  : '-1');
+$dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['RXUNITH'])   ? htmlspecialchars($dwdvm_cfg['RXUNITH'])   : 'GB');
+$dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITD'])  : '-1');
+$dwdvm_dunit_rx   = trim(isset($dwdvm_cfg['RXUNITD'])   ? htmlspecialchars($dwdvm_cfg['RXUNITD'])   : 'GB');
+$dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITM'])  : '-1');
+$dwdvm_munit_rx   = trim(isset($dwdvm_cfg['RXUNITM'])   ? htmlspecialchars($dwdvm_cfg['RXUNITM'])   : 'GB');
+$dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['RXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITY'])  : '-1');
+$dwdvm_yunit_rx   = trim(isset($dwdvm_cfg['RXUNITY'])   ? htmlspecialchars($dwdvm_cfg['RXUNITY'])   : 'GB');
 
-$dwdvm_hlimit_tx  = trim(isset($dwdvm_cfg['HLIMITTX'])  ? htmlspecialchars($dwdvm_cfg['HLIMITTX'])  : '-1');
-$dwdvm_hunit_tx   = trim(isset($dwdvm_cfg['HUNITTX'])   ? htmlspecialchars($dwdvm_cfg['HUNITTX'])   : 'GB');
-$dwdvm_dlimit_tx  = trim(isset($dwdvm_cfg['DLIMITTX'])  ? htmlspecialchars($dwdvm_cfg['DLIMITTX'])  : '-1');
-$dwdvm_dunit_tx   = trim(isset($dwdvm_cfg['DUNITTX'])   ? htmlspecialchars($dwdvm_cfg['DUNITTX'])   : 'GB');
-$dwdvm_mlimit_tx  = trim(isset($dwdvm_cfg['MLIMITTX'])  ? htmlspecialchars($dwdvm_cfg['MLIMITTX'])  : '-1');
-$dwdvm_munit_tx   = trim(isset($dwdvm_cfg['MUNITTX'])   ? htmlspecialchars($dwdvm_cfg['MUNITTX'])   : 'GB');
-$dwdvm_ylimit_tx  = trim(isset($dwdvm_cfg['YLIMITTX'])  ? htmlspecialchars($dwdvm_cfg['YLIMITTX'])  : '-1');
-$dwdvm_yunit_tx   = trim(isset($dwdvm_cfg['YUNITTX'])   ? htmlspecialchars($dwdvm_cfg['YUNITTX'])   : 'GB');
+$dwdvm_hlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITH'])  : '-1');
+$dwdvm_hunit_tx   = trim(isset($dwdvm_cfg['TXUNITH'])   ? htmlspecialchars($dwdvm_cfg['TXUNITH'])   : 'GB');
+$dwdvm_dlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITD'])  : '-1');
+$dwdvm_dunit_tx   = trim(isset($dwdvm_cfg['TXUNITD'])   ? htmlspecialchars($dwdvm_cfg['TXUNITD'])   : 'GB');
+$dwdvm_mlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITM'])  : '-1');
+$dwdvm_munit_tx   = trim(isset($dwdvm_cfg['TXUNITM'])   ? htmlspecialchars($dwdvm_cfg['TXUNITM'])   : 'GB');
+$dwdvm_ylimit_tx  = trim(isset($dwdvm_cfg['TXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITY'])  : '-1');
+$dwdvm_yunit_tx   = trim(isset($dwdvm_cfg['TXUNITY'])   ? htmlspecialchars($dwdvm_cfg['TXUNITY'])   : 'GB');
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));
