@@ -52,10 +52,6 @@ Markdown="false"
 </dl>
 </form>
 
-<blockquote class="inline_help">
-    <p>The <strong>Save</strong> button saves any configuration changes made.</p>
-</blockquote>
-
 <script src="<?=autov('/plugins/dwdvm/js/codemirror/codemirror.min.js');?>"></script>
 
 <script src="<?=autov('/plugins/dwdvm/js/codemirror/autorefresh.min.js');?>"></script>
