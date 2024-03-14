@@ -95,7 +95,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
     <p><strong>Reset Config</strong> will return your DVM configuration to the default state (preserving the database).</p>
-    <p><strong>Reset All</strong> will return your DVM configuration and database to the default state.</p>
+    <p><strong>Reset All</strong> will return your DVM configuration and database to the default state (<u>not</u> preserving the database).</p>
     <p><strong>Restart DVM</strong> will restart the DVM service.</p>
     </blockquote>
 
@@ -136,7 +136,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls if virtual network interfaces should also be displayed on this page.</p>
         <p>By default only physical network interfaces are shown and virtual network interfaces will remain hidden.</p>
-        <p>Virtual network interfaces are not always monitorable and the data reported for virtual interfaces may be inconsistent.</p>
+        <p>Virtual network interfaces are not always monitorable and the data reported for virtual interfaces may therefore be inconsistent.</p>
     </blockquote>
 
     <dl>
@@ -227,7 +227,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when a certain data volume threshold has been exceeded on the primary network interface.</p>
-        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) when a certain data volume threshold has been exceeded on the primary network interface.</p>
+        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) once a certain data volume threshold has been exceeded on the primary network interface.</p>
     </blockquote>
 
     <dl>
@@ -242,7 +242,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
-        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
+        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) once the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
     </blockquote>
 
 
@@ -487,8 +487,8 @@ $(function() {
     $('#RESTART').click(Restart);
 
     if (typeof swal === "function") { 
-        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
-        $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration and database will be returned to the default state!",type:"warning",html:true,showCancelButton:true}, ResetAll); });
+        $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state, the DVM database will not be wiped!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
+        $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state, the DVM database will be wiped.",type:"warning",html:true,showCancelButton:true}, ResetAll); });
         $('#CLEANDB').click(function(){ swal({title:"Are you sure?",text:"All not currently existing network interfaces and their recorded data volume information will be removed from the database!",type:"warning",html:true,showCancelButton:true}, CleanDB); });
     } else {
         $('#RESETCONF').click(ResetConfig);
