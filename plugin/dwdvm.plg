@@ -9,8 +9,8 @@
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
 <!ENTITY pkgURL    "&gitURL;/packages">
 <!ENTITY plgPATH   "/boot/config/plugins/&name;">
-<!ENTITY plgNAME   "dwdvm-2024.03.09-x86_64-1">
-<!ENTITY plgMD5    "1fb322395e6a3d9a40d757223260cf3c">
+<!ENTITY plgNAME   "dwdvm-2024.03.14-x86_64-1">
+<!ENTITY plgMD5    "f1630c06da7006175a259ee8c23c5514">
 <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
 
