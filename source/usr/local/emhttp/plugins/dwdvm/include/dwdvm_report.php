@@ -133,7 +133,6 @@ function getXMLforInterface($iface)
 
 function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
 {
-    $returnStr = "";
     try {
         if(intval($limit) < 0) {
             return $str;
@@ -152,133 +151,6 @@ function checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
     } catch (Exception $e) { // For PHP 5
         return $str;
     }
-}
-
-function build_report_light()
-{
-    global $dwdvm_hlimit_rx;
-    global $dwdvm_hunit_rx;
-    global $dwdvm_dlimit_rx;
-    global $dwdvm_dunit_rx;
-    global $dwdvm_mlimit_rx;
-    global $dwdvm_munit_rx;
-    global $dwdvm_ylimit_rx;
-    global $dwdvm_yunit_rx;
-    global $dwdvm_hlimit_tx;
-    global $dwdvm_hunit_tx;
-    global $dwdvm_dlimit_tx;
-    global $dwdvm_dunit_tx;
-    global $dwdvm_mlimit_tx;
-    global $dwdvm_munit_tx;
-    global $dwdvm_ylimit_tx;
-    global $dwdvm_yunit_tx;
-    global $dwdvm_primary;
-
-    $returnStr = "";
-    $db_ifaces_array = getInterfaces();
-    
-    if($db_ifaces_array) {
-        foreach($db_ifaces_array as $db_iface) {
-            $xml = getXMLforInterface($db_iface);
-
-            if($xml) {
-                if($db_iface == $dwdvm_primary) {
-                    if(count($db_ifaces_array) > 1) {
-                        $returnStr .= "<tr style='border:2px solid;'>";
-                    } else {
-                        $returnStr .= "<tr>";
-                    }
-                    $returnStr .= "<td>". $db_iface . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
-                } else {
-                    $returnStr .= "<tr>";
-                    $returnStr .= "<td>". $db_iface . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0) . "</td>";
-                }
-            } else {
-                $returnStr .= "<tr>";
-                $returnStr .= "<td>". $db_iface . "</td>";
-                $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interface</em></td>";
-                $returnStr .= "</tr>";
-            }
-        }
-    } else {
-        $returnStr .= "<tr>";
-        $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interfaces</em></td>";
-        $returnStr .= "</tr>";
-    }
-    return $returnStr;
-}
-
-function build_footer() 
-{
-    global $dwdvm_hlimit_rx;
-    global $dwdvm_hunit_rx;
-    global $dwdvm_dlimit_rx;
-    global $dwdvm_dunit_rx;
-    global $dwdvm_mlimit_rx;
-    global $dwdvm_munit_rx;
-    global $dwdvm_ylimit_rx;
-    global $dwdvm_yunit_rx;
-    global $dwdvm_hlimit_tx;
-    global $dwdvm_hunit_tx;
-    global $dwdvm_dlimit_tx;
-    global $dwdvm_dunit_tx;
-    global $dwdvm_mlimit_tx;
-    global $dwdvm_munit_tx;
-    global $dwdvm_ylimit_tx;
-    global $dwdvm_yunit_tx;
-    global $dwdvm_primary;
-    global $dwdvm_footerformat;
-
-    $xml = getXMLforInterface($dwdvm_primary);
-
-    if($xml) {
-        switch ($dwdvm_footerformat) {
-            case '5':
-                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0);
-                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0);
-                break;
-            case 'h':
-                $trafficRx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0));
-                break;
-            case 'd':
-                $trafficRx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0));
-                break;
-            case 'm':
-                $trafficRx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0));
-                break;
-            case 'y':
-                $trafficRx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0));
-                $trafficTx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0));
-                break;
-        }
-    } else {
-        $trafficRx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
-        $trafficTx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
-    }
-    return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
 }
 
 function get_primary_metrics() 
@@ -324,7 +196,6 @@ function get_primary_metrics()
     }
     return $trafficTotal;
 }
-
 
 function build_report() 
 {
@@ -415,6 +286,80 @@ function build_report()
     return $returnStr;
 }
 
+function build_report_light()
+{
+    global $dwdvm_hlimit_rx;
+    global $dwdvm_hunit_rx;
+    global $dwdvm_dlimit_rx;
+    global $dwdvm_dunit_rx;
+    global $dwdvm_mlimit_rx;
+    global $dwdvm_munit_rx;
+    global $dwdvm_ylimit_rx;
+    global $dwdvm_yunit_rx;
+    global $dwdvm_hlimit_tx;
+    global $dwdvm_hunit_tx;
+    global $dwdvm_dlimit_tx;
+    global $dwdvm_dunit_tx;
+    global $dwdvm_mlimit_tx;
+    global $dwdvm_munit_tx;
+    global $dwdvm_ylimit_tx;
+    global $dwdvm_yunit_tx;
+    global $dwdvm_primary;
+
+    $returnStr = "";
+    $db_ifaces_array = getInterfaces();
+    
+    if($db_ifaces_array) {
+        foreach($db_ifaces_array as $db_iface) {
+            $xml = getXMLforInterface($db_iface);
+
+            if($xml) {
+                if($db_iface == $dwdvm_primary) {
+                    if(count($db_ifaces_array) > 1) {
+                        $returnStr .= "<tr style='border:2px solid;'>";
+                    } else {
+                        $returnStr .= "<tr>";
+                    }
+                    $returnStr .= "<td>". $db_iface . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
+                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
+                } else {
+                    $returnStr .= "<tr>";
+                    $returnStr .= "<td>". $db_iface . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0) . "</td>";
+                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0) . "</td>";
+                }
+            } else {
+                $returnStr .= "<tr>";
+                $returnStr .= "<td>". $db_iface . "</td>";
+                $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interface</em></td>";
+                $returnStr .= "</tr>";
+            }
+        }
+    } else {
+        $returnStr .= "<tr>";
+        $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interfaces</em></td>";
+        $returnStr .= "</tr>";
+    }
+    return $returnStr;
+}
+
 function build_dashboard() {
     $returnStr = "";
     $dvm_metrics = [];
@@ -439,6 +384,59 @@ function build_dashboard() {
         $returnStr .= "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
     }
     return $returnStr;
+}
+
+function build_footer() 
+{
+    global $dwdvm_hlimit_rx;
+    global $dwdvm_hunit_rx;
+    global $dwdvm_dlimit_rx;
+    global $dwdvm_dunit_rx;
+    global $dwdvm_mlimit_rx;
+    global $dwdvm_munit_rx;
+    global $dwdvm_ylimit_rx;
+    global $dwdvm_yunit_rx;
+    global $dwdvm_hlimit_tx;
+    global $dwdvm_hunit_tx;
+    global $dwdvm_dlimit_tx;
+    global $dwdvm_dunit_tx;
+    global $dwdvm_mlimit_tx;
+    global $dwdvm_munit_tx;
+    global $dwdvm_ylimit_tx;
+    global $dwdvm_yunit_tx;
+    global $dwdvm_primary;
+    global $dwdvm_footerformat;
+
+    $xml = getXMLforInterface($dwdvm_primary);
+
+    if($xml) {
+        switch ($dwdvm_footerformat) {
+            case '5':
+                $trafficRx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0);
+                $trafficTx = humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0);
+                break;
+            case 'h':
+                $trafficRx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0));
+                break;
+            case 'd':
+                $trafficRx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0));
+                break;
+            case 'm':
+                $trafficRx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0));
+                break;
+            case 'y':
+                $trafficRx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0));
+                $trafficTx = checkAgainstLimits($dwdvm_primary, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0));
+                break;
+        }
+    } else {
+        $trafficRx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+        $trafficTx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+    }
+    return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
 }
 
 function build_dashboard_mini() {
@@ -478,19 +476,19 @@ function build_dashboard_mini() {
 if(!empty($_GET["mode"])) {
     switch($_GET["mode"]) {
         case "report":
-            echo(build_report() ?? "");
+            echo(build_report() ?? "error");
             break;
         case "lightreport":
-            echo(build_report_light() ?? "");
+            echo(build_report_light() ?? "error");
             break;
         case "footer":
-            echo(build_footer() ?? "");
+            echo(build_footer() ?? "error");
             break;
         case "dashboard":
-            echo(build_dashboard() ?? "");
+            echo(build_dashboard() ?? "error");
             break;
         case "dashboardmini":
-            echo(build_dashboard_mini() ?? "");
+            echo(build_dashboard_mini() ?? "error");
             break;
     }
 }
