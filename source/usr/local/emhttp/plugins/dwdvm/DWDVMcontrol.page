@@ -488,7 +488,7 @@ $(function() {
 
     if (typeof swal === "function") { 
         $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state.<br>DVM database <u>will not be wiped</u> of any of its contents!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
-        $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state.<br>DVM database <u>will be wiped</u> of all of its contents.",type:"warning",html:true,showCancelButton:true}, ResetAll); });
+        $('#RESETALL').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state.<br>DVM database <u>will be wiped</u> of all of its contents!",type:"warning",html:true,showCancelButton:true}, ResetAll); });
         $('#CLEANDB').click(function(){ swal({title:"Are you sure?",text:"All not currently existing network interfaces <u>and all their recorded data volume information</u> will be removed from the DVM database!",type:"warning",html:true,showCancelButton:true}, CleanDB); });
     } else {
         $('#RESETCONF').click(ResetConfig);
