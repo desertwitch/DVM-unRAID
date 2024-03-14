@@ -74,12 +74,7 @@ $(function(){
         theme: '<?=($display["theme"] == 'white' || $display["theme"] == 'azure') ? "default" : "dracula";?>',
         mode: 'properties',
         lineNumbers: true,
-        autoRefresh: true,
-        gutters: ['CodeMirror-linenumbers'],
-        extraKeys: {
-            'Ctrl-Space': 'autocomplete'
-        },
-        hintOptions: {}
+        autoRefresh: true
     });
 
     editor.setSize(null, 600);
