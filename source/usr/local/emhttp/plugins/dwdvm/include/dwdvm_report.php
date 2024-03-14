@@ -41,11 +41,25 @@ function humanFileSize($sizeObj,$unit="") {
     }
 }
 
-function isNotVirtualInterface($string) {
+function isPhysicalInterface($string) {
     try {
-        $virt_ifaces = shell_exec("find /sys/class/net/ -type l -lname '*/devices/virtual/net/*' 2>/dev/null");
-        if(strpos($string, "veth") !== false) { return false; }
-        return strpos($virt_ifaces, $string) === false;
+        $phys_ifaces = shell_exec("find /sys/class/net/ -type l ! -lname '*/devices/virtual/net/*' 2>/dev/null");
+        $existing_ifaces = shell_exec("find /sys/class/net/ -type l 2>/dev/null");
+
+        if($phys_ifaces && $existing_ifaces) {
+
+            $phys_ifaces_array = explode(PHP_EOL, trim($phys_ifaces));
+            $existing_ifaces_array = explode(PHP_EOL, trim($existing_ifaces));
+
+            if(strpos($string, "veth") !== false) { return false; }
+            if(!in_array("/sys/class/net/" . $string, $existing_ifaces_array)) {
+                return true; // keep removed interfaces for later removal
+            }
+            
+            return in_array("/sys/class/net/" . $string, $phys_ifaces_array);
+        } else {
+            return true; 
+        }
     } catch (Throwable $e) { // For PHP 7
         return true;
     } catch (Exception $e) { // For PHP 5
@@ -56,7 +70,12 @@ function isNotVirtualInterface($string) {
 function isExistingInterface($string) {
     try {
         $existing_ifaces = shell_exec("find /sys/class/net/ -type l 2>/dev/null");
-        return strpos($existing_ifaces, $string) !== false;
+        if($existing_ifaces) {
+            $existing_ifaces_array = explode(PHP_EOL, trim($existing_ifaces));
+            return in_array("/sys/class/net/" . $string, $existing_ifaces_array);
+        } else {
+            return true;
+        }
     } catch (Throwable $e) { // For PHP 7
         return true;
     } catch (Exception $e) { // For PHP 5
@@ -77,7 +96,7 @@ function getInterfaces()
             preg_match_all($db_ifaces_regex, $db_ifaces_raw, $db_ifaces_matches);
             $db_ifaces = $db_ifaces_matches[1][0];
             $db_ifaces_array = explode(" ", trim($db_ifaces));  
-            if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isNotVirtualInterface'); }
+            if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isPhysicalInterface'); }
             if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isExistingInterface'); }
         } else {
             return false;
