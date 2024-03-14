@@ -61,7 +61,7 @@ Markdown="false"
 
 <script src="<?=autov('/webGui/javascript/jquery.filetree.js');?>"></script>
 <script src="<?=autov('/plugins/dwdvm/js/codemirror.js');?>"></script>
-<script src="<?=autov('/plugins/dwdvm/js/autorefresh.min.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/autorefresh.js');?>"></script>
 <script src="<?=autov('/plugins/dwdvm/js/properties.js');?>"></script>
 
 <script type="text/javascript">
