@@ -35,6 +35,7 @@ Markdown="false"
 <tr><th></th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th></tr>
 </thead>
 <tbody class="dvm_lightreport">
+<tr><td colspan='11'><em>Loading...</em></td></tr>
 </tbody>
 </table>
 </div>
@@ -44,6 +45,7 @@ Markdown="false"
 <table class="tablesorter">
 <thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
 <tbody class="dvm_report">
+<tr><td colspan='7'><em>Loading...</em></td></tr>
 </tbody>
 </table>
 </div>
