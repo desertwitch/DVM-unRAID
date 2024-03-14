@@ -41,14 +41,27 @@ function humanFileSize($sizeObj,$unit="") {
     }
 }
 
-function filterVirts($string) {
-    $virt_ifaces = shell_exec("find /sys/class/net/ -type l -lname '*/devices/virtual/net/*' 2>/dev/null");
-    if(strpos($string, "veth") !== false) { return false; }
-    return strpos($virt_ifaces, $string) === false;
+function isNotVirtualInterface($string) {
+    try {
+        $virt_ifaces = shell_exec("find /sys/class/net/ -type l -lname '*/devices/virtual/net/*' 2>/dev/null");
+        if(strpos($string, "veth") !== false) { return false; }
+        return strpos($virt_ifaces, $string) === false;
+    } catch (Throwable $e) { // For PHP 7
+        return true;
+    } catch (Exception $e) { // For PHP 5
+        return true;
+    }
 }
 
-function filterNonExisting($string) {
-    return is_link("/sys/class/net/$string") === true;
+function isExistingInterface($string) {
+    try {
+        $existing_ifaces = shell_exec("find /sys/class/net/ -type l 2>/dev/null");
+        return strpos($existing_ifaces, $string) !== false;
+    } catch (Throwable $e) { // For PHP 7
+        return true;
+    } catch (Exception $e) { // For PHP 5
+        return true;
+    }
 }
 
 function getInterfaces()
@@ -63,8 +76,8 @@ function getInterfaces()
         preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
         $db_ifaces = $db_ifaces_matches[1][0];
         $db_ifaces_array = explode(" ", trim($db_ifaces));  
-        if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterVirts'); }
-        if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'filterNonExisting'); }
+        if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isNotVirtualInterface'); }
+        if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isExistingInterface'); }
     } catch (Throwable $e) { // For PHP 7
         return false;
     } catch (Exception $e) { // For PHP 5
