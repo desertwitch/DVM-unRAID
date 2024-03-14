@@ -262,7 +262,7 @@ function build_footer()
     return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
 }
 
-function getMetricsForPrimary() 
+function build_primary_metrics() 
 {
     global $dwdvm_primary;
     global $dwdvm_hlimit_rx;
