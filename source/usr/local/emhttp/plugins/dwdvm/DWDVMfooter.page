@@ -81,7 +81,7 @@ $dvm_m = [];
 $dvm_y = []; 
 
 $dvm_mini = build_footer();
-$dvm_metrics = getMetricsForPrimary();
+$dvm_metrics = build_primary_metrics();
 
 if(!$dvm_mini) {
     $dvm_mini = ""; 
@@ -167,7 +167,7 @@ $dvm_m = [];
 $dvm_y = []; 
 
 $dvm_mini = build_footer();
-$dvm_metrics = getMetricsForPrimary();
+$dvm_metrics = build_primary_metrics();
 
 if(!$dvm_mini) {
     $dvm_mini = ""; 
