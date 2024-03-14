@@ -36,7 +36,6 @@ Link="nav-user"
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
 <?if($dwdvm_running && $dwdvm_footer == "enable" && !empty($dwdvm_primary)):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
 <?
 $dvm_footer_descr = "";
 switch ($dwdvm_footerformat) {
