@@ -58,7 +58,7 @@ for i in "${!allLimits[@]}"; do
     else
         echo -n "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
 
-        if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep "Error" >/dev/null 2>&1); then
+        if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
             if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
                 if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                     echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
