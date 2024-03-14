@@ -23,12 +23,12 @@ $plgpath  = '/boot/config/plugins/dwdvm/vnstat/';
 $editfile = realpath($_POST['editfile']);
 $plgfile  = $plgpath.basename($editfile);
 
-if(!strpos($editfile, $base) && file_exists($editfile) && array_key_exists('editdata', $_POST)){
+if(file_exists($editfile) && array_key_exists('editdata', $_POST)) {
     // remove carriage returns
     $editdata = str_replace("\r", '', $_POST['editdata']);
 
     // create directory on flash drive if missing (shouldn't happen)
-    if(! is_dir($plgpath)){
+    if(!is_dir($plgpath)) {
         mkdir($plgpath);
     }
 
@@ -37,14 +37,14 @@ if(!strpos($editfile, $base) && file_exists($editfile) && array_key_exists('edit
 
     // save conf file to local system
     $return_var = file_put_contents($editfile, $editdata);
-}else{
+} else {
     $return_var = false;
 }
 
-if($return_var)
+if($return_var) {
     $return = ['success' => true, 'saved' => $editfile];
-else
+} else {
     $return = ['error' => $editfile];
-
+}
 echo json_encode($return);
 ?>

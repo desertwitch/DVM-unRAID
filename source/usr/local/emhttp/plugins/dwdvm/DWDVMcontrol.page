@@ -426,7 +426,7 @@ Markdown="false"
     </blockquote>
 </form>
 
-<script>
+<script type="text/javascript">
 function checkRUNNING(){
    if ($('#SERVICE').val() === 'enable')
         $('#command').val('/usr/local/emhttp/plugins/dwdvm/scripts/start');

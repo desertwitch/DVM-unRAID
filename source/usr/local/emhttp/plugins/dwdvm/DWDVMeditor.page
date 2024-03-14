@@ -25,15 +25,15 @@ Markdown="false"
  */
 ?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
-<link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/codemirror.min.css');?>">
-<link rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror/dracula.min.css');?>">
+<link type="text/css" rel="stylesheet" href="<?=autov('/webGui/styles/jquery.filetree.css');?>">
+<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror.css');?>">
+<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/dracula.css');?>">
 <style type="text/css">
     .CodeMirror { border: 1px solid #eee; cursor: text; margin-top: 15px; margin-bottom: 10px; }
     .CodeMirror pre.CodeMirror-placeholder { color: #999; }
     .errortext {color: #EF3D47;display: none;}
     .fileTree {color:#486dba;width:305px;max-height:150px;overflow:scroll;position:absolute;z-index:100;display:none;}
 </style>
-<link type="text/css" rel="stylesheet" href="<?=autov('/webGui/styles/jquery.filetree.css');?>">
 
 <span style="float:right;margin-right:10px"><a href="https://humdi.net/vnstat/man/vnstat.conf.html" target="_blank" title="DVM Configuration Manual"><i class="fa fa-file-text-o"></i> <u>Configuration Manual</u></a></span>
 
@@ -59,17 +59,14 @@ Markdown="false"
 </dl>
 </form>
 
-<script src="<?=autov('/plugins/dwdvm/js/codemirror/codemirror.min.js');?>"></script>
-
-<script src="<?=autov('/plugins/dwdvm/js/codemirror/autorefresh.min.js');?>"></script>
-
 <script src="<?=autov('/webGui/javascript/jquery.filetree.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/codemirror.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/autorefresh.min.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/properties.js');?>"></script>
 
-
-<script>
+<script type="text/javascript">
 $(function(){
     $('#btnCancel').click(function() {
-        $.cookie('one', 'tab1', { expires:null, path: '/'});
         location = '/Settings/DWDVMsettings';
     });
 
@@ -86,10 +83,6 @@ $(function(){
     });
 
     editor.setSize(null, 600);
-
-    $('#tab2').click(function () {
-        editor.refresh();
-    });
 
     $('#editfile').fileTreeAttach(null, null, function(file) {
         $('#editfile').val(file);
@@ -110,7 +103,6 @@ $(function(){
         }
     );
 
-    // save config
     $('#btnSubmit').click(function () {
         editor.save();
         $.post('/plugins/dwdvm/include/dwdvm_save.php', $('#editform').serializeArray(), function (data) {
