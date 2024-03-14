@@ -71,10 +71,10 @@ function getInterfaces()
     
     $db_ifaces_array = "";
     try {
-        $db_ifaces_temp = shell_exec("vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null");
-        if($db_ifaces_temp) {
+        $db_ifaces_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null");
+        if($db_ifaces_raw) {
             $db_ifaces_regex = '/Interfaces in database\: (.*)/';
-            preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
+            preg_match_all($db_ifaces_regex, $db_ifaces_raw, $db_ifaces_matches);
             $db_ifaces = $db_ifaces_matches[1][0];
             $db_ifaces_array = explode(" ", trim($db_ifaces));  
             if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isNotVirtualInterface'); }
