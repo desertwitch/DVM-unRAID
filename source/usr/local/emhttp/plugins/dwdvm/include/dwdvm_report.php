@@ -414,4 +414,84 @@ function build_report()
     }
     return $returnStr;
 }
+
+function build_dashboard_mini() {
+    global $dwdvm_primary;
+    global $dwdvm_footerformat;
+
+    $returnStr = "";
+    $dvm_mini_descr = "";
+
+    $dvm_mini = build_footer();
+
+    if($dvm_mini) {  
+        switch ($dwdvm_footerformat) {
+            case '5':
+                $dvm_mini_descr = "Last 5 Minutes:";
+                break;
+            case 'h':
+                $dvm_mini_descr = "Last Hour:";
+                break;
+            case 'd':
+                $dvm_mini_descr = "Last Day:";
+                break;
+            case 'm':
+                $dvm_mini_descr = "Last Month:";
+                break;
+            case 'y':
+                $dvm_mini_descr = "Last Year:";
+                break;
+        }
+        $returnStr .= "$dwdvm_primary / $dvm_mini_descr $dvm_mini";
+    } else {
+        $returnStr = "$dwdvm_primary / $dvm_mini_descr / <i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+    }
+    return $returnStr;
+}
+
+function build_dashboard() {
+    $returnStr = "";
+    $dvm_metrics = [];
+    
+    $dvm_5 = []; 
+    $dvm_h = []; 
+    $dvm_d = []; 
+    $dvm_m = []; 
+    $dvm_y = []; 
+    
+    $dvm_metrics = build_primary_metrics();
+    
+    if($dvm_metrics) {
+        $dvm_5 = $dvm_metrics[0];
+        $dvm_h = $dvm_metrics[1];
+        $dvm_d = $dvm_metrics[2];
+        $dvm_m = $dvm_metrics[3];
+        $dvm_y = $dvm_metrics[4];
+
+        $returnStr .= "{$dvm_5[0]};{$dvm_5[1]};{$dvm_h[0]};{$dvm_h[1]};{$dvm_d[0]};{$dvm_d[1]};{$dvm_m[0]};{$dvm_m[1]};{$dvm_y[0]};{$dvm_y[1]}";
+    } else {
+        $returnStr .= "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+    }
+    return $returnStr;
+}
+
+if(!empty($_GET["mode"])) {
+    switch($_GET["mode"]) {
+        case "report":
+            echo(build_report() ?? "");
+            break;
+        case "lightreport":
+            echo(build_report_light() ?? "");
+            break;
+        case "footer":
+            echo(build_footer() ?? "");
+            break;
+        case "dashboard":
+            echo(build_dashboard() ?? "");
+            break;
+        case "dashboardmini":
+            echo(build_dashboard_mini() ?? "");
+            break;
+    }
+}
 ?>

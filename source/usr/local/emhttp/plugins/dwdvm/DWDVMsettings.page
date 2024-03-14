@@ -34,11 +34,7 @@ Markdown="false"
 <tr><th><strong>Network Interface</strong></th><th colspan="2"><strong>Last 5 Minutes</strong></th><th colspan="2"><strong>Last Hour</strong></th><th colspan="2"><strong>Last Day</strong></th><th colspan="2"><strong>Last Month</strong></th><th colspan="2"><strong>Last Year</strong></th></tr>
 <tr><th></th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th><th>INBOUND (RX)</th><th>OUTBOUND (TX)</th></tr>
 </thead>
-<tbody>
-<?if($dwdvm_running):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
-<?=build_report_light();?>
-<?endif;?>
+<tbody class="dvm_lightreport">
 </tbody>
 </table>
 </div>
@@ -47,17 +43,31 @@ Markdown="false"
 <div> 
 <table class="tablesorter">
 <thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
-<tbody>
-<?if($dwdvm_running):?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_report.php';?>
-<?=build_report();?>
-<?endif;?>
+<tbody class="dvm_report">
 </tbody>
 </table>
 </div>
 
-<script>
+<script type="text/javascript">
+<?if($dwdvm_running):?>
+function getDVMReports() {
+    $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'report'},function(data) {
+        if (data) { $('.dvm_report').html(data); }
+    });
+    $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'lightreport'},function(data) {
+        if (data) { $('.dvm_lightreport').html(data); }
+    });
+    clearTimeout(timers.getDVMReports);
+    timers.getDVMReports = setTimeout(getDVMReports, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
+}
+<?endif;?>
+
 $(function() {
+
+    <?if($dwdvm_running):?>
+    getDVMReports();
+    <?endif;?>
+
     showStatus('vnstatd');
 
     // dynamix plugin update api
@@ -67,5 +77,6 @@ $(function() {
         $('#user-notice').empty();
     });
     <?endif;?>
+
 });
 </script>
