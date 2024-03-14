@@ -426,8 +426,6 @@ Markdown="false"
     </blockquote>
 </form>
 
-<script src="<?=autov('/plugins/dwdvm/js/jquery.mask.min.js');?>"></script>
-
 <script>
 function checkRUNNING(){
    if ($('#SERVICE').val() === 'enable')
