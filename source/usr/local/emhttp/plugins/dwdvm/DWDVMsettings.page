@@ -36,7 +36,7 @@ Markdown="false"
 </thead>
 <tbody class="dvm_lightreport">
 <?if($dwdvm_running):?>
-<tr><td colspan='11'><em>Loading...</em></td></tr>
+<tr><td colspan='11' style="text-align:center"><i class="fa fa-spinner fa-spin"></i> <em>Please wait, retrieving information...</em></td></tr>
 <?endif;?>
 </tbody>
 </table>
@@ -48,7 +48,7 @@ Markdown="false"
 <thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
 <tbody class="dvm_report">
 <?if($dwdvm_running):?>
-<tr><td colspan='7'><em>Loading...</em></td></tr>
+<tr><td colspan='7' style="text-align:center"><i class="fa fa-spinner fa-spin"></i> <em>Please wait, retrieving information...</em></td></tr>
 <?endif;?>
 </tbody>
 </table>
