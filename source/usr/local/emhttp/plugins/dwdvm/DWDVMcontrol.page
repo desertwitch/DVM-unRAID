@@ -444,6 +444,17 @@ function checkRUNNING(){
         $('#CLEANDB').prop('disabled', true);
     }
 }
+function checkLIMITS(){
+    $( "input[name*='LIMIT']" ).each(function( index ) {
+        if($(this).val().trim() === "-1") {
+            $(this).css("opacity", "0.33");
+            $(this).next().css("opacity", "0.33");
+        } else {
+            $(this).css("opacity", "");
+            $(this).next().css("opacity", "");
+        }
+    });
+}
 function Restart(){
     $('#command').val('/usr/local/emhttp/plugins/dwdvm/scripts/restart');
     $('#dwdvm-settings').submit();
@@ -486,8 +497,10 @@ $(function() {
     }
 
     $('#SERVICE').change(checkRUNNING);
+    $( "input[name*='LIMIT']" ).change(checkLIMITS);
 
     checkRUNNING();
+    checkLIMITS();
 
 });
 </script>
