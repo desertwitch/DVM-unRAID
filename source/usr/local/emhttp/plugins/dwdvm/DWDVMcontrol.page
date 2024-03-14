@@ -270,7 +270,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="RXLIMITH" name="RXLIMITH" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
+            <input type="text" class="narrow dvmlimit" id="RXLIMITH" name="RXLIMITH" maxlength="40" value="<?=$dwdvm_hlimit_rx;?>">
             <select id="RXUNITH" name="RXUNITH" size="1">
             <?=mk_option($dwdvm_hunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_hunit_rx, "KB", "KB");?>
@@ -288,7 +288,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="TXLIMITH" name="TXLIMITH" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
+            <input type="text" class="narrow dvmlimit" id="TXLIMITH" name="TXLIMITH" maxlength="40" value="<?=$dwdvm_hlimit_tx;?>">
             <select id="TXUNITH" name="TXUNITH" size="1">
             <?=mk_option($dwdvm_hunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_hunit_tx, "KB", "KB");?>
@@ -306,7 +306,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="RXLIMITD" name="RXLIMITD" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
+            <input type="text" class="narrow dvmlimit" id="RXLIMITD" name="RXLIMITD" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
             <select id="RXUNITD" name="RXUNITD" size="1">
             <?=mk_option($dwdvm_dunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_dunit_rx, "KB", "KB");?>
@@ -324,7 +324,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="TXLIMITD" name="TXLIMITD" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
+            <input type="text" class="narrow dvmlimit" id="TXLIMITD" name="TXLIMITD" maxlength="40" value="<?=$dwdvm_dlimit_tx;?>">
             <select id="TXUNITD" name="TXUNITD" size="1">
             <?=mk_option($dwdvm_dunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_dunit_tx, "KB", "KB");?>
@@ -342,7 +342,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="RXLIMITM" name="RXLIMITM" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
+            <input type="text" class="narrow dvmlimit" id="RXLIMITM" name="RXLIMITM" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
             <select id="RXUNITM" name="RXUNITM" size="1">
             <?=mk_option($dwdvm_munit_rx, "B", "B");?>
             <?=mk_option($dwdvm_munit_rx, "KB", "KB");?>
@@ -360,7 +360,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="TXLIMITM" name="TXLIMITM" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
+            <input type="text" class="narrow dvmlimit" id="TXLIMITM" name="TXLIMITM" maxlength="40" value="<?=$dwdvm_mlimit_tx;?>">
             <select id="TXUNITM" name="TXUNITM" size="1">
             <?=mk_option($dwdvm_munit_tx, "B", "B");?>
             <?=mk_option($dwdvm_munit_tx, "KB", "KB");?>
@@ -378,7 +378,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="RXLIMITY" name="RXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
+            <input type="text" class="narrow dvmlimit" id="RXLIMITY" name="RXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
             <select id="RXUNITY" name="RXUNITY" size="1">
             <?=mk_option($dwdvm_yunit_rx, "B", "B");?>
             <?=mk_option($dwdvm_yunit_rx, "KB", "KB");?>
@@ -396,7 +396,7 @@ Markdown="false"
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
-            <input type="text" class="narrow" id="TXLIMITY" name="TXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
+            <input type="text" class="narrow dvmlimit" id="TXLIMITY" name="TXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
             <select id="TXUNITY" name="TXUNITY" size="1">
             <?=mk_option($dwdvm_yunit_tx, "B", "B");?>
             <?=mk_option($dwdvm_yunit_tx, "KB", "KB");?>
@@ -445,13 +445,13 @@ function checkRUNNING(){
     }
 }
 function checkLIMITS(){
-    $( "input[name*='LIMIT']" ).each(function( index ) {
-        if($(this).val().trim() === "-1") {
-            $(this).css("opacity", "0.33");
-            $(this).next().css("opacity", "0.33");
+    $('.dvmlimit').each(function( index ) {
+        if($(this).val().trim() === '-1') {
+            $(this).css('opacity', '0.33');
+            $(this).next().css('opacity', '0.33');
         } else {
-            $(this).css("opacity", "");
-            $(this).next().css("opacity", "");
+            $(this).css('opacity', '');
+            $(this).next().css('opacity', '');
         }
     });
 }
@@ -497,7 +497,7 @@ $(function() {
     }
 
     $('#SERVICE').change(checkRUNNING);
-    $( "input[name*='LIMIT']" ).change(checkLIMITS);
+    $('.dvmlimit').change(checkLIMITS);
 
     checkRUNNING();
     checkLIMITS();
