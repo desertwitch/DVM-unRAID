@@ -72,12 +72,16 @@ function getInterfaces()
     $db_ifaces_array = "";
     try {
         $db_ifaces_temp = shell_exec("vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null");
-        $db_ifaces_regex = '/Interfaces in database\: (.*)/';
-        preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
-        $db_ifaces = $db_ifaces_matches[1][0];
-        $db_ifaces_array = explode(" ", trim($db_ifaces));  
-        if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isNotVirtualInterface'); }
-        if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isExistingInterface'); }
+        if($db_ifaces_temp) {
+            $db_ifaces_regex = '/Interfaces in database\: (.*)/';
+            preg_match_all($db_ifaces_regex, $db_ifaces_temp, $db_ifaces_matches);
+            $db_ifaces = $db_ifaces_matches[1][0];
+            $db_ifaces_array = explode(" ", trim($db_ifaces));  
+            if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isNotVirtualInterface'); }
+            if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'isExistingInterface'); }
+        } else {
+            return false;
+        }
     } catch (Throwable $e) { // For PHP 7
         return false;
     } catch (Exception $e) { // For PHP 5
@@ -91,8 +95,12 @@ function getXMLforInterface($iface)
     $xml = "";
     try {
         $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null");
-        if(strpos($xml_raw, "xmlversion")) {
-            $xml = new SimpleXMLElement($xml_raw);
+        if($xml_raw) {
+            if(strpos($xml_raw, "xmlversion")) {
+                $xml = new SimpleXMLElement($xml_raw);
+            } else {
+                return false;
+            }
         } else {
             return false;
         }
