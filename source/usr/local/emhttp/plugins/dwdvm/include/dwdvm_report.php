@@ -280,7 +280,7 @@ function build_report()
         }
     } else {
         $returnStr .= "<tr>";
-        $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interfaces</em></td>";
+        $returnStr .= "<td colspan='7'><em>Error Occured While Querying Network Interfaces</em></td>";
         $returnStr .= "</tr>";
     }
     return $returnStr;
