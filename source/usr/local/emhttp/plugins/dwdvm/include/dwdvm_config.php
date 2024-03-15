@@ -70,7 +70,6 @@ $dwdvm_yunit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITYSTOP'])   ? htmlspecialch
 $dwdvm_yunit_tx_start   = trim(isset($dwdvm_cfg['TXUNITYSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTART'])   : 'disable');
 $dwdvm_yunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITYSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTOP'])   : 'disable');
 
-
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));
 
