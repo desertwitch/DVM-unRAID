@@ -268,8 +268,12 @@ Markdown="false"
     <br><hr><br>
 
     <?
-    $dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/null") ?? "";
-    $dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw)) ?? "";
+    $dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/null");
+    if(!empty($dvm_available_raw)) {
+    	$dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw));
+    } else {
+	    $dvm_available_dockers = false;
+    }
     ?>
 
     <dl>
@@ -295,11 +299,11 @@ Markdown="false"
         <dd>
             <select id="RXUNITHSTOP" name="RXUNITHSTOP" size="1">
             <?=mk_option($dwdvm_hunit_rx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="RXUNITHSTART" name="RXUNITHSTART" size="1">
             <?=mk_option($dwdvm_hunit_rx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { echo("hi"); foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { echo("hi"); foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -332,11 +336,11 @@ Markdown="false"
         <dd>
             <select id="TXUNITHSTOP" name="TXUNITHSTOP" size="1">
             <?=mk_option($dwdvm_hunit_tx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="TXUNITHSTART" name="TXUNITHSTART" size="1">
             <?=mk_option($dwdvm_hunit_tx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -369,11 +373,11 @@ Markdown="false"
         <dd>
             <select id="RXUNITDSTOP" name="RXUNITDSTOP" size="1">
             <?=mk_option($dwdvm_dunit_rx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="RXUNITDSTART" name="RXUNITDSTART" size="1">
             <?=mk_option($dwdvm_dunit_rx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -406,11 +410,11 @@ Markdown="false"
         <dd>
             <select id="TXUNITDSTOP" name="TXUNITDSTOP" size="1">
             <?=mk_option($dwdvm_dunit_tx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="TXUNITDSTART" name="TXUNITDSTART" size="1">
             <?=mk_option($dwdvm_dunit_tx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -443,11 +447,11 @@ Markdown="false"
         <dd>
             <select id="RXUNITMSTOP" name="RXUNITMSTOP" size="1">
             <?=mk_option($dwdvm_munit_rx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="RXUNITMSTART" name="RXUNITMSTART" size="1">
             <?=mk_option($dwdvm_munit_rx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -480,11 +484,11 @@ Markdown="false"
         <dd>
             <select id="TXUNITMSTOP" name="TXUNITMSTOP" size="1">
             <?=mk_option($dwdvm_munit_tx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="TXUNITMSTART" name="TXUNITMSTART" size="1">
             <?=mk_option($dwdvm_munit_tx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -517,11 +521,11 @@ Markdown="false"
         <dd>
             <select id="RXUNITYSTOP" name="RXUNITYSTOP" size="1">
             <?=mk_option($dwdvm_yunit_rx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="RXUNITYSTART" name="RXUNITYSTART" size="1">
             <?=mk_option($dwdvm_yunit_rx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -554,11 +558,11 @@ Markdown="false"
         <dd>
             <select id="TXUNITYSTOP" name="TXUNITYSTOP" size="1">
             <?=mk_option($dwdvm_yunit_tx_stop, "disable", "Stop: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
             <select id="TXUNITYSTART" name="TXUNITYSTART" size="1">
             <?=mk_option($dwdvm_yunit_tx_start, "disable", "Start: None");?>
-            <?if(!empty($dvm_available_dockers)) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -604,9 +608,12 @@ function checkLIMITS(){
         if($(this).val().trim() === '-1') {
             $(this).css('opacity', '0.33');
             $(this).next().css('opacity', '0.33');
+            $(this).closest('dl').next().next().find('select').css('opacity', '0.33');
         } else {
             $(this).css('opacity', '');
             $(this).next().css('opacity', '');
+            $(this).closest('select').css('opacity', '');
+            $(this).closest('dl').next().next().find('select').css('opacity', '');
         }
     });
 }
