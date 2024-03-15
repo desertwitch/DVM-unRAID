@@ -24,7 +24,7 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 
 SUBJECT="[${HOST}] DVM (${PRIMARY}):"
 
-if [ ! "$GOODNOTIFY" == "enable" ] && [ ! "$BADNOTIFY" == "enable" ]; then
+if [ ! "$GOODNOTIFY" == "enable" ] && [ ! "$BADNOTIFY" == "enable" ] && [ ! "$GOODACTIONS" == "enable" ] && [ ! "$BADACTIONS" == "enable" ]; then
     echo "DVM all notifications disabled... exiting"
     exit 0
 fi
