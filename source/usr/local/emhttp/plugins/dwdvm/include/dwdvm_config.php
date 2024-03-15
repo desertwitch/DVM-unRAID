@@ -38,21 +38,38 @@ $dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITH'])  ? htmlspecialchars($dwdv
 $dwdvm_hlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITH'])  : '-1');
 $dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['RXUNITH'])   ? htmlspecialchars($dwdvm_cfg['RXUNITH'])   : 'GB');
 $dwdvm_hunit_tx   = trim(isset($dwdvm_cfg['TXUNITH'])   ? htmlspecialchars($dwdvm_cfg['TXUNITH'])   : 'GB');
+$dwdvm_hunit_rx_start   = trim(isset($dwdvm_cfg['RXUNITHSTART'])   ? htmlspecialchars($dwdvm_cfg['RXUNITHSTART'])   : 'disable');
+$dwdvm_hunit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITHSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXUNITHSTOP'])   : 'disable');
+$dwdvm_hunit_tx_start   = trim(isset($dwdvm_cfg['TXUNITHSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITHSTART'])   : 'disable');
+$dwdvm_hunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITHSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITHSTOP'])   : 'disable');
 
 $dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITD'])  : '-1');
 $dwdvm_dlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITD'])  : '-1');
 $dwdvm_dunit_rx   = trim(isset($dwdvm_cfg['RXUNITD'])   ? htmlspecialchars($dwdvm_cfg['RXUNITD'])   : 'GB');
 $dwdvm_dunit_tx   = trim(isset($dwdvm_cfg['TXUNITD'])   ? htmlspecialchars($dwdvm_cfg['TXUNITD'])   : 'GB');
+$dwdvm_dunit_rx_start   = trim(isset($dwdvm_cfg['RXUNITDSTART'])   ? htmlspecialchars($dwdvm_cfg['RXUNITDSTART'])   : 'disable');
+$dwdvm_dunit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITDSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXUNITDSTOP'])   : 'disable');
+$dwdvm_dunit_tx_start   = trim(isset($dwdvm_cfg['TXUNITDSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITDSTART'])   : 'disable');
+$dwdvm_dunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITDSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITDSTOP'])   : 'disable');
 
 $dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITM'])  : '-1');
 $dwdvm_mlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITM'])  : '-1');
 $dwdvm_munit_rx   = trim(isset($dwdvm_cfg['RXUNITM'])   ? htmlspecialchars($dwdvm_cfg['RXUNITM'])   : 'GB');
 $dwdvm_munit_tx   = trim(isset($dwdvm_cfg['TXUNITM'])   ? htmlspecialchars($dwdvm_cfg['TXUNITM'])   : 'GB');
+$dwdvm_munit_rx_start   = trim(isset($dwdvm_cfg['RXUNITMSTART'])   ? htmlspecialchars($dwdvm_cfg['RXUNITMSTART'])   : 'disable');
+$dwdvm_munit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITMSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXUNITMSTOP'])   : 'disable');
+$dwdvm_munit_tx_start   = trim(isset($dwdvm_cfg['TXUNITMSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITMSTART'])   : 'disable');
+$dwdvm_munit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITMSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITMSTOP'])   : 'disable');
 
 $dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['RXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITY'])  : '-1');
 $dwdvm_ylimit_tx  = trim(isset($dwdvm_cfg['TXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITY'])  : '-1');
 $dwdvm_yunit_rx   = trim(isset($dwdvm_cfg['RXUNITY'])   ? htmlspecialchars($dwdvm_cfg['RXUNITY'])   : 'GB');
 $dwdvm_yunit_tx   = trim(isset($dwdvm_cfg['TXUNITY'])   ? htmlspecialchars($dwdvm_cfg['TXUNITY'])   : 'GB');
+$dwdvm_yunit_rx_start   = trim(isset($dwdvm_cfg['RXUNITYSTART'])   ? htmlspecialchars($dwdvm_cfg['RXUNITYSTART'])   : 'disable');
+$dwdvm_yunit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITYSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXUNITYSTOP'])   : 'disable');
+$dwdvm_yunit_tx_start   = trim(isset($dwdvm_cfg['TXUNITYSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTART'])   : 'disable');
+$dwdvm_yunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITYSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTOP'])   : 'disable');
+
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));

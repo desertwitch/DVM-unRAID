@@ -50,6 +50,8 @@ allMetricParameters=("h" "d" "m" "y" "h" "d" "m" "y")
 allMetricModesAlt=("IN" "IN" "IN" "IN" "OUT" "OUT" "OUT" "OUT")
 allBadFunctions=("hour_rx_reached" "day_rx_reached" "month_rx_reached" "year_rx_reached" "hour_tx_reached" "day_tx_reached" "month_tx_reached" "year_tx_reached")
 allGoodFunctions=("hour_rx_normal_again" "day_rx_normal_again" "month_rx_normal_again" "year_rx_normal_again" "hour_tx_normal_again" "day_tx_normal_again" "month_tx_normal_again" "year_tx_normal_again")
+allBadDockers=("$RXUNITHSTOP" "$RXUNITDSTOP" "$RXUNITMSTOP" "$RXUNITYSTOP" "$TXUNITHSTOP" "$TXUNITDSTOP" "$TXUNITMSTOP" "$TXUNITYSTOP")
+allGoodDockers=("$RXUNITHSTART" "$RXUNITDSTART" "$RXUNITMSTART" "$RXUNITYSTART" "$TXUNITHSTART" "$TXUNITDSTART" "$TXUNITMSTART" "$TXUNITYSTART")
 
 for i in "${!allLimits[@]}"; do
     if [ "${allLimits[$i]}" == "-1" ]; then
@@ -63,6 +65,11 @@ for i in "${!allLimits[@]}"; do
                 if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                     echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
                     $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
+                    if [ ! "${allBadDockers[$i]}" == "disable" ]; then
+                        echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
+                        docker stop "${allBadDockers[$i]}" | logger -t "dvm-notify"
+                    fi
+                    echo "Attempting to execute user defined action function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                     ${allBadFunctions[$i]} | logger -t "dvm-user-actions"
                     echo "EXCEEDED (NOTIFIED)"
                 else
@@ -73,6 +80,11 @@ for i in "${!allLimits[@]}"; do
                 if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ]; then
                     echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
                     $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
+                    if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
+                        echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                        docker start "${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                    fi
+                    echo "Attempting to execute user defined action function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                     ${allGoodFunctions[$i]} | logger -t "dvm-user-actions"
                     echo "NOT EXCEEDED (NOTIFIED)"
                 else
