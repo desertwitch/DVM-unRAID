@@ -25,17 +25,22 @@ HOST="$(echo "$HOSTNAME" | awk '{print toupper($0)}')"
 SUBJECT="[${HOST}] DVM (${PRIMARY}):"
 
 if [ ! "$GOODNOTIFY" == "enable" ] && [ ! "$BADNOTIFY" == "enable" ] && [ ! "$GOODACTIONS" == "enable" ] && [ ! "$BADACTIONS" == "enable" ]; then
-    echo "DVM all notifications disabled... exiting"
+    echo "All notifications and user actions are disabled... exiting"
     exit 0
 fi
 
 if ! pgrep -x vnstatd >/dev/null 2>&1; then
-    echo "DVM not running... exiting"
+    echo "DVM service is not running... exiting"
     exit 0
 fi
 
 if ! (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
-    echo "Primary interface not found in database... exiting"
+    echo "Primary interface was not found in the database... exiting"
+    exit 0
+fi
+
+if [ -e "/sys/class/net/${PRIMARY}" ]; then
+    echo "Primary interface was not found among the system's interfaces... exiting"
     exit 0
 fi
 
@@ -55,11 +60,10 @@ allGoodDockers=("$RXUNITHSTART" "$RXUNITDSTART" "$RXUNITMSTART" "$RXUNITYSTART" 
 
 for i in "${!allLimits[@]}"; do
     if [ "${allLimits[$i]}" == "-1" ]; then
-        echo "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... DISABLED (-1)"
+        echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... OK - LIMIT DISABLED (-1)"
         rm -f "/tmp/${allBadFiles[$i]}"
     else
-        echo -n "Checking ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
-
+        echo -n "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
         if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
             if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
                 if [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
@@ -75,9 +79,9 @@ for i in "${!allLimits[@]}"; do
                         echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                         ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     fi
-                    echo "EXCEEDED (FIRST TIME)"
+                    echo "OK - LIMIT EXCEEDED (FIRST TIME)"
                 else
-                    echo "EXCEEDED (REPEAT)"
+                    echo "OK - LIMIT EXCEEDED (REPEAT)"
                 fi
                 touch "/tmp/${allBadFiles[$i]}"
             else
@@ -94,14 +98,14 @@ for i in "${!allLimits[@]}"; do
                         echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                         ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     fi
-                    echo "NOT EXCEEDED (FIRST TIME)"
+                    echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
                 else
-                    echo "NOT EXCEEDED (REPEAT)"
+                    echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
                 fi
                 rm -f "/tmp/${allBadFiles[$i]}"
             fi
         else
-            echo "DATABASE NOT READY"
+            echo "FAILED - DATABASE WAS NOT READY"
         fi
     fi
 done
