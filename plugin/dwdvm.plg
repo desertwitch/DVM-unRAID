@@ -86,7 +86,7 @@ fi
 echo "Determining if DVM service should be started..."
 
 if [ "$SERVICE" == "enable" ]; then
-    echo "Starting DVM service..."
+    echo "Preparing DVM service for startup..."
     /etc/rc.d/rc.vnstat start
 fi
 
