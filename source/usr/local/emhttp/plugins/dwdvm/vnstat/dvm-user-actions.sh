@@ -6,11 +6,16 @@
 # This bash script defines functions which are executed together with DVM notifications
 # It allows to easily execute custom commands whenever DVM sends a data limit notification
 #
-# These actions ONLY EXECUTE when AT LEAST ONE volume-based NOTIFICATION is ENABLED in the GUI
-# These actions follow the same behavior as the notifications - execute once when limit changes
+# The actions ONLY EXECUTE when the RESPECTIVE volume-based NOTIFICATION is also ENABLED
+#
+# REACHED actions only execute when EXCEEDED NOTIFICATIONS are ENABLED in the GUI
+# NORMAL AGAIN actions only execute when RESET NOTIFICATIONS are ENABLED in the GUI
+#
+# These actions follow the same behavior as the notifications - execute ONCE when limit changes
 # Advanced scripting can be done using DVM-CUSTOM-ALARMS.SH (independent from DVM notifications)
 #
-# DO NOT PUT ANY COMMANDS OUTSIDE OF THE ALREADY DEFINED FUNCTIONS
+# DO NOT PUT ANY COMMANDS OR STATEMENTS OUTSIDE OF THE ALREADY DEFINED FUNCTIONS
+# BEWARE THAT FUNCTIONS CANNOT BE EMPTY SO KEEP THE ECHO STATEMENT IN EACH FUNCTION
 #
 # ACTIONS FOR HOURLY VOLUME TRIGGERS
 #
