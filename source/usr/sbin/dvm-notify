@@ -34,16 +34,6 @@ if ! pgrep -x vnstatd >/dev/null 2>&1; then
     exit 0
 fi
 
-if ! (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
-    echo "Primary interface was not found in the database... exiting"
-    exit 0
-fi
-
-if [ -e "/sys/class/net/${PRIMARY}" ]; then
-    echo "Primary interface was not found among the system's interfaces... exiting"
-    exit 0
-fi
-
 allLimits=("$RXLIMITH" "$RXLIMITD" "$RXLIMITM" "$RXLIMITY" "$TXLIMITH" "$TXLIMITD" "$TXLIMITM" "$TXLIMITY")
 allUnits=("$RXUNITH" "$RXUNITD" "$RXUNITM" "$RXUNITY" "$TXUNITH" "$TXUNITD" "$TXUNITM" "$TXUNITY")
 allBadFiles=("dvm_h_bad_rx_notified" "dvm_d_bad_rx_notified" "dvm_m_bad_rx_notified" "dvm_y_bad_rx_notified" "dvm_h_bad_tx_notified" "dvm_d_bad_tx_notified" "dvm_m_bad_tx_notified" "dvm_y_bad_tx_notified")
@@ -58,54 +48,185 @@ allGoodFunctions=("hour_rx_normal_again" "day_rx_normal_again" "month_rx_normal_
 allBadDockers=("$RXUNITHSTOP" "$RXUNITDSTOP" "$RXUNITMSTOP" "$RXUNITYSTOP" "$TXUNITHSTOP" "$TXUNITDSTOP" "$TXUNITMSTOP" "$TXUNITYSTOP")
 allGoodDockers=("$RXUNITHSTART" "$RXUNITDSTART" "$RXUNITMSTART" "$RXUNITYSTART" "$TXUNITHSTART" "$TXUNITDSTART" "$TXUNITMSTART" "$TXUNITYSTART")
 
-for i in "${!allLimits[@]}"; do
-    if [ "${allLimits[$i]}" == "-1" ]; then
-        echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... OK - LIMIT DISABLED (-1)"
-        rm -f "/tmp/${allBadFiles[$i]}"
-    else
-        echo -n "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
-        if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
-            if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
-                if [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
-                    echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
-                    if [ "$BADNOTIFY" == "enable" ]; then
-                        $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
-                    fi
-                    if [ "$BADACTIONS" == "enable" ]; then
-                        if [ ! "${allBadDockers[$i]}" == "disable" ]; then
-                            echo "[${PRIMARY}] DVM: Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
-                            docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
-                        fi
-                        echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
-                        ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
-                    fi
-                    echo "OK - LIMIT EXCEEDED (FIRST TIME)"
-                else
-                    echo "OK - LIMIT EXCEEDED (REPEAT)"
-                fi
-                touch "/tmp/${allBadFiles[$i]}"
-            else
-                if [ -f "/tmp/${allBadFiles[$i]}" ]; then
-                    echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-                    if [ "$GOODNOTIFY" == "enable" ]; then
-                        $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
-                    fi
-                    if [ "$GOODACTIONS" == "enable" ]; then
-                        if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
-                            echo "[${PRIMARY}] DVM: Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
-                            docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
-                        fi
-                        echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
-                        ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
-                    fi
-                    echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
-                else
-                    echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
-                fi
+echo "--- PRIMARY CHECKS ---"
+
+if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
+    if [ -e "/sys/class/net/${PRIMARY}" ]; then
+        for i in "${!allLimits[@]}"; do
+            if [ "${allLimits[$i]}" == "-1" ]; then
+                echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... OK - LIMIT DISABLED (-1)"
                 rm -f "/tmp/${allBadFiles[$i]}"
+            else
+                echo -n "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
+                if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
+                    if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
+                        if [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
+                            echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
+                            if [ "$BADNOTIFY" == "enable" ]; then
+                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
+                            fi
+                            if [ "$BADACTIONS" == "enable" ]; then
+                                if [ ! "${allBadDockers[$i]}" == "disable" ]; then
+                                    echo "[${PRIMARY}] DVM: Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
+                                    docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                                fi
+                                echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
+                                ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                            fi
+                            echo "OK - LIMIT EXCEEDED (FIRST TIME)"
+                        else
+                            echo "OK - LIMIT EXCEEDED (REPEAT)"
+                        fi
+                        touch "/tmp/${allBadFiles[$i]}"
+                    else
+                        if [ -f "/tmp/${allBadFiles[$i]}" ]; then
+                            echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
+                            if [ "$GOODNOTIFY" == "enable" ]; then
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
+                            fi
+                            if [ "$GOODACTIONS" == "enable" ]; then
+                                if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
+                                    echo "[${PRIMARY}] DVM: Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                                    docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                                fi
+                                echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
+                                ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                            fi
+                            echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
+                        else
+                            echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
+                        fi
+                        rm -f "/tmp/${allBadFiles[$i]}"
+                    fi
+                else
+                    echo "FAILED - DATABASE WAS NOT READY"
+                fi
+            fi
+        done
+    else
+        echo "PRIMARY INTERFACE INVALID OR MISSPELLED - SKIPPING PRIMARY CHECKS"
+    fi
+else
+    echo "PRIMARY INTERFACE NOT IN DATABASE - SKIPPING PRIMARY CHECKS"
+fi
+
+echo "--- ADVANCED CHECKS ---"
+
+allCustomInterfaces=("$CUSTOM1INTERFACE" "$CUSTOM2INTERFACE" "$CUSTOM3INTERFACE" "$CUSTOM4INTERFACE" "$CUSTOM5INTERFACE" "$CUSTOM6INTERFACE")
+allCustomModes=("$CUSTOM1MODE" "$CUSTOM2MODE" "$CUSTOM3MODE" "$CUSTOM4MODE" "$CUSTOM5MODE" "$CUSTOM6MODE")
+allCustomTimes=("$CUSTOM1TIME" "$CUSTOM2TIME" "$CUSTOM3TIME" "$CUSTOM4TIME" "$CUSTOM5TIME" "$CUSTOM6TIME")
+allCustomLimits=("$CUSTOM1LIMIT" "$CUSTOM2LIMIT" "$CUSTOM3LIMIT" "$CUSTOM4LIMIT" "$CUSTOM5LIMIT" "$CUSTOM6LIMIT")
+allCustomUnits=("$CUSTOM1UNIT" "$CUSTOM2UNIT" "$CUSTOM3UNIT" "$CUSTOM4UNIT" "$CUSTOM5UNIT" "$CUSTOM6UNIT")
+allCustomStops=("$CUSTOM1STOP" "$CUSTOM2STOP" "$CUSTOM3STOP" "$CUSTOM4STOP" "$CUSTOM5STOP" "$CUSTOM6STOP")
+allCustomStarts=("$CUSTOM1START" "$CUSTOM2START" "$CUSTOM3START" "$CUSTOM4START" "$CUSTOM5START" "$CUSTOM6START")
+allCustomActions=("$CUSTOM1ACTION" "$CUSTOM2ACTION" "$CUSTOM3ACTION" "$CUSTOM4ACTION" "$CUSTOM5ACTION" "$CUSTOM6ACTION")
+
+for i in "${!allCustomInterfaces[@]}"; do
+    UPPERMODE="$(echo "${allCustomModes[$i]}" | awk '{print toupper($0)}')"
+    HUMANTIME="${allCustomTimes[$i]}"
+    case "${allCustomTimes[$i]}" in
+    'h')
+        HUMANTIME="hour"
+        ;;
+    'd')
+        HUMANTIME="day"
+        ;;
+    'm')
+        HUMANTIME="month"
+        ;;
+    'y')
+        HUMANTIME="year"
+        ;;
+    *)
+        HUMANTIME="${allCustomTimes[$i]}"
+        ;;
+    esac
+    HUMANTIMECAPS="${allCustomTimes[$i]}"
+    case "${allCustomTimes[$i]}" in
+    'h')
+        HUMANTIMECAPS="Hour"
+        ;;
+    'd')
+        HUMANTIMECAPS="Day"
+        ;;
+    'm')
+        HUMANTIMECAPS="Month"
+        ;;
+    'y')
+        HUMANTIMECAPS="Year"
+        ;;
+    *)
+        HUMANTIMECAPS="${allCustomTimes[$i]}"
+        ;;
+    esac
+    HUMANMODE="${allCustomModes[$i]}"
+    case "${allCustomModes[$i]}" in
+    'rx')
+        HUMANMODE="IN"
+        ;;
+    'tx')
+        HUMANMODE="OUT"
+        ;;
+    *)
+        HUMANMODE="${allCustomModes[$i]}"
+        ;;
+    esac
+    if [ "${allCustomLimits[$i]}" == "-1" ]; then
+        echo "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... OK - LIMIT DISABLED (-1)"
+        rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+    else
+        echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
+        if [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
+            if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" | grep -i "error" >/dev/null 2>&1); then
+                if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" >/dev/null 2>&1; then
+                    if [ ! -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
+                        echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded." | logger -t "dvm-notify"
+                        if [ "$BADNOTIFY" == "enable" ]; then
+                            $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded." -i "alert"
+                        fi
+                        if [ "$BADACTIONS" == "enable" ]; then
+                            if [ ! "${allCustomStops[$i]}" == "disable" ]; then
+                                echo "[${allCustomInterfaces[$i]}] DVM: Attempting to stop Docker container (as configured by user): ${allCustomStops[$i]}" | logger -t "dvm-notify"
+                                docker stop "${allCustomStops[$i]}" 2>&1 | logger -t "dvm-notify"
+                            fi
+                            if [ ! "${allCustomActions[$i]}" == "disable" ]; then
+                                echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_reached" | logger -t "dvm-notify"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_reached" 2>&1 | logger -t "dvm-user-actions"
+                            fi
+                        fi
+                        echo "OK - LIMIT EXCEEDED (FIRST TIME)"
+                    else
+                        echo "OK - LIMIT EXCEEDED (REPEAT)"
+                    fi
+                    touch "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+                else
+                    if [ -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
+                        echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
+                        if [ "$GOODNOTIFY" == "enable" ]; then
+                            $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is is no longer exceeded." -i "normal"
+                        fi
+                        if [ "$GOODACTIONS" == "enable" ]; then
+                            if [ ! "${allCustomStarts[$i]}" == "disable" ]; then
+                                echo "[${allCustomInterfaces[$i]}] DVM: Attempting to start Docker container (as configured by user): ${allCustomStarts[$i]}" | logger -t "dvm-notify"
+                                docker start "${allCustomStarts[$i]}" 2>&1 | logger -t "dvm-notify"
+                            fi
+                            if [ ! "${allCustomActions[$i]}" == "disable" ]; then
+                                echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_normal_again" | logger -t "dvm-notify"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" 2>&1 | logger -t "dvm-user-actions"
+                            fi
+                        fi
+                        echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
+                    else
+                        echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
+                    fi
+                    rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+                fi
+            else
+                echo "FAILED - DATABASE WAS NOT READY"
             fi
         else
-            echo "FAILED - DATABASE WAS NOT READY"
+            echo "FAILED - INVALID OR MISSPELLED INTERFACE"
         fi
     fi
 done
+
