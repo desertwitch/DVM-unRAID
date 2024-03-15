@@ -639,7 +639,7 @@ Markdown="false"
     <tbody>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM1INTERFACE" name="CUSTOM1INTERFACE" value="<?=$dwdvm_custom1_interface;?>"></input></td>
-    <td><select id="CUSTOM1MODE" name="CUSTOM1MODE" size="1"><?=mk_option($dwdvm_custom1_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom1_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM1MODE" name="CUSTOM1MODE" size="1"><?=mk_option($dwdvm_custom1_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom1_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM1TIME" name="CUSTOM1TIME" size="1"><?=mk_option($dwdvm_custom1_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom1_time, "d", "Last Day");?><?=mk_option($dwdvm_custom1_time, "m", "Last Month");?><?=mk_option($dwdvm_custom1_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM1LIMIT" name="CUSTOM1LIMIT" value="<?=$dwdvm_custom1_limit;?>"></input></td>
     <td><select id="CUSTOM1UNIT" name="CUSTOM1UNIT" size="1"><?=mk_option($dwdvm_custom1_unit, "B", "B");?><?=mk_option($dwdvm_custom1_unit, "KB", "KB");?><?=mk_option($dwdvm_custom1_unit, "MB", "MB");?><?=mk_option($dwdvm_custom1_unit, "GB", "GB");?><?=mk_option($dwdvm_custom1_unit, "TB", "TB");?></select></td>
@@ -649,7 +649,7 @@ Markdown="false"
     </tr>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM2INTERFACE" name="CUSTOM2INTERFACE" value="<?=$dwdvm_custom2_interface;?>"></input></td>
-    <td><select id="CUSTOM2MODE" name="CUSTOM2MODE" size="1"><?=mk_option($dwdvm_custom2_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom2_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM2MODE" name="CUSTOM2MODE" size="1"><?=mk_option($dwdvm_custom2_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom2_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM2TIME" name="CUSTOM2TIME" size="1"><?=mk_option($dwdvm_custom2_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom2_time, "d", "Last Day");?><?=mk_option($dwdvm_custom2_time, "m", "Last Month");?><?=mk_option($dwdvm_custom2_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM2LIMIT" name="CUSTOM2LIMIT" value="<?=$dwdvm_custom2_limit;?>"></input></td>
     <td><select id="CUSTOM2UNIT" name="CUSTOM2UNIT" size="1"><?=mk_option($dwdvm_custom2_unit, "B", "B");?><?=mk_option($dwdvm_custom2_unit, "KB", "KB");?><?=mk_option($dwdvm_custom2_unit, "MB", "MB");?><?=mk_option($dwdvm_custom2_unit, "GB", "GB");?><?=mk_option($dwdvm_custom2_unit, "TB", "TB");?></select></td>
@@ -659,7 +659,7 @@ Markdown="false"
     </tr>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM3INTERFACE" name="CUSTOM3INTERFACE" value="<?=$dwdvm_custom3_interface;?>"></input></td>
-    <td><select id="CUSTOM3MODE" name="CUSTOM3MODE" size="1"><?=mk_option($dwdvm_custom3_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom3_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM3MODE" name="CUSTOM3MODE" size="1"><?=mk_option($dwdvm_custom3_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom3_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM3TIME" name="CUSTOM3TIME" size="1"><?=mk_option($dwdvm_custom3_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom3_time, "d", "Last Day");?><?=mk_option($dwdvm_custom3_time, "m", "Last Month");?><?=mk_option($dwdvm_custom3_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM3LIMIT" name="CUSTOM3LIMIT" value="<?=$dwdvm_custom3_limit;?>"></input></td>
     <td><select id="CUSTOM3UNIT" name="CUSTOM3UNIT" size="1"><?=mk_option($dwdvm_custom3_unit, "B", "B");?><?=mk_option($dwdvm_custom3_unit, "KB", "KB");?><?=mk_option($dwdvm_custom3_unit, "MB", "MB");?><?=mk_option($dwdvm_custom3_unit, "GB", "GB");?><?=mk_option($dwdvm_custom3_unit, "TB", "TB");?></select></td>
@@ -669,7 +669,7 @@ Markdown="false"
     </tr>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM4INTERFACE" name="CUSTOM4INTERFACE" value="<?=$dwdvm_custom4_interface;?>"></input></td>
-    <td><select id="CUSTOM4MODE" name="CUSTOM4MODE" size="1"><?=mk_option($dwdvm_custom4_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom4_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM4MODE" name="CUSTOM4MODE" size="1"><?=mk_option($dwdvm_custom4_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom4_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM4TIME" name="CUSTOM4TIME" size="1"><?=mk_option($dwdvm_custom4_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom4_time, "d", "Last Day");?><?=mk_option($dwdvm_custom4_time, "m", "Last Month");?><?=mk_option($dwdvm_custom4_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM4LIMIT" name="CUSTOM4LIMIT" value="<?=$dwdvm_custom4_limit;?>"></input></td>
     <td><select id="CUSTOM4UNIT" name="CUSTOM4UNIT" size="1"><?=mk_option($dwdvm_custom4_unit, "B", "B");?><?=mk_option($dwdvm_custom4_unit, "KB", "KB");?><?=mk_option($dwdvm_custom4_unit, "MB", "MB");?><?=mk_option($dwdvm_custom4_unit, "GB", "GB");?><?=mk_option($dwdvm_custom4_unit, "TB", "TB");?></select></td>
@@ -679,7 +679,7 @@ Markdown="false"
     </tr>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM5INTERFACE" name="CUSTOM5INTERFACE" value="<?=$dwdvm_custom5_interface;?>"></input></td>
-    <td><select id="CUSTOM5MODE" name="CUSTOM5MODE" size="1"><?=mk_option($dwdvm_custom5_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom5_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM5MODE" name="CUSTOM5MODE" size="1"><?=mk_option($dwdvm_custom5_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom5_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM5TIME" name="CUSTOM5TIME" size="1"><?=mk_option($dwdvm_custom5_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom5_time, "d", "Last Day");?><?=mk_option($dwdvm_custom5_time, "m", "Last Month");?><?=mk_option($dwdvm_custom5_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM5LIMIT" name="CUSTOM5LIMIT" value="<?=$dwdvm_custom5_limit;?>"></input></td>
     <td><select id="CUSTOM5UNIT" name="CUSTOM5UNIT" size="1"><?=mk_option($dwdvm_custom5_unit, "B", "B");?><?=mk_option($dwdvm_custom5_unit, "KB", "KB");?><?=mk_option($dwdvm_custom5_unit, "MB", "MB");?><?=mk_option($dwdvm_custom5_unit, "GB", "GB");?><?=mk_option($dwdvm_custom5_unit, "TB", "TB");?></select></td>
@@ -689,7 +689,7 @@ Markdown="false"
     </tr>
     <tr>
     <td><input type="text" class="narrow" id="CUSTOM6INTERFACE" name="CUSTOM6INTERFACE" value="<?=$dwdvm_custom6_interface;?>"></input></td>
-    <td><select id="CUSTOM6MODE" name="CUSTOM6MODE" size="1"><?=mk_option($dwdvm_custom6_mode, "rx", "Inbound");?><?=mk_option($dwdvm_custom6_mode, "tx", "Outbound");?></select></td>
+    <td><select id="CUSTOM6MODE" name="CUSTOM6MODE" size="1"><?=mk_option($dwdvm_custom6_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom6_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM6TIME" name="CUSTOM6TIME" size="1"><?=mk_option($dwdvm_custom6_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom6_time, "d", "Last Day");?><?=mk_option($dwdvm_custom6_time, "m", "Last Month");?><?=mk_option($dwdvm_custom6_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM6LIMIT" name="CUSTOM6LIMIT" value="<?=$dwdvm_custom6_limit;?>"></input></td>
     <td><select id="CUSTOM6UNIT" name="CUSTOM6UNIT" size="1"><?=mk_option($dwdvm_custom6_unit, "B", "B");?><?=mk_option($dwdvm_custom6_unit, "KB", "KB");?><?=mk_option($dwdvm_custom6_unit, "MB", "MB");?><?=mk_option($dwdvm_custom6_unit, "GB", "GB");?><?=mk_option($dwdvm_custom6_unit, "TB", "TB");?></select></td>
