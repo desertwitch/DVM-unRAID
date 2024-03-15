@@ -294,7 +294,7 @@ Markdown="false"
     <br><hr><br>
 
     <div>
-    <span class="left"><i class="icon fa fa-bullhorn"></i> Data Volume Thresholds and User Actions </span>
+    <span class="left"><i class="icon fa fa-bullhorn"></i> Primary Volume Thresholds and User Actions </span>
     </div><br>
 
     <?
@@ -630,7 +630,7 @@ Markdown="false"
     <br><hr><br>
 
     <div>
-    <span class="left"><i class="icon fa fa-bullhorn"></i> Advanced Data Volume Thresholds and User Actions </span>
+    <span class="left"><i class="icon fa fa-bullhorn"></i> Advanced Volume Thresholds and User Actions </span>
     </div><br>
 
     <div> 
