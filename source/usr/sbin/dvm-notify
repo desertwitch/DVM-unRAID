@@ -69,10 +69,10 @@ for i in "${!allLimits[@]}"; do
                     fi
                     if [ "$BADACTIONS" == "enable" ]; then
                         if [ ! "${allBadDockers[$i]}" == "disable" ]; then
-                            echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
+                            echo "[${PRIMARY}] DVM: Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
                             docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                         fi
-                        echo "Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
+                        echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                         ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     fi
                     echo "EXCEEDED (FIRST TIME)"
@@ -88,10 +88,10 @@ for i in "${!allLimits[@]}"; do
                     fi
                     if [ "$GOODACTIONS" == "enable" ]; then
                         if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
-                            echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                            echo "[${PRIMARY}] DVM: Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
                             docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                         fi
-                        echo "Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
+                        echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                         ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     fi
                     echo "NOT EXCEEDED (FIRST TIME)"
