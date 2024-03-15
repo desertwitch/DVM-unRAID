@@ -273,6 +273,7 @@ Markdown="false"
 
     <?
     $dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/null");
+    $dvm_available_dockers = false;
     if(!empty($dvm_available_raw)) {
     	$dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw));
     } else {
