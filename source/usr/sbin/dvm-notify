@@ -71,7 +71,7 @@ if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIM
                                     docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                                 fi
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
-                                ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                                ${allBadFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME)"
                         else
@@ -90,7 +90,7 @@ if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIM
                                     docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                                 fi
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
-                                ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                                ${allGoodFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME)"
                         else
@@ -191,7 +191,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                             fi
                             if [ ! "${allCustomActions[$i]}" == "disable" ]; then
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_reached" | logger -t "dvm-notify"
-                                eval "${HUMANTIME}_${allCustomModes[$i]}_reached" 2>&1 | logger -t "dvm-user-actions"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_reached" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
                             fi
                         fi
                         echo "OK (LIMIT EXCEEDED - FIRST TIME)"
@@ -212,7 +212,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                             fi
                             if [ ! "${allCustomActions[$i]}" == "disable" ]; then
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_normal_again" | logger -t "dvm-notify"
-                                eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" 2>&1 | logger -t "dvm-user-actions"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
                             fi
                         fi
                         echo "OK (LIMIT NOT EXCEEDED - FIRST TIME)"

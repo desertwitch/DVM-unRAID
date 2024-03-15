@@ -14,31 +14,33 @@
 # These actions follow the same behavior as the notifications - execute ONCE when limit changes
 # Advanced scripting can be done using DVM-CUSTOM-ALARMS.SH (independent from DVM user actions)
 #
+# For your convenience, the network interface which triggered the function call is passed as $1
+#
 # DO NOT PUT ANY COMMANDS OR STATEMENTS OUTSIDE OF THE ALREADY DEFINED FUNCTIONS
 # BEWARE THAT FUNCTIONS CANNOT BE EMPTY SO KEEP THE ECHO STATEMENT IN EACH FUNCTION
 #
 # ACTIONS FOR HOURLY VOLUME TRIGGERS
 #
 hour_rx_reached () {
-    echo "DVM user actions for hour_rx_reached are now executing..."
+    echo "[$1] DVM: hour_rx_reached user actions are now executing..."
     # Put commands to run when the PER HOUR threshold for INBOUND has been EXCEEDED inside this function
 
 
 }
 hour_rx_normal_again () {
-    echo "DVM user actions for hour_rx_normal_again are now executing..."
+    echo "[$1] DVM: hour_rx_normal_again user actions are now executing..."
     # Put commands to run when the PER HOUR threshold for INBOUND is back to NORMAL inside this function
 
 
 }
 hour_tx_reached () {
-    echo "DVM user actions for hour_tx_reached are now executing..."
+    echo "[$1] DVM: hour_tx_reached user actions are now executing..."
     # Put commands to run when the PER HOUR threshold for OUTBOUND has been EXCEEDED inside this function
 
 
 }
 hour_tx_normal_again () {
-    echo "DVM user actions for hour_tx_normal_again are now executing..."
+    echo "[$1] DVM: hour_tx_normal_again user actions are now executing..."
     # Put commands to run when the PER HOUR threshold for OUTBOUND is back to NORMAL inside this function
 
 
@@ -47,25 +49,25 @@ hour_tx_normal_again () {
 # ACTIONS FOR DAILY VOLUME TRIGGERS
 #
 day_rx_reached () {
-    echo "DVM user actions for day_rx_reached are now executing..."
+    echo "[$1] DVM: day_rx_reached user actions are now executing..."
     # Put commands to run when the PER DAY threshold for INBOUND has been EXCEEDED inside this function
 
 
 }
 day_rx_normal_again () {
-    echo "DVM user actions for day_rx_normal_again are now executing..."
+    echo "[$1] DVM: day_rx_normal_again user actions are now executing..."
     # Put commands to run when the PER DAY threshold for INBOUND is back to NORMAL inside this function
 
 
 }
 day_tx_reached () {
-    echo "DVM user actions for day_tx_reached are now executing..."
+    echo "[$1] DVM: day_tx_reached user actions are now executing..."
     # Put commands to run when the PER DAY threshold for OUTBOUND has been EXCEEDED inside this function
 
 
 }
 day_tx_normal_again () {
-    echo "DVM user actions for day_tx_normal_again are now executing..."
+    echo "[$1] DVM: day_tx_normal_again user actions are now executing..."
     # Put commands to run when the PER DAY threshold for OUTBOUND is back to NORMAL inside this function
 
 
@@ -74,25 +76,25 @@ day_tx_normal_again () {
 # ACTIONS FOR MONTHLY VOLUME TRIGGERS
 #
 month_rx_reached () {
-    echo "DVM user actions for month_rx_reached are now executing..."
+    echo "[$1] DVM: month_rx_reached user actions are now executing..."
     # Put commands to run when the PER MONTH threshold for INBOUND has been EXCEEDED inside this function
 
 
 }
 month_rx_normal_again () {
-    echo "DVM user actions for month_rx_normal_again are now executing..."
+    echo "[$1] DVM: month_rx_normal_again user actions are now executing..."
     # Put commands to run when the PER MONTH threshold for INBOUND is back to NORMAL inside this function
 
 
 }
 month_tx_reached () {
-    echo "DVM user actions for month_tx_reached are now executing..."
+    echo "[$1] DVM: month_tx_reached user actions are now executing..."
     # Put commands to run when the PER MONTH threshold for OUTBOUND has been EXCEEDED inside this function
 
 
 }
 month_tx_normal_again () {
-    echo "DVM user actions for month_tx_normal_again are now executing..."
+    echo "[$1] DVM: month_tx_normal_again user actions are now executing..."
     # Put commands to run when the PER MONTH threshold for OUTBOUND is back to NORMAL inside this function
 
 
@@ -101,25 +103,25 @@ month_tx_normal_again () {
 # ACTIONS FOR YEARLY VOLUME TRIGGERS
 #
 year_rx_reached () {
-    echo "DVM user actions for year_rx_reached are now executing..."
+    echo "[$1] DVM: year_rx_reached user actions are now executing..."
     # Put commands to run when the PER YEAR threshold for INBOUND has been EXCEEDED inside this function
 
 
 }
 year_rx_normal_again () {
-    echo "DVM user actions for year_rx_normal_again are now executing..."
+    echo "[$1] DVM: year_rx_normal_again user actions are now executing..."
     # Put commands to run when the PER YEAR threshold for INBOUND is back to NORMAL inside this function
 
 
 }
 year_tx_reached () {
-    echo "DVM user actions for year_tx_reached are now executing..."
+    echo "[$1] DVM: year_tx_reached user actions are now executing..."
     # Put commands to run when the PER YEAR threshold for OUTBOUND has been EXCEEDED inside this function
 
 
 }
 year_tx_normal_again () {
-    echo "DVM user actions for year_tx_normal_again are now executing..."
+    echo "[$1] DVM: year_tx_normal_again user actions are now executing..."
     # Put commands to run when the PER YEAR threshold for OUTBOUND is back to NORMAL inside this function
 
 
