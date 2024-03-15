@@ -51,7 +51,7 @@ function isPhysicalInterface($string) {
             $phys_ifaces_array = explode(PHP_EOL, trim($phys_ifaces));
             $existing_ifaces_array = explode(PHP_EOL, trim($existing_ifaces));
 
-            if(strpos($string, "veth") !== false) { return false; }
+            if(substr($string, 0, 4) == "veth") { return false; }
             if(!in_array("/sys/class/net/" . $string, $existing_ifaces_array)) {
                 return true; // keep removed interfaces for later removal
             }
