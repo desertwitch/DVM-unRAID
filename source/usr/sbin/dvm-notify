@@ -73,9 +73,9 @@ if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIM
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                                 ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                             fi
-                            echo "OK - LIMIT EXCEEDED (FIRST TIME)"
+                            echo "OK (LIMIT EXCEEDED - FIRST TIME)"
                         else
-                            echo "OK - LIMIT EXCEEDED (REPEAT)"
+                            echo "OK (LIMIT EXCEEDED - REPEAT)"
                         fi
                         touch "/tmp/${allBadFiles[$i]}"
                     else
@@ -92,14 +92,14 @@ if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIM
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                                 ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                             fi
-                            echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
+                            echo "OK (LIMIT NOT EXCEEDED - FIRST TIME)"
                         else
-                            echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
+                            echo "OK (LIMIT NOT EXCEEDED - REPEAT)"
                         fi
                         rm -f "/tmp/${allBadFiles[$i]}"
                     fi
                 else
-                    echo "FAILED - DATABASE WAS NOT READY"
+                    echo "FAILED (DATABASE WAS NOT READY)"
                 fi
             fi
         done
@@ -194,9 +194,9 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 eval "${HUMANTIME}_${allCustomModes[$i]}_reached" 2>&1 | logger -t "dvm-user-actions"
                             fi
                         fi
-                        echo "OK - LIMIT EXCEEDED (FIRST TIME)"
+                        echo "OK (LIMIT EXCEEDED - FIRST TIME)"
                     else
-                        echo "OK - LIMIT EXCEEDED (REPEAT)"
+                        echo "OK (LIMIT EXCEEDED - REPEAT)"
                     fi
                     touch "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
                 else
@@ -215,17 +215,17 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" 2>&1 | logger -t "dvm-user-actions"
                             fi
                         fi
-                        echo "OK - LIMIT NOT EXCEEDED (FIRST TIME)"
+                        echo "OK (LIMIT NOT EXCEEDED - FIRST TIME)"
                     else
-                        echo "OK - LIMIT NOT EXCEEDED (REPEAT)"
+                        echo "OK (LIMIT NOT EXCEEDED - REPEAT)"
                     fi
                     rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
                 fi
             else
-                echo "FAILED - DATABASE WAS NOT READY"
+                echo "FAILED (DATABASE WAS NOT READY)"
             fi
         else
-            echo "FAILED - INVALID OR MISSPELLED INTERFACE"
+            echo "FAILED (INVALID OR MISSPELLED INTERFACE)"
         fi
     fi
 done
