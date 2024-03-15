@@ -75,6 +75,6 @@ $dwdvm_yunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITYSTOP'])   ? htmlspecialch
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null"));
-$dwdvm_support_link = trim(implode(PHP_EOL, shell_exec("plugin support /boot/config/plugins/dwdvm.plg")));
+$dwdvm_support_link = trim(shell_exec("plugin support /boot/config/plugins/dwdvm.plg"));
 
 ?>
