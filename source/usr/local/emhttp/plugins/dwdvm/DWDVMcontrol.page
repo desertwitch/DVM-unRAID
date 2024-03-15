@@ -112,7 +112,7 @@ Markdown="false"
     <input type="hidden" id="command2" name="#command" value="/usr/local/emhttp/plugins/dwdvm/scripts/write_config" />
 
     <dl>
-        <dt>Primary Network Interface:</dt>
+        <dt><strong>Primary Network Interface:</strong></dt>
         <dd>
             <input type="text" class="narrow" id="PRIMARY" name="PRIMARY" maxlength="40" value="<?=$dwdvm_primary;?>">
         </dd>
@@ -216,7 +216,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Data Volume Exceeded Notifications and Actions:</dt>
+        <dt><strong>Data Volume <u>Exceeded</u> Notifications and Actions:</strong></dt>
         <dd>
             <select id="BADNOTIFY" name="BADNOTIFY" size="1">
                 <?=mk_option($dwdvm_bad_notify, "disable", "No");?>
@@ -231,7 +231,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt>Data Volume Reset Notifications and Actions:</dt>
+        <dt><strong>Data Volume <u>Reset</u> Notifications and Actions:</strong></dt>
         <dd>
             <select id="GOODNOTIFY" name="GOODNOTIFY" size="1">
                 <?=mk_option($dwdvm_good_notify, "disable", "No");?>
