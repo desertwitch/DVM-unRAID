@@ -67,10 +67,10 @@ for i in "${!allLimits[@]}"; do
                     $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
                     if [ ! "${allBadDockers[$i]}" == "disable" ]; then
                         echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
-                        docker stop "${allBadDockers[$i]}" | logger -t "dvm-notify"
+                        docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                     fi
                     echo "Attempting to execute user defined action function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
-                    ${allBadFunctions[$i]} | logger -t "dvm-user-actions"
+                    ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     echo "EXCEEDED (NOTIFIED)"
                 else
                     echo "EXCEEDED (QUIET)"
@@ -82,10 +82,10 @@ for i in "${!allLimits[@]}"; do
                     $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
                     if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
                         echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
-                        docker start "${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                        docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                     fi
                     echo "Attempting to execute user defined action function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
-                    ${allGoodFunctions[$i]} | logger -t "dvm-user-actions"
+                    ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     echo "NOT EXCEEDED (NOTIFIED)"
                 else
                     echo "NOT EXCEEDED (QUIET)"
