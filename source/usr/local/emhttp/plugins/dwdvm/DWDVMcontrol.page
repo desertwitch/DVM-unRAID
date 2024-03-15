@@ -701,6 +701,11 @@ Markdown="false"
     </table>
     </div>
 
+    <blockquote class="inline_help">
+    <p>This settings table allows you to configure more advanced thresholds and user actions for multiple network interfaces.</p>
+    <p>For your convenience, a setting to override the execution of the <strong>dvm-user-actions.sh</strong> script is available, if the user actions functions should not be executed on all network interfaces.</p>
+    </blockquote>
+
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
