@@ -62,33 +62,41 @@ for i in "${!allLimits[@]}"; do
 
         if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
             if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
-                if [ "$BADNOTIFY" == "enable" ] && [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
+                if [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
                     echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." | logger -t "dvm-notify"
-                    $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
-                    if [ ! "${allBadDockers[$i]}" == "disable" ]; then
-                        echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
-                        docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                    if [ "$BADNOTIFY" == "enable" ]; then
+                        $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded." -i "alert"
                     fi
-                    echo "Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
-                    ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
-                    echo "EXCEEDED (NOTIFIED)"
+                    if [ "$BADACTIONS" == "enable" ]; then
+                        if [ ! "${allBadDockers[$i]}" == "disable" ]; then
+                            echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
+                            docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                        fi
+                        echo "Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
+                        ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                    fi
+                    echo "EXCEEDED (FIRST TIME)"
                 else
-                    echo "EXCEEDED (QUIET)"
+                    echo "EXCEEDED (REPEAT)"
                 fi
                 touch "/tmp/${allBadFiles[$i]}"
             else
-                if [ "$GOODNOTIFY" == "enable" ] && [ -f "/tmp/${allBadFiles[$i]}" ]; then
+                if [ -f "/tmp/${allBadFiles[$i]}" ]; then
                     echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
-                    $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
-                    if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
-                        echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
-                        docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                    if [ "$GOODNOTIFY" == "enable" ]; then
+                        $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." -i "normal"
                     fi
-                    echo "Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
-                    ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
-                    echo "NOT EXCEEDED (NOTIFIED)"
+                    if [ "$GOODACTIONS" == "enable" ]; then
+                        if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
+                            echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
+                            docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
+                        fi
+                        echo "Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
+                        ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
+                    fi
+                    echo "NOT EXCEEDED (FIRST TIME)"
                 else
-                    echo "NOT EXCEEDED (QUIET)"
+                    echo "NOT EXCEEDED (REPEAT)"
                 fi
                 rm -f "/tmp/${allBadFiles[$i]}"
             fi

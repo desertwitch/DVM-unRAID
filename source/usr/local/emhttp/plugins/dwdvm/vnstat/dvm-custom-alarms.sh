@@ -7,7 +7,7 @@
 # If not needed DVM-USER-ACTIONS.SH provides easier and more ready to use functions
 #
 # This bash script is run periodically as a cronjob when enabled in the GUI settings
-# It operates independently from the notification settings and also DVM-USER-ACTIONS.SH
+# It operates independently from the user action settings and also DVM-USER-ACTIONS.SH
 #
 # Please keep the below line to ensure that the script is only executed when DVM is running:
 if ! pgrep -x vnstatd >/dev/null 2>&1; then exit 0; fi

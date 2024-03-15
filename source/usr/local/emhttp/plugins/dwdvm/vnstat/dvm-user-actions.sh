@@ -3,16 +3,16 @@
 # DO NOT TOUCH THIS FILE IF YOU DO NOT KNOW WHAT YOU ARE DOING
 # ESPECIALLY DO NOT TOUCH THIS FILE IF YOU HAVE NEVER USED A LINUX TERMINAL
 #
-# This bash script defines functions which are executed together with DVM notifications
-# It allows to easily execute custom commands whenever DVM sends a data limit notification
+# This bash script defines functions which are executed when set DVM limits are triggered
+# It allows to easily execute custom commands whenever DVM exceeds or resets such a data limit
 #
-# The actions ONLY EXECUTE when the RESPECTIVE volume-based NOTIFICATION is also ENABLED
+# The actions ONLY EXECUTE when the RESPECTIVE volume-based USER ACTIONS are also ENABLED
 #
-# REACHED actions only execute when EXCEEDED NOTIFICATIONS are ENABLED in the GUI
-# NORMAL AGAIN actions only execute when RESET NOTIFICATIONS are ENABLED in the GUI
+# REACHED actions only execute when EXCEEDED USER ACTIONS are ENABLED in the GUI
+# NORMAL AGAIN actions only execute when RESET USER ACTIONS are ENABLED in the GUI
 #
 # These actions follow the same behavior as the notifications - execute ONCE when limit changes
-# Advanced scripting can be done using DVM-CUSTOM-ALARMS.SH (independent from DVM notifications)
+# Advanced scripting can be done using DVM-CUSTOM-ALARMS.SH (independent from DVM user actions)
 #
 # DO NOT PUT ANY COMMANDS OR STATEMENTS OUTSIDE OF THE ALREADY DEFINED FUNCTIONS
 # BEWARE THAT FUNCTIONS CANNOT BE EMPTY SO KEEP THE ECHO STATEMENT IN EACH FUNCTION

@@ -120,7 +120,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls what network interface is used for the data volume metrics shown in the dashboard and footer.</p>
-        <p>It is also the network interface that is used for the data volume notifications and user defined actions.</p>
+        <p>It is also the network interface that is used for the data volume notifications and user actions.</p>
     </blockquote>
 
     <dl>
@@ -216,7 +216,7 @@ Markdown="false"
     </blockquote>
 
     <dl>
-        <dt><strong>Data Volume <u>Exceeded</u> Notifications and Actions:</strong></dt>
+        <dt><strong>Data Volume <u>Exceeded</u> Notifications:</strong></dt>
         <dd>
             <select id="BADNOTIFY" name="BADNOTIFY" size="1">
                 <?=mk_option($dwdvm_bad_notify, "disable", "No");?>
@@ -227,11 +227,10 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when a certain data volume threshold has been exceeded on the primary network interface.</p>
-        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) once a certain data volume threshold has been exceeded on the primary network interface.</p>
     </blockquote>
 
     <dl>
-        <dt><strong>Data Volume <u>Reset</u> Notifications and Actions:</strong></dt>
+        <dt><strong>Data Volume <u>Reset</u> Notifications:</strong></dt>
         <dd>
             <select id="GOODNOTIFY" name="GOODNOTIFY" size="1">
                 <?=mk_option($dwdvm_good_notify, "disable", "No");?>
@@ -242,7 +241,34 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting will enable notifications when the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
-        <p>This setting will enable and execute user defined actions (when configured inside <strong>dvm-user-actions.sh</strong>) once the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
+    </blockquote>
+
+    <dl>
+        <dt><strong>Data Volume <u>Exceeded</u> User Actions:</strong></dt>
+        <dd>
+            <select id="BADACTIONS" name="BADACTIONS" size="1">
+                <?=mk_option($dwdvm_bad_actions, "disable", "No");?>
+                <?=mk_option($dwdvm_bad_actions, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting will enable and execute user actions (below Docker settings or configured inside <strong>dvm-user-actions.sh</strong>) once a certain data volume threshold has been exceeded on the primary network interface.</p>
+    </blockquote>
+
+    <dl>
+        <dt><strong>Data Volume <u>Reset</u> User Actions:</strong></dt>
+        <dd>
+            <select id="GOODACTIONS" name="GOODACTIONS" size="1">
+                <?=mk_option($dwdvm_good_actions, "disable", "No");?>
+                <?=mk_option($dwdvm_good_actions, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting will enable and execute user actions (below Docker settings or configured inside <strong>dvm-user-actions.sh</strong>) once the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
     </blockquote>
 
 
@@ -262,7 +288,7 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls how often the custom alarms script (contents of <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
-        <p>This script is for advanced users and operates independently from the notifications, data limits and user defined actions configured above and below.</p>
+        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured above and below.</p>
     </blockquote>
 
     <br><hr><br>
@@ -296,8 +322,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last hour inbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last hour inbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -317,7 +343,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last hour inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last hour inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -336,8 +362,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last hour outbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last hour outbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -357,7 +383,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last hour outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last hour outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -376,8 +402,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last day inbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last day inbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -397,7 +423,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last day inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last day inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -416,8 +442,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last day outbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last day outbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -437,7 +463,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last day outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last day outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -456,8 +482,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last month inbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last month inbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -477,7 +503,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last month inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last month inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -496,8 +522,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last month outbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last month outbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -517,7 +543,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last month outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last month outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -536,8 +562,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last year inbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last year inbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -557,7 +583,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last year inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last year inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -576,8 +602,8 @@ Markdown="false"
     </dl>
 
     <blockquote class="inline_help">
-        <p>This setting controls the last year outbound data volume threshold on notifications, user defined actions, dashboard and footer (for the primary network interface).</p>
-        <p><strong>This settings only has an effect on notifications and user defined actions when at least one notification (threshold exceeded or reset notification) is enabled.</strong></p>
+        <p>This setting controls the last year outbound data volume threshold on notifications, user actions, dashboard and footer (for the primary network interface).</p>
+        <p><strong>This settings only has an effect on notifications and user actions when at least one notification or user action (threshold exceeded or reset) is enabled.</strong></p>
     </blockquote>
 
     <dl>
@@ -597,7 +623,7 @@ Markdown="false"
     <blockquote class="inline_help">
         <p>This setting controls what Docker containers should be stopped when the last year outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last year outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
-        <p><strong>This settings only has an effect when the respective notifications (threshold exceeded notification for stop container / threshold reset notification for start container) are enabled.</strong></p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 

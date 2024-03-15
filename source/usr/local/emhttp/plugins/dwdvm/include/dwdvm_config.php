@@ -34,6 +34,9 @@ $dwdvm_primary      = trim(isset($dwdvm_cfg['PRIMARY']) ? htmlspecialchars($dwdv
 $dwdvm_good_notify = isset($dwdvm_cfg['GOODNOTIFY'])  ? htmlspecialchars($dwdvm_cfg['GOODNOTIFY'])  : 'disable';
 $dwdvm_bad_notify  = isset($dwdvm_cfg['BADNOTIFY'])   ? htmlspecialchars($dwdvm_cfg['BADNOTIFY']) : 'disable';
 
+$dwdvm_good_actions = isset($dwdvm_cfg['GOODACTIONS'])  ? htmlspecialchars($dwdvm_cfg['GOODACTIONS'])  : 'disable';
+$dwdvm_bad_actions  = isset($dwdvm_cfg['BADACTIONS'])   ? htmlspecialchars($dwdvm_cfg['BADACTIONS']) : 'disable';
+
 $dwdvm_hlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITH'])  : '-1');
 $dwdvm_hlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITH'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITH'])  : '-1');
 $dwdvm_hunit_rx   = trim(isset($dwdvm_cfg['RXUNITH'])   ? htmlspecialchars($dwdvm_cfg['RXUNITH'])   : 'GB');

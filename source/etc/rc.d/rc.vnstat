@@ -108,14 +108,14 @@ write_config() {
     fi
   fi
 
-  if [ "$GOODNOTIFY" == "enable" ] || [ "$BADNOTIFY" == "enable" ]; then
+  if [ "$GOODNOTIFY" == "enable" ] || [ "$BADNOTIFY" == "enable" ] || [ "$GOODACTIONS" == "enable" ] || [ "$BADACTIONS" == "enable" ]; then
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
-      echo "Adding DVM notification service to crontab..."
+      echo "Adding DVM notification and user action service to crontab..."
     fi
     cp -f $DOCROOT/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
-      echo "Removing DVM notification service from crontab..."
+      echo "Removing DVM notification and user action service from crontab..."
       rm -f /boot/config/plugins/dynamix/dwdvm-notify.cron
       rm -f /tmp/dvm*notified
     fi
