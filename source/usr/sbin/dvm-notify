@@ -69,7 +69,7 @@ for i in "${!allLimits[@]}"; do
                         echo "Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
                         docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                     fi
-                    echo "Attempting to execute user defined action function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
+                    echo "Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                     ${allBadFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     echo "EXCEEDED (NOTIFIED)"
                 else
@@ -84,7 +84,7 @@ for i in "${!allLimits[@]}"; do
                         echo "Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
                         docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
                     fi
-                    echo "Attempting to execute user defined action function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
+                    echo "Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                     ${allGoodFunctions[$i]} 2>&1 | logger -t "dvm-user-actions"
                     echo "NOT EXCEEDED (NOTIFIED)"
                 else
