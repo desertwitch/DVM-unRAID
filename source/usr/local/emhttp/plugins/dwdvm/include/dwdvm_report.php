@@ -475,7 +475,7 @@ function build_dashboard() {
 
         $returnStr .= "{$dvm_5[0]};{$dvm_5[1]};{$dvm_h[0]};{$dvm_h[1]};{$dvm_d[0]};{$dvm_d[1]};{$dvm_m[0]};{$dvm_m[1]};{$dvm_y[0]};{$dvm_y[1]}";
     } else {
-        $returnStr .= "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+        $returnStr .= "<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>;<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>";
     }
     return $returnStr;
 }
@@ -527,8 +527,8 @@ function build_footer()
                 break;
         }
     } else {
-        $trafficRx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
-        $trafficTx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+        $trafficRx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>";
+        $trafficTx = "<i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>";
     }
     return("<i class='fa fa-arrow-down'></i> " . $trafficRx . " <i class='fa fa-arrow-up'></i> " . $trafficTx);
 }
@@ -562,7 +562,7 @@ function build_dashboard_mini() {
         }
         $returnStr .= "$dwdvm_primary / $dvm_mini_descr $dvm_mini";
     } else {
-        $returnStr = "$dwdvm_primary / $dvm_mini_descr / <i class='fa fa-times red-text' title='Error Querying Network Interface - Misspelled Primary Interface?'></i>";
+        $returnStr = "$dwdvm_primary / $dvm_mini_descr / <i class='fa fa-times red-text' title='Error Querying Network Interface - Missing or Misspelled Primary Interface?'></i>";
     }
     return $returnStr;
 }
