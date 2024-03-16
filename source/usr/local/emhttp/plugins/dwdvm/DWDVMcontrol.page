@@ -690,7 +690,7 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     <br>
 
     <div>
-    <span class="left"><i class="icon fa fa-bullhorn"></i> Advanced Interface Thresholds and User Actions </span>
+    <span class="left"><i class="icon fa fa-bullhorn"></i> Secondary Interface Thresholds and User Actions </span>
     </div><br>
 
     <div> 
@@ -756,7 +756,8 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     </div>
 
     <blockquote class="inline_help">
-    <p>This settings table allows you to configure more advanced thresholds and user actions for multiple network interfaces.</p>
+    <p>This settings table allows you to configure secondary thresholds and user actions for different network interfaces.</p>
+    <p><strong>Please <u>do not</u> use your primary interface in this section, as any settings made in this section will have no effect on your primary network interface.</strong></p>
     </blockquote>
 
     <dl>
