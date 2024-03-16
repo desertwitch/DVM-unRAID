@@ -35,6 +35,9 @@ Link="nav-user"
 .dvmorbiconactive {
     margin-right: 4px;
 }
+.dvm-gray-orb {
+    color: lightgray;
+}
 </style>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
@@ -120,10 +123,13 @@ function getDVMDashboard() {
 
             if(data.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
+                $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
             } else if(data.includes("green-text")) { 
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
+                $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
-                $(".dvmorbicon").attr("class", "dvmorbicon");
+                $(".dvmorbicon").attr("class", "dvmorbicon dvmorbiconactive fa fa-circle dvm-gray-orb");
+                $(".dvmorbicon").attr("title","Monitored - No Limits");
             }
         }
     });
@@ -175,10 +181,13 @@ function getDVMDashboard() {
 
             if(data.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
+                $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
             } else if(data.includes("green-text")) { 
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
+                $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
-                $(".dvmorbicon").attr("class", "dvmorbicon");
+                $(".dvmorbicon").attr("class", "dvmorbicon dvmorbiconactive fa fa-circle dvm-gray-orb");
+                $(".dvmorbicon").attr("title","Monitored - No Limits");
             } 
         }
     });

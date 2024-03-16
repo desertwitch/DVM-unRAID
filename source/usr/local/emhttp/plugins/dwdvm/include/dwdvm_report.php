@@ -355,84 +355,103 @@ function build_report_light()
 
             if($xml) {
                 if($db_iface == $dwdvm_primary) {
+                    $tmpStr = "";
+
+                    $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
+                    $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
+                    $tmpStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
+                    
                     if(count($db_ifaces_array) > 1) {
                         $returnStr .= "<tr style='border:2px solid;'>";
                     } else {
                         $returnStr .= "<tr>";
                     }
-                    $returnStr .= "<td>". $db_iface . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_rx, $dwdvm_hunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", $dwdvm_hlimit_tx, $dwdvm_hunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_rx, $dwdvm_dunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", $dwdvm_dlimit_tx, $dwdvm_dunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_rx, $dwdvm_munit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
-                    $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
+
+                    if ( strpos ( $tmpStr , "red-text" ) !== false ) {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                    } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                    } else {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                    }
+                    $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
                 } else if (in_array($db_iface,$custom_iface_array)) {
-                    $returnStr .= "<tr>";
-                    $returnStr .= "<td>". $db_iface . "</td>";
-
                     $iface_key = array_search($db_iface, $custom_iface_array);
                     $iface_key = strval($iface_key + 1);
+                    $tmpStr = "";
 
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
-                    $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
+                    $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
+                    $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "h" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "rx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "h", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "h" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "tx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "h", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "h", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->tx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "d" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "rx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "d", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->rx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "d" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "tx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "d", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "d", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->days[0]->day[0]->tx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "m" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "rx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "m", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->rx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "m" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "tx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "m", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "m", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "y" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "rx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "y", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "rx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0) . "</td>";
                     }
 
                     if ("{${'dwdvm_custom'.$iface_key.'_time'}}" == "y" && "{${'dwdvm_custom'.$iface_key.'_mode'}}" == "tx") {
-                        $returnStr .= "<td>". checkAgainstLimits($db_iface, "y", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
+                        $tmpStr .= "<td>". checkAgainstLimits($db_iface, "y", "{${'dwdvm_custom'.$iface_key.'_limit'}}", "{${'dwdvm_custom'.$iface_key.'_unit'}}", "tx", humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
                     } else {
-                        $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0) . "</td>";
+                        $tmpStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0) . "</td>";
                     }
+
+                    $returnStr .= "<tr>";
+                    if ( strpos ( $tmpStr , "red-text" ) !== false ) {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                    } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                    } else {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                    }
+                    $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
                 } else {
                     $returnStr .= "<tr>";
-                    $returnStr .= "<td>". $db_iface . "</td>";
+                    $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";

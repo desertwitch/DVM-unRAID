@@ -48,7 +48,18 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     shell_exec("/usr/local/emhttp/plugins/dwdvm/scripts/clean_db");
 }
 
+$custom_iface_string = "{$dwdvm_custom1_interface};{$dwdvm_custom2_interface};{$dwdvm_custom3_interface};{$dwdvm_custom4_interface};{$dwdvm_custom5_interface};{$dwdvm_custom6_interface}";
+$custom_iface_array = explode(";", trim($custom_iface_string)) ?? [];
+$double_primary = in_array($dwdvm_primary,$custom_iface_array);
+
 ?>
+
+<?if ($double_primary):?>
+<div style="border: 3px solid red;padding: 5px;color: red;">
+    You have configured at least one secondary interface threshold to monitor your configured primary network interface.<br>
+    <strong>Please use the primary interface thresholds to monitor the primary interface</strong>, secondary interface thresholds have no effect on the primary network interface.
+</div><br>
+<?endif;?>
 
 <span style="float:right;margin-right:10px"><a href="<?=$dwdvm_support_link?>" target="_blank" title="DVM Support Thread"><i class="fa fa-medkit"></i> <u>Support Thread</u></a> / <a href="https://humdi.net/vnstat/" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 
@@ -338,7 +349,7 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
 
     <blockquote class="inline_help">
         <p>This setting controls how often the custom alarms script (contents of <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
-        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured below.</p>
+        <p>This script is for advanced users and operates independently from the notifications, data thresholds and user actions configured below.</p>
         <p><strong>In most cases you will <u>not</u> need to enable this setting, it has nothing to do with the notifications and user actions configured below.</strong></p>
     </blockquote>
 
