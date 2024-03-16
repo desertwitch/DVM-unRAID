@@ -373,13 +373,16 @@ function build_report_light()
                     } else {
                         $returnStr .= "<tr>";
                     }
-
-                    if ( strpos ( $tmpStr , "red-text" ) !== false ) {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
-                    } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                    if(isExistingInterface($db_iface)) {
+                        if ( strpos ( $tmpStr , "red-text" ) !== false ) {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                        } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                        } else {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                        }
                     } else {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed Interface'></i>" . $db_iface . "</td>";
                     }
                     $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
@@ -440,18 +443,26 @@ function build_report_light()
                     }
 
                     $returnStr .= "<tr>";
-                    if ( strpos ( $tmpStr , "red-text" ) !== false ) {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
-                    } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                    if(isExistingInterface($db_iface)) {
+                        if ( strpos ( $tmpStr , "red-text" ) !== false ) {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                        } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                        } else {
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                        }
                     } else {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed Interface'></i>" . $db_iface . "</td>";
                     }
                     $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
                 } else {
                     $returnStr .= "<tr>";
-                    $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . "</td>";
+                    if(isExistingInterface($db_iface)) {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . "</td>";
+                    } else {
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed Interface'></i>" . $db_iface . "</td>";
+                    }
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->hours[0]->hour[0]->rx ?? 0) . "</td>";
@@ -467,7 +478,7 @@ function build_report_light()
             } else {
                 $returnStr .= "<tr>";
                 $returnStr .= "<td>". $db_iface . "</td>";
-                $returnStr .= "<td colspan='11'><em>Error Occured While Querying Network Interface</em></td>";
+                $returnStr .= "<td colspan='10'><i class='dvmorbiconactive fa fa-exclamation-circle dvm-gray-orb' title='Removed Interface'></i><em>Error Occured While Querying Network Interface</em></td>";
                 $returnStr .= "</tr>";
             }
         }
