@@ -96,7 +96,7 @@ write_config() {
   if [ "$BACKUPDB" == "enable" ]; then
     if [ "$( grep -ic "/etc/rc.d/rc.vnstat" /etc/rc.d/rc.local_shutdown )" -eq 0 ]; then
       echo "Adding DVM database backup line to rc.local_shutdown script..."
-      sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db' -e //N /etc/rc.d/rc.local_shutdown
+      sed -i -e '/# Get time-out setting/i [ -x /etc/rc.d/rc.vnstat ] && /etc/rc.d/rc.vnstat backup_db | logger' -e //N /etc/rc.d/rc.local_shutdown
     fi
 
     if [ -f $PLGPATH/vnstat.db ] && [ ! -f /var/lib/vnstat/vnstat.db ]; then
