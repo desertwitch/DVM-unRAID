@@ -54,7 +54,7 @@ if [ -e "/sys/class/net/${PRIMARY}" ]; then
     if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
         for i in "${!allLimits[@]}"; do
             if [ "${allLimits[$i]}" == "-1" ]; then
-                echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... LIMIT DISABLED (-1)"
+                echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
                 rm -f "/tmp/${allBadFiles[$i]}"
             else
                 echo -n "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
@@ -171,7 +171,7 @@ for i in "${!allCustomInterfaces[@]}"; do
         ;;
     esac
     if [ "${allCustomLimits[$i]}" == "-1" ]; then
-        echo "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... LIMIT DISABLED (-1)"
+        echo "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
         rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
     else
         echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
