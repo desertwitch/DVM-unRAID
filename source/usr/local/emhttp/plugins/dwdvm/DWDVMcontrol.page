@@ -187,6 +187,21 @@ if(!empty($dvm_available_raw)) {
     </blockquote>
 
     <dl>
+        <dt>Auto Purge Removed Network Interfaces:</dt>
+        <dd>
+            <select id="AUTOPURGE" name="AUTOPURGE" size="1">
+                <?=mk_option($dwdvm_autopurge, "disable", "No");?>
+                <?=mk_option($dwdvm_autopurge, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls if network interfaces that are in the database, but no longer exist on the system, should be removed from the database automatically.</p>
+        <p>You can also manually purge any removed network interfaces and their recorded data volume information from the database using the <strong>'Purge Database'</strong> button at the bottom of this page.</p>
+    </blockquote>
+
+    <dl>
         <dt>Custom Alarms Script Execution Frequency:</dt>
             <dd>
                 <select id="CRONINT" name="CRONINT" size="1">

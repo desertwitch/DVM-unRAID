@@ -25,6 +25,7 @@ $dwdvm_backupdb     = isset($dwdvm_cfg['BACKUPDB'])     ? htmlspecialchars($dwdv
 $dwdvm_report       = isset($dwdvm_cfg['REPORT'])       ? htmlspecialchars($dwdvm_cfg['REPORT'])        : 'text';
 $dwdvm_vifaces      = isset($dwdvm_cfg['VIFACES'])      ? htmlspecialchars($dwdvm_cfg['VIFACES'])       : 'enable';
 $dwdvm_oifaces      = isset($dwdvm_cfg['OIFACES'])      ? htmlspecialchars($dwdvm_cfg['OIFACES'])       : 'disable';
+$dwdvm_autopurge    = isset($dwdvm_cfg['AUTOPURGE'])    ? htmlspecialchars($dwdvm_cfg['AUTOPURGE'])     : 'disable';
 $dwdvm_cronint      = isset($dwdvm_cfg['CRONINT'])      ? htmlspecialchars($dwdvm_cfg['CRONINT'])       : 'disable';
 $dwdvm_dashb        = isset($dwdvm_cfg['DASHB'])        ? htmlspecialchars($dwdvm_cfg['DASHB'])         : 'enable';
 $dwdvm_footer       = isset($dwdvm_cfg['FOOTER'])       ? htmlspecialchars($dwdvm_cfg['FOOTER'])        : 'enable';
