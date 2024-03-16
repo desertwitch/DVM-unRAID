@@ -195,7 +195,7 @@ for i in "${!allCustomInterfaces[@]}"; do
         rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
     else
         echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
-        if [ -n "${allCustomInterfaces[$i]}" ] && [ ! "${allCustomInterfaces[$i]}" == "noiface" ] && [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
+        if [ -n "${allCustomInterfaces[$i]}" ] && [ ! "${allCustomInterfaces[$i]}" == "$PRIMARY" ] && [ ! "${allCustomInterfaces[$i]}" == "noiface" ] && [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
             if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "${allCustomInterfaces[$i]}" >/dev/null 2>&1); then
                 if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" | grep -i "error" >/dev/null 2>&1); then
                     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" >/dev/null 2>&1; then
@@ -256,7 +256,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                 echo "FAILED (INTERFACE NOT IN DATABASE)"
             fi
         else
-            echo "FAILED (INTERFACE DOES NOT EXIST ON SYSTEM)"
+            echo "FAILED (INTERFACE DOES NOT EXIST ON SYSTEM OR PRIMARY INTERFACE USED AS SECONDARY)"
         fi
     fi
 done
