@@ -50,7 +50,7 @@ allGoodDockers=("$RXUNITHSTART" "$RXUNITDSTART" "$RXUNITMSTART" "$RXUNITYSTART" 
 
 echo "--- PRIMARY CHECKS ---"
 
-if [ -e "/sys/class/net/${PRIMARY}" ]; then
+if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/net/${PRIMARY}" ]; then
     if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
         for i in "${!allLimits[@]}"; do
             if [ "${allLimits[$i]}" == "-1" ]; then
@@ -175,7 +175,7 @@ for i in "${!allCustomInterfaces[@]}"; do
         rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
     else
         echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
-        if [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
+        if [ -n "${allCustomInterfaces[$i]}" ] && [ ! "${allCustomInterfaces[$i]}" == "noiface" ] && [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
             if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "${allCustomInterfaces[$i]}" >/dev/null 2>&1); then
                 if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" | grep -i "error" >/dev/null 2>&1); then
                     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" >/dev/null 2>&1; then
