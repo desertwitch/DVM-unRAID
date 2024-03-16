@@ -343,12 +343,6 @@ function build_report_light()
     global $dwdvm_custom6_limit;
     global $dwdvm_custom6_unit;
 
-    global $dwdvm_autopurge;
-
-    if($dwdvm_autopurge == "enable") {
-        shell_exec("/usr/local/emhttp/plugins/dwdvm/scripts/clean_db");
-    }
-
     $custom_iface_string = "{$dwdvm_custom1_interface};{$dwdvm_custom2_interface};{$dwdvm_custom3_interface};{$dwdvm_custom4_interface};{$dwdvm_custom5_interface};{$dwdvm_custom6_interface}";
     $custom_iface_array = explode(";", trim($custom_iface_string)) ?? [];
     
