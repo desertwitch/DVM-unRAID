@@ -44,7 +44,7 @@ if(!empty($dvm_available_raw)) {
     $dvm_available_dockers = false;
 }
 
-if($dwdvm_autopurge == "enable") {
+if($dwdvm_running && $dwdvm_autopurge == "enable") {
     shell_exec("/usr/local/emhttp/plugins/dwdvm/scripts/clean_db");
 }
 
