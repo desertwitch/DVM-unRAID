@@ -389,13 +389,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="RXUNITHSTOP" name="RXUNITHSTOP" size="1">
-            <?=mk_option($dwdvm_hunit_rx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERHSTOP" name="RXDOCKERHSTOP" size="1">
+            <?=mk_option($dwdvm_hdocker_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="RXUNITHSTART" name="RXUNITHSTART" size="1">
-            <?=mk_option($dwdvm_hunit_rx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { echo("hi"); foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERHSTART" name="RXDOCKERHSTART" size="1">
+            <?=mk_option($dwdvm_hdocker_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { echo("hi"); foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -429,13 +429,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="TXUNITHSTOP" name="TXUNITHSTOP" size="1">
-            <?=mk_option($dwdvm_hunit_tx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERHSTOP" name="TXDOCKERHSTOP" size="1">
+            <?=mk_option($dwdvm_hdocker_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="TXUNITHSTART" name="TXUNITHSTART" size="1">
-            <?=mk_option($dwdvm_hunit_tx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERHSTART" name="TXDOCKERHSTART" size="1">
+            <?=mk_option($dwdvm_hdocker_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -469,13 +469,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="RXUNITDSTOP" name="RXUNITDSTOP" size="1">
-            <?=mk_option($dwdvm_dunit_rx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERDSTOP" name="RXDOCKERDSTOP" size="1">
+            <?=mk_option($dwdvm_ddocker_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ddocker_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="RXUNITDSTART" name="RXUNITDSTART" size="1">
-            <?=mk_option($dwdvm_dunit_rx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERDSTART" name="RXDOCKERDSTART" size="1">
+            <?=mk_option($dwdvm_ddocker_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ddocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -509,13 +509,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="TXUNITDSTOP" name="TXUNITDSTOP" size="1">
-            <?=mk_option($dwdvm_dunit_tx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERDSTOP" name="TXDOCKERDSTOP" size="1">
+            <?=mk_option($dwdvm_ddocker_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ddocker_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="TXUNITDSTART" name="TXUNITDSTART" size="1">
-            <?=mk_option($dwdvm_dunit_tx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_dunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERDSTART" name="TXDOCKERDSTART" size="1">
+            <?=mk_option($dwdvm_ddocker_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ddocker_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -549,13 +549,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="RXUNITMSTOP" name="RXUNITMSTOP" size="1">
-            <?=mk_option($dwdvm_munit_rx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERMSTOP" name="RXDOCKERMSTOP" size="1">
+            <?=mk_option($dwdvm_mdocker_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_mdocker_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="RXUNITMSTART" name="RXUNITMSTART" size="1">
-            <?=mk_option($dwdvm_munit_rx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERMSTART" name="RXDOCKERMSTART" size="1">
+            <?=mk_option($dwdvm_mdocker_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_mdocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -589,13 +589,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="TXUNITMSTOP" name="TXUNITMSTOP" size="1">
-            <?=mk_option($dwdvm_munit_tx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERMSTOP" name="TXDOCKERMSTOP" size="1">
+            <?=mk_option($dwdvm_mdocker_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_mdocker_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="TXUNITMSTART" name="TXUNITMSTART" size="1">
-            <?=mk_option($dwdvm_munit_tx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_munit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERMSTART" name="TXDOCKERMSTART" size="1">
+            <?=mk_option($dwdvm_mdocker_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_mdocker_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -629,13 +629,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="RXUNITYSTOP" name="RXUNITYSTOP" size="1">
-            <?=mk_option($dwdvm_yunit_rx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERYSTOP" name="RXDOCKERYSTOP" size="1">
+            <?=mk_option($dwdvm_ydocker_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ydocker_rx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="RXUNITYSTART" name="RXUNITYSTART" size="1">
-            <?=mk_option($dwdvm_yunit_rx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="RXDOCKERYSTART" name="RXDOCKERYSTART" size="1">
+            <?=mk_option($dwdvm_ydocker_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ydocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -669,13 +669,13 @@ if($dwdvm_autopurge == "enable") {
     <dl>
         <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Stop / Start Docker Container:</dt>
         <dd>
-            <select id="TXUNITYSTOP" name="TXUNITYSTOP" size="1">
-            <?=mk_option($dwdvm_yunit_tx_stop, "disable", "Stop: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERYSTOP" name="TXDOCKERYSTOP" size="1">
+            <?=mk_option($dwdvm_ydocker_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ydocker_tx_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?>
             </select>
-            <select id="TXUNITYSTART" name="TXUNITYSTART" size="1">
-            <?=mk_option($dwdvm_yunit_tx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_yunit_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <select id="TXDOCKERYSTART" name="TXDOCKERYSTART" size="1">
+            <?=mk_option($dwdvm_ydocker_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_ydocker_tx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
