@@ -50,8 +50,8 @@ allGoodDockers=("$RXUNITHSTART" "$RXUNITDSTART" "$RXUNITMSTART" "$RXUNITYSTART" 
 
 echo "--- PRIMARY CHECKS ---"
 
-if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
-    if [ -e "/sys/class/net/${PRIMARY}" ]; then
+if [ -e "/sys/class/net/${PRIMARY}" ]; then
+    if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
         for i in "${!allLimits[@]}"; do
             if [ "${allLimits[$i]}" == "-1" ]; then
                 echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... LIMIT DISABLED (-1)"
@@ -104,10 +104,10 @@ if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIM
             fi
         done
     else
-        echo "PRIMARY INTERFACE DOES NOT EXIST ON SYSTEM - SKIPPING PRIMARY CHECKS"
+        echo "PRIMARY INTERFACE NOT IN DATABASE - SKIPPING PRIMARY CHECKS"
     fi
 else
-    echo "PRIMARY INTERFACE NOT IN DATABASE - SKIPPING PRIMARY CHECKS"
+    echo "PRIMARY INTERFACE DOES NOT EXIST ON SYSTEM - SKIPPING PRIMARY CHECKS"
 fi
 
 echo "--- ADVANCED CHECKS ---"
@@ -175,8 +175,8 @@ for i in "${!allCustomInterfaces[@]}"; do
         rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
     else
         echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
-        if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "${allCustomInterfaces[$i]}" >/dev/null 2>&1); then
-            if [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
+        if [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
+            if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "${allCustomInterfaces[$i]}" >/dev/null 2>&1); then
                 if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" | grep -i "error" >/dev/null 2>&1); then
                     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" >/dev/null 2>&1; then
                         if [ ! -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
@@ -221,10 +221,10 @@ for i in "${!allCustomInterfaces[@]}"; do
                     echo "FAILED (DATABASE WAS NOT READY)"
                 fi
             else
-                echo "FAILED (INTERFACE DOES NOT EXIST ON SYSTEM)"
+                echo "FAILED (INTERFACE NOT IN DATABASE)"
             fi
         else
-            echo "FAILED (INTERFACE NOT IN DATABASE)"
+            echo "FAILED (INTERFACE DOES NOT EXIST ON SYSTEM)"
         fi
     fi
 done

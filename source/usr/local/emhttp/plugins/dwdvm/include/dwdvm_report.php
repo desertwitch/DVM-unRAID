@@ -112,11 +112,17 @@ function getInterfaces()
 function getXMLforInterface($iface)
 {
     $xml = "";
+    $iface = trim($iface);
+
     try {
-        $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". trim($iface) ." --limit 1 --xml 2>/dev/null");
-        if($xml_raw) {
-            if(strpos($xml_raw, "xmlversion")) {
-                $xml = new SimpleXMLElement($xml_raw);
+        if(!empty($iface) && $iface !== "noiface") {
+            $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". $iface ." --limit 1 --xml 2>/dev/null");
+            if($xml_raw) {
+                if(strpos($xml_raw, "xmlversion")) {
+                    $xml = new SimpleXMLElement($xml_raw);
+                } else {
+                    return false;
+                }
             } else {
                 return false;
             }
