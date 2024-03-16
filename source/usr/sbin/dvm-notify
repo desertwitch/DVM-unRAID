@@ -90,7 +90,7 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                         touch "/tmp/${allBadFiles[$i]}"
                     else
                         if [ -f "/tmp/${allBadFiles[$i]}" ]; then
-                            echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
+                            echo "[${PRIMARY}] DVM: The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded." | logger -t "dvm-notify"
                             if [ "$GOODACTIONS" == "enable" ]; then
                                 if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
                                     echo "[${PRIMARY}] DVM: Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
@@ -106,7 +106,7 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' stopped with errors (see SYSLOG)."
                                 [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${allGoodFunctions[$i]}' executed with success."
                                 [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${allGoodFunctions[$i]}' executed with errors (see SYSLOG)."                             
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is is no longer exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "normal"
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
@@ -225,7 +225,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                         touch "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
                     else
                         if [ -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
-                            echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume is is no longer exceeded." | logger -t "dvm-notify"
+                            echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded." | logger -t "dvm-notify"
                             if [ "$GOODACTIONS" == "enable" ]; then
                                 if [ ! "${allCustomStarts[$i]}" == "disable" ]; then
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to start Docker container (as configured by user): ${allCustomStarts[$i]}" | logger -t "dvm-notify"
@@ -241,7 +241,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
                                 [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_normal_again' executed with success."
                                 [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_normal_again' executed with errors (see SYSLOG)."                                
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is is no longer exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "normal"
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
