@@ -32,6 +32,9 @@ Link="nav-user"
     font-size: 1.1rem;
     padding-right: 10px;
 }
+.dvmorbiconactive {
+    margin-right: 4px;
+}
 </style>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
@@ -83,7 +86,7 @@ $mytiles[$pluginname]['column2'] =
 <td>
 <i class="fa fa-pie-chart f32"></i>
 <div class="section">Data Volume Monitor (DVM)<br>
-<span class="dvm_mini_dash"><em>Loading...</em></span>
+<span><i class="dvmorbicon"></i></span><span class="dvm_mini_dash"><em>Loading...</em></span>
 <br><br>
 </div>
 <a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
@@ -114,6 +117,14 @@ function getDVMDashboard() {
             $('.dvm_mtx').html(metrics[7]);
             $('.dvm_yrx').html(metrics[8]);
             $('.dvm_ytx').html(metrics[9]);
+
+            if(data.includes("red-text")) {
+                $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
+            } else if(data.includes("green-text")) { 
+                $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
+            } else {
+                $(".dvmorbicon").attr("class", "dvmorbicon");
+            }
         }
     });
     clearTimeout(timers.getDVMDashboard);
@@ -132,7 +143,7 @@ $(function(){
 <thead sort=''><tr class='hidden'><td></td><td colspan='3'></td></tr></thead>
 <tbody sort='' class='sortable'>
 <tr><td></td><td colspan='3' class='next'><i class='icon-diagnostics'></i><div class='section'>Data Volume Monitor (DVM)<br>
-<span class="dvm_mini_dash"><em>Loading...</em></span><br><br></div>
+<span><i class="dvmorbicon"></i></span><span class="dvm_mini_dash"><em>Loading...</em></span><br><br></div>
 <i class='fa fa-fw chevron' id='dvm_view' onclick='toggleChevron("dvm_view",0)'></i>
 <a href='/Dashboard/DWDVMsettings' title='Go to DVM Settings'><i class='fa fa-fw fa-cog chevron'></i></a>
 </td><td></td></tr>
@@ -160,7 +171,15 @@ function getDVMDashboard() {
             $('.dvm_mrx').html(metrics[6]);
             $('.dvm_mtx').html(metrics[7]);
             $('.dvm_yrx').html(metrics[8]);
-            $('.dvm_ytx').html(metrics[9]);  
+            $('.dvm_ytx').html(metrics[9]); 
+
+            if(data.includes("red-text")) {
+                $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
+            } else if(data.includes("green-text")) { 
+                $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
+            } else {
+                $(".dvmorbicon").attr("class", "dvmorbicon");
+            } 
         }
     });
     clearTimeout(timers.getDVMDashboard);
