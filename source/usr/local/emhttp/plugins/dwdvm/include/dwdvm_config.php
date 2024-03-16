@@ -46,6 +46,10 @@ $dwdvm_hdocker_rx_start   = trim(isset($dwdvm_cfg['RXDOCKERHSTART'])   ? htmlspe
 $dwdvm_hdocker_rx_stop   = trim(isset($dwdvm_cfg['RXDOCKERHSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXDOCKERHSTOP'])   : 'disable');
 $dwdvm_hdocker_tx_start   = trim(isset($dwdvm_cfg['TXDOCKERHSTART'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERHSTART'])   : 'disable');
 $dwdvm_hdocker_tx_stop   = trim(isset($dwdvm_cfg['TXDOCKERHSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERHSTOP'])   : 'disable');
+$dwdvm_hvm_rx_start   = trim(isset($dwdvm_cfg['RXVMHSTART'])   ? htmlspecialchars($dwdvm_cfg['RXVMHSTART'])   : 'disable');
+$dwdvm_hvm_rx_stop   = trim(isset($dwdvm_cfg['RXVMHSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXVMHSTOP'])   : 'disable');
+$dwdvm_hvm_tx_start   = trim(isset($dwdvm_cfg['TXVMHSTART'])   ? htmlspecialchars($dwdvm_cfg['TXVMHSTART'])   : 'disable');
+$dwdvm_hvm_tx_stop   = trim(isset($dwdvm_cfg['TXVMHSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXVMHSTOP'])   : 'disable');
 
 $dwdvm_dlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITD'])  : '-1');
 $dwdvm_dlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITD'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITD'])  : '-1');
@@ -55,6 +59,10 @@ $dwdvm_ddocker_rx_start   = trim(isset($dwdvm_cfg['RXDOCKERDSTART'])   ? htmlspe
 $dwdvm_ddocker_rx_stop   = trim(isset($dwdvm_cfg['RXDOCKERDSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXDOCKERDSTOP'])   : 'disable');
 $dwdvm_ddocker_tx_start   = trim(isset($dwdvm_cfg['TXDOCKERDSTART'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERDSTART'])   : 'disable');
 $dwdvm_ddocker_tx_stop   = trim(isset($dwdvm_cfg['TXDOCKERDSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERDSTOP'])   : 'disable');
+$dwdvm_dvm_rx_start   = trim(isset($dwdvm_cfg['RXVMDSTART'])   ? htmlspecialchars($dwdvm_cfg['RXVMDSTART'])   : 'disable');
+$dwdvm_dvm_rx_stop   = trim(isset($dwdvm_cfg['RXVMDSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXVMDSTOP'])   : 'disable');
+$dwdvm_dvm_tx_start   = trim(isset($dwdvm_cfg['TXVMDSTART'])   ? htmlspecialchars($dwdvm_cfg['TXVMDSTART'])   : 'disable');
+$dwdvm_dvm_tx_stop   = trim(isset($dwdvm_cfg['TXVMDSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXVMDSTOP'])   : 'disable');
 
 $dwdvm_mlimit_rx  = trim(isset($dwdvm_cfg['RXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITM'])  : '-1');
 $dwdvm_mlimit_tx  = trim(isset($dwdvm_cfg['TXLIMITM'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITM'])  : '-1');
@@ -64,6 +72,10 @@ $dwdvm_mdocker_rx_start   = trim(isset($dwdvm_cfg['RXDOCKERMSTART'])   ? htmlspe
 $dwdvm_mdocker_rx_stop   = trim(isset($dwdvm_cfg['RXDOCKERMSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXDOCKERMSTOP'])   : 'disable');
 $dwdvm_mdocker_tx_start   = trim(isset($dwdvm_cfg['TXDOCKERMSTART'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERMSTART'])   : 'disable');
 $dwdvm_mdocker_tx_stop   = trim(isset($dwdvm_cfg['TXDOCKERMSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERMSTOP'])   : 'disable');
+$dwdvm_mvm_rx_start   = trim(isset($dwdvm_cfg['RXVMMSTART'])   ? htmlspecialchars($dwdvm_cfg['RXVMMSTART'])   : 'disable');
+$dwdvm_mvm_rx_stop   = trim(isset($dwdvm_cfg['RXVMMSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXVMMSTOP'])   : 'disable');
+$dwdvm_mvm_tx_start   = trim(isset($dwdvm_cfg['TXVMMSTART'])   ? htmlspecialchars($dwdvm_cfg['TXVMMSTART'])   : 'disable');
+$dwdvm_mvm_tx_stop   = trim(isset($dwdvm_cfg['TXVMMSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXVMMSTOP'])   : 'disable');
 
 $dwdvm_ylimit_rx  = trim(isset($dwdvm_cfg['RXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['RXLIMITY'])  : '-1');
 $dwdvm_ylimit_tx  = trim(isset($dwdvm_cfg['TXLIMITY'])  ? htmlspecialchars($dwdvm_cfg['TXLIMITY'])  : '-1');
@@ -73,6 +85,11 @@ $dwdvm_ydocker_rx_start   = trim(isset($dwdvm_cfg['RXDOCKERYSTART'])   ? htmlspe
 $dwdvm_ydocker_rx_stop   = trim(isset($dwdvm_cfg['RXDOCKERYSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXDOCKERYSTOP'])   : 'disable');
 $dwdvm_ydocker_tx_start   = trim(isset($dwdvm_cfg['TXDOCKERYSTART'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERYSTART'])   : 'disable');
 $dwdvm_ydocker_tx_stop   = trim(isset($dwdvm_cfg['TXDOCKERYSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXDOCKERYSTOP'])   : 'disable');
+$dwdvm_yvm_rx_start   = trim(isset($dwdvm_cfg['RXVMYSTART'])   ? htmlspecialchars($dwdvm_cfg['RXVMYSTART'])   : 'disable');
+$dwdvm_yvm_rx_stop   = trim(isset($dwdvm_cfg['RXVMYSTOP'])   ? htmlspecialchars($dwdvm_cfg['RXVMYSTOP'])   : 'disable');
+$dwdvm_yvm_tx_start   = trim(isset($dwdvm_cfg['TXVMYSTART'])   ? htmlspecialchars($dwdvm_cfg['TXVMYSTART'])   : 'disable');
+$dwdvm_yvm_tx_stop   = trim(isset($dwdvm_cfg['TXVMYSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXVMYSTOP'])   : 'disable');
+
 
 $dwdvm_custom1_interface  = trim(isset($dwdvm_cfg['CUSTOM1INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM1INTERFACE'])  : 'noiface');
 $dwdvm_custom1_mode       = trim(isset($dwdvm_cfg['CUSTOM1MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1MODE'])       : 'rx');

@@ -44,6 +44,14 @@ if(!empty($dvm_available_raw)) {
     $dvm_available_dockers = false;
 }
 
+$dvm_available_raw2 = shell_exec("virsh list --name --all 2>/dev/null");
+$dvm_available_vms = false;
+if(!empty($dvm_available_raw2)) {
+    $dvm_available_vms = explode(PHP_EOL, trim($dvm_available_raw2));
+} else {
+    $dvm_available_vms = false;
+}
+
 if($dwdvm_running && $dwdvm_autopurge == "enable") {
     shell_exec("/usr/local/emhttp/plugins/dwdvm/scripts/clean_db");
 }
@@ -406,7 +414,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
             </select>
             <select id="RXDOCKERHSTART" name="RXDOCKERHSTART" size="1">
             <?=mk_option($dwdvm_hdocker_rx_start, "disable", "Start: None");?>
-            <?if($dvm_available_dockers) { echo("hi"); foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
+            <?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_hdocker_rx_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?>
             </select>
         </dd>
     </dl>
@@ -415,6 +423,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <p>This setting controls what Docker containers should be stopped when the last hour inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last hour inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
+        <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="RXVMHSTOP" name="RXVMHSTOP" size="1">
+            <?=mk_option($dwdvm_hvm_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="RXVMHSTART" name="RXVMHSTART" size="1">
+            <?=mk_option($dwdvm_hvm_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last hour inbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last hour inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -459,6 +488,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     </blockquote>
 
     <dl>
+        <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="TXVMHSTOP" name="TXVMHSTOP" size="1">
+            <?=mk_option($dwdvm_hvm_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="TXVMHSTART" name="TXVMHSTART" size="1">
+            <?=mk_option($dwdvm_hvm_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last hour outbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last hour outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
         <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow dvmlimit" id="RXLIMITD" name="RXLIMITD" maxlength="40" value="<?=$dwdvm_dlimit_rx;?>">
@@ -495,6 +545,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <p>This setting controls what Docker containers should be stopped when the last day inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last day inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
+        <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="RXVMDSTOP" name="RXVMDSTOP" size="1">
+            <?=mk_option($dwdvm_dvm_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="RXVMDSTART" name="RXVMDSTART" size="1">
+            <?=mk_option($dwdvm_dvm_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last day inbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last day inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -539,6 +610,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     </blockquote>
 
     <dl>
+        <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="TXVMDSTOP" name="TXVMDSTOP" size="1">
+            <?=mk_option($dwdvm_dvm_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="TXVMDSTART" name="TXVMDSTART" size="1">
+            <?=mk_option($dwdvm_dvm_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last day outbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last day outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
         <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow dvmlimit" id="RXLIMITM" name="RXLIMITM" maxlength="40" value="<?=$dwdvm_mlimit_rx;?>">
@@ -575,6 +667,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <p>This setting controls what Docker containers should be stopped when the last month inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last month inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
+        <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="RXVMMSTOP" name="RXVMMSTOP" size="1">
+            <?=mk_option($dwdvm_mvm_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="RXVMMSTART" name="RXVMMSTART" size="1">
+            <?=mk_option($dwdvm_mvm_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last month inbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last month inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
@@ -619,6 +732,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     </blockquote>
 
     <dl>
+        <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="TXVMMSTOP" name="TXVMMSTOP" size="1">
+            <?=mk_option($dwdvm_mvm_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="TXVMMSTART" name="TXVMMSTART" size="1">
+            <?=mk_option($dwdvm_mvm_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last month outbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last month outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
         <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow dvmlimit" id="RXLIMITY" name="RXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_rx;?>">
@@ -659,6 +793,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     </blockquote>
 
     <dl>
+        <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="RXVMYSTOP" name="RXVMYSTOP" size="1">
+            <?=mk_option($dwdvm_yvm_rx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="RXVMYSTART" name="RXVMYSTART" size="1">
+            <?=mk_option($dwdvm_yvm_rx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last year inbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last year inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
         <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Data Volume Threshold:</dt>
         <dd>
             <input type="text" class="narrow dvmlimit" id="TXLIMITY" name="TXLIMITY" maxlength="40" value="<?=$dwdvm_ylimit_tx;?>">
@@ -695,6 +850,27 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <p>This setting controls what Docker containers should be stopped when the last year outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what Docker containers should be started when the last year outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for stop container / threshold reset user action for start container) are enabled.</strong></p>
+        <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
+    </blockquote>
+
+    <dl>
+        <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
+        <dd>
+            <select id="TXVMYSTOP" name="TXVMYSTOP" size="1">
+            <?=mk_option($dwdvm_yvm_tx_stop, "disable", "Stop: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
+            </select>
+            <select id="TXVMYSTART" name="TXVMYSTART" size="1">
+            <?=mk_option($dwdvm_yvm_tx_start, "disable", "Start: None");?>
+            <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls what virtual machine should be disconnected from the network when the last year outbound data volume threshold has been exceeded (for the primary network interface).</p>
+        <p>This setting controls what virtual machine should be reconnected to the network when the last year outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
 
