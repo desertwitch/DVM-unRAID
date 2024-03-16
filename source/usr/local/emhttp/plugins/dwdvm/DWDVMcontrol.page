@@ -23,8 +23,28 @@ Markdown="false"
  * included in all copies or substantial portions of the Software.
  *
  */
+
+require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';
+
+$dvm_interfac_raw = shell_exec("find /sys/class/net/ -type l 2>/dev/null");
+$dvm_interfac_raw = str_replace("/sys/class/net/", "", $dvm_interfac_raw);
+
+$dvm_available_interfacs = false;
+if(!empty($dvm_interfac_raw)) {
+    $dvm_available_interfacs = explode(PHP_EOL, trim($dvm_interfac_raw));
+} else {
+    $dvm_available_interfacs = false;
+}
+
+$dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/null");
+$dvm_available_dockers = false;
+if(!empty($dvm_available_raw)) {
+    $dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw));
+} else {
+    $dvm_available_dockers = false;
+}
+   
 ?>
-<?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 
 <span style="float:right;margin-right:10px"><a href="<?=$dwdvm_support_link?>" target="_blank" title="DVM Support Thread"><i class="fa fa-medkit"></i> <u>Support Thread</u></a> / <a href="https://humdi.net/vnstat/" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 
@@ -114,7 +134,19 @@ Markdown="false"
     <dl>
         <dt><strong>Primary Network Interface:</strong></dt>
         <dd>
-            <input type="text" class="narrow" id="PRIMARY" name="PRIMARY" maxlength="40" value="<?=$dwdvm_primary;?>">
+        <?
+        if($dvm_available_interfacs) {
+            echo("<select id='PRIMARY' name='PRIMARY' size='1'>");
+            echo(mk_option($dwdvm_primary, "noiface", "-")); 
+            foreach ($dvm_available_interfacs as $dvm_available_interfac)
+            { 
+                echo(mk_option($dwdvm_primary, $dvm_available_interfac, $dvm_available_interfac)); 
+            }
+            echo("</select>");
+        } else {
+            echo("<input type='text' class='narrow' id='PRIMARY' name='PRIMARY' maxlength='40' value='$dwdvm_primary'>");
+        }
+        ?>
         </dd>
     </dl>
 
@@ -170,7 +202,8 @@ Markdown="false"
 
     <blockquote class="inline_help">
         <p>This setting controls how often the custom alarms script (contents of <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
-        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured above and below.</p>
+        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured below.</p>
+        <p><strong>In most cases you will <u>not</u> need to enable this setting, it has nothing to do with the notifications and user actions configured below.</strong></p>
     </blockquote>
 
     <dl>
@@ -314,16 +347,6 @@ Markdown="false"
     <div>
     <span class="left"><i class="icon fa fa-bullhorn"></i> Primary Interface Thresholds and User Actions </span>
     </div><br>
-
-    <?
-    $dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/null");
-    $dvm_available_dockers = false;
-    if(!empty($dvm_available_raw)) {
-    	$dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw));
-    } else {
-	    $dvm_available_dockers = false;
-    }
-    ?>
 
     <dl>
         <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Data Volume Threshold:</dt>
@@ -656,7 +679,7 @@ Markdown="false"
     <thead><tr><th><strong>Network Interface</strong></th><th><strong>Traffic Direction</strong></th><th><strong>Timespan Observed</strong></th><th><strong>Threshold Limit</strong></th><th><strong>Threshold Unit</strong></th><th><strong>Stop Docker Container</strong></th><th><strong>Start Docker Container</strong></th></tr></thead>
     <tbody>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM1INTERFACE" name="CUSTOM1INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom1_interface;?>"></input></td>
+    <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM1INTERFACE' name='CUSTOM1INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom1_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom1_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM1INTERFACE' name='CUSTOM1INTERFACE' maxlength='40' value='$dwdvm_custom1_interface'>"); } ?></td>
     <td><select id="CUSTOM1MODE" name="CUSTOM1MODE" size="1"><?=mk_option($dwdvm_custom1_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom1_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM1TIME" name="CUSTOM1TIME" size="1"><?=mk_option($dwdvm_custom1_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom1_time, "d", "Last Day");?><?=mk_option($dwdvm_custom1_time, "m", "Last Month");?><?=mk_option($dwdvm_custom1_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM1LIMIT" name="CUSTOM1LIMIT" value="<?=$dwdvm_custom1_limit;?>"></input></td>
@@ -665,7 +688,7 @@ Markdown="false"
     <td><select id="CUSTOM1START" name="CUSTOM1START" size="1"><?=mk_option($dwdvm_custom1_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom1_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM2INTERFACE" name="CUSTOM2INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom2_interface;?>"></input></td>
+    <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM2INTERFACE' name='CUSTOM2INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom2_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom2_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM2INTERFACE' name='CUSTOM2INTERFACE' maxlength='40' value='$dwdvm_custom2_interface'>"); } ?></td>
     <td><select id="CUSTOM2MODE" name="CUSTOM2MODE" size="1"><?=mk_option($dwdvm_custom2_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom2_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM2TIME" name="CUSTOM2TIME" size="1"><?=mk_option($dwdvm_custom2_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom2_time, "d", "Last Day");?><?=mk_option($dwdvm_custom2_time, "m", "Last Month");?><?=mk_option($dwdvm_custom2_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM2LIMIT" name="CUSTOM2LIMIT" value="<?=$dwdvm_custom2_limit;?>"></input></td>
@@ -674,7 +697,7 @@ Markdown="false"
     <td><select id="CUSTOM2START" name="CUSTOM2START" size="1"><?=mk_option($dwdvm_custom2_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom2_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM3INTERFACE" name="CUSTOM3INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom3_interface;?>"></input></td>
+    <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM3INTERFACE' name='CUSTOM3INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom3_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom3_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM3INTERFACE' name='CUSTOM3INTERFACE' maxlength='40' value='$dwdvm_custom3_interface'>"); } ?></td>
     <td><select id="CUSTOM3MODE" name="CUSTOM3MODE" size="1"><?=mk_option($dwdvm_custom3_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom3_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM3TIME" name="CUSTOM3TIME" size="1"><?=mk_option($dwdvm_custom3_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom3_time, "d", "Last Day");?><?=mk_option($dwdvm_custom3_time, "m", "Last Month");?><?=mk_option($dwdvm_custom3_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM3LIMIT" name="CUSTOM3LIMIT" value="<?=$dwdvm_custom3_limit;?>"></input></td>
@@ -683,7 +706,7 @@ Markdown="false"
     <td><select id="CUSTOM3START" name="CUSTOM3START" size="1"><?=mk_option($dwdvm_custom3_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom3_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM4INTERFACE" name="CUSTOM4INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom4_interface;?>"></input></td>
+    <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM4INTERFACE' name='CUSTOM4INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom4_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom4_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM4INTERFACE' name='CUSTOM4INTERFACE' maxlength='40' value='$dwdvm_custom4_interface'>"); } ?></td>
     <td><select id="CUSTOM4MODE" name="CUSTOM4MODE" size="1"><?=mk_option($dwdvm_custom4_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom4_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM4TIME" name="CUSTOM4TIME" size="1"><?=mk_option($dwdvm_custom4_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom4_time, "d", "Last Day");?><?=mk_option($dwdvm_custom4_time, "m", "Last Month");?><?=mk_option($dwdvm_custom4_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM4LIMIT" name="CUSTOM4LIMIT" value="<?=$dwdvm_custom4_limit;?>"></input></td>
@@ -692,7 +715,7 @@ Markdown="false"
     <td><select id="CUSTOM4START" name="CUSTOM4START" size="1"><?=mk_option($dwdvm_custom4_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom4_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM5INTERFACE" name="CUSTOM5INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom5_interface;?>"></input></td>
+    <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM5INTERFACE' name='CUSTOM5INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom5_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom5_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM5INTERFACE' name='CUSTOM5INTERFACE' maxlength='40' value='$dwdvm_custom5_interface'>"); } ?></td>
     <td><select id="CUSTOM5MODE" name="CUSTOM5MODE" size="1"><?=mk_option($dwdvm_custom5_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom5_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM5TIME" name="CUSTOM5TIME" size="1"><?=mk_option($dwdvm_custom5_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom5_time, "d", "Last Day");?><?=mk_option($dwdvm_custom5_time, "m", "Last Month");?><?=mk_option($dwdvm_custom5_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM5LIMIT" name="CUSTOM5LIMIT" value="<?=$dwdvm_custom5_limit;?>"></input></td>
@@ -701,7 +724,7 @@ Markdown="false"
     <td><select id="CUSTOM5START" name="CUSTOM5START" size="1"><?=mk_option($dwdvm_custom5_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom5_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM6INTERFACE" name="CUSTOM6INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom6_interface;?>"></input></td>
+<td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM6INTERFACE' name='CUSTOM6INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom6_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom6_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM6INTERFACE' name='CUSTOM6INTERFACE' maxlength='40' value='$dwdvm_custom6_interface'>"); } ?></td>
     <td><select id="CUSTOM6MODE" name="CUSTOM6MODE" size="1"><?=mk_option($dwdvm_custom6_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom6_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM6TIME" name="CUSTOM6TIME" size="1"><?=mk_option($dwdvm_custom6_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom6_time, "d", "Last Day");?><?=mk_option($dwdvm_custom6_time, "m", "Last Month");?><?=mk_option($dwdvm_custom6_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM6LIMIT" name="CUSTOM6LIMIT" value="<?=$dwdvm_custom6_limit;?>"></input></td>
