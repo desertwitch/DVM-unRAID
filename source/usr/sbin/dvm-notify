@@ -79,8 +79,8 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                             if [ "$BADNOTIFY" == "enable" ]; then
                                 [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allBadDockers[$i]}' stopped with success."
                                 [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allBadDockers[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${allBadFunctions[$i]}' executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${allBadFunctions[$i]}' executed with errors (see SYSLOG)."                             
+                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
+                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."                             
                                 $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
@@ -214,8 +214,8 @@ for i in "${!allCustomInterfaces[@]}"; do
                             if [ "$BADNOTIFY" == "enable" ]; then
                                 [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStops[$i]}' stopped with success."
                                 [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStops[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_reached' executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_reached' executed with errors (see SYSLOG)."                            
+                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
+                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."                            
                                 $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
@@ -239,8 +239,8 @@ for i in "${!allCustomInterfaces[@]}"; do
                             if [ "$GOODNOTIFY" == "enable" ]; then
                                 [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStarts[$i]}' started with success."
                                 [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_normal_again' executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions function '${HUMANTIME}_${allCustomModes[$i]}_normal_again' executed with errors (see SYSLOG)."                                
+                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
+                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."                                
                                 $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded. ${RESULT1MESSAGE} ${RESULT2MESSAGE}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
