@@ -206,27 +206,7 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     </blockquote>
 
     <dl>
-        <dt>Custom Alarms Script Execution Frequency:</dt>
-            <dd>
-                <select id="CRONINT" name="CRONINT" size="1">
-                    <?=mk_option($dwdvm_cronint, 'disable', 'Never');?>
-                    <?=mk_option($dwdvm_cronint, '01min', 'Every 01 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '15min', 'Every 15 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '30min', 'Every 30 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '45min', 'Every 45 Minute(s)');?>
-                    <?=mk_option($dwdvm_cronint, '60min', 'Every 60 Minute(s)');?>
-                </select>
-            </dd>
-    </dl>
-
-    <blockquote class="inline_help">
-        <p>This setting controls how often the custom alarms script (contents of <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
-        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured below.</p>
-        <p><strong>In most cases you will <u>not</u> need to enable this setting, it has nothing to do with the notifications and user actions configured below.</strong></p>
-    </blockquote>
-
-    <dl>
-        <dt>Show Data Volume Metrics in Dashboard:</dt>
+        <dt><strong>Show Data Volume Metrics in Dashboard:</strong></dt>
         <dd>
             <select id="DASHB" name="DASHB" size="1">
                 <?=mk_option($dwdvm_dashb, "disable", "No");?>
@@ -240,7 +220,7 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     </blockquote>
 
     <dl>
-        <dt>Show Data Volume Metrics in Footer:</dt>
+        <dt><strong>Show Data Volume Metrics in Footer:</strong></dt>
         <dd>
             <select id="FOOTER" name="FOOTER" size="1">
                 <?=mk_option($dwdvm_footer, "disable", "No");?>
@@ -254,7 +234,23 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
     </blockquote>
 
     <dl>
-        <dt>Miniature Data Volume Reporting Time:</dt>
+        <dt>General Data Volume Reporting Output Format:</dt>
+        <dd>
+            <select id="REPORT" name="REPORT" size="1">
+                <?=mk_option($dwdvm_report, 'text', 'Textual Metrics');?>
+                <?=mk_option($dwdvm_report, 'images', 'Image Metrics');?>
+                <?=mk_option($dwdvm_report, 'both', 'Dual Metrics');?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls how the data volume metrics are displayed on this page.</p>
+        <p>Not all versions of UNRAID include the required image generation libraries, so on some system versions the image metrics may not show.</p>
+    </blockquote>
+
+    <dl>
+        <dt>Miniature Data Volume Reporting Observed Time:</dt>
         <dd>
             <select id="FOOTERFORMAT" name="FOOTERFORMAT" size="1">
                 <?=mk_option($dwdvm_footerformat, "5", "Last 5 Minutes");?>
@@ -268,22 +264,6 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
 
     <blockquote class="inline_help">
         <p>This setting controls how the miniature data volume metrics are displayed in the dashboard and footer.</p>
-    </blockquote>
-
-    <dl>
-        <dt>General Data Volume Reporting Format:</dt>
-        <dd>
-            <select id="REPORT" name="REPORT" size="1">
-                <?=mk_option($dwdvm_report, 'text', 'Textual Metrics');?>
-                <?=mk_option($dwdvm_report, 'images', 'Image Metrics');?>
-                <?=mk_option($dwdvm_report, 'both', 'Dual Metrics');?>
-            </select>
-        </dd>
-    </dl>
-
-    <blockquote class="inline_help">
-        <p>This setting controls how the data volume metrics are displayed on this page.</p>
-        <p>Not all versions of UNRAID include the required image generation libraries, so on some system versions the image metrics may not show.</p>
     </blockquote>
 
     <dl>
@@ -340,6 +320,26 @@ if($dwdvm_running && $dwdvm_autopurge == "enable") {
 
     <blockquote class="inline_help">
         <p>This setting will enable and execute user actions (below Docker settings or configured inside <strong>dvm-user-actions.sh</strong>) once the data limit is normal again (reset) on the primary network interface (enough time has passed).</p>
+    </blockquote>
+
+    <dl>
+        <dt>Custom Alarms Script Execution Frequency:</dt>
+            <dd>
+                <select id="CRONINT" name="CRONINT" size="1">
+                    <?=mk_option($dwdvm_cronint, 'disable', 'Never');?>
+                    <?=mk_option($dwdvm_cronint, '01min', 'Every 01 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '15min', 'Every 15 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '30min', 'Every 30 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '45min', 'Every 45 Minute(s)');?>
+                    <?=mk_option($dwdvm_cronint, '60min', 'Every 60 Minute(s)');?>
+                </select>
+            </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting controls how often the custom alarms script (contents of <strong>dvm-custom-alarms.sh</strong>) is executed by the crontab.</p>
+        <p>This script is for advanced users and operates independently from the notifications, data limits and user actions configured below.</p>
+        <p><strong>In most cases you will <u>not</u> need to enable this setting, it has nothing to do with the notifications and user actions configured below.</strong></p>
     </blockquote>
 
     <dl>
