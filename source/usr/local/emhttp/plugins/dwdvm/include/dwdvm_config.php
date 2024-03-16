@@ -73,59 +73,53 @@ $dwdvm_yunit_rx_stop   = trim(isset($dwdvm_cfg['RXUNITYSTOP'])   ? htmlspecialch
 $dwdvm_yunit_tx_start   = trim(isset($dwdvm_cfg['TXUNITYSTART'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTART'])   : 'disable');
 $dwdvm_yunit_tx_stop   = trim(isset($dwdvm_cfg['TXUNITYSTOP'])   ? htmlspecialchars($dwdvm_cfg['TXUNITYSTOP'])   : 'disable');
 
-$dwdvm_custom1_interface  = trim(isset($dwdvm_cfg['CUSTOM1INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM1INTERFACE'])  : 'eth0');
+$dwdvm_custom1_interface  = trim(isset($dwdvm_cfg['CUSTOM1INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM1INTERFACE'])  : '');
 $dwdvm_custom1_mode       = trim(isset($dwdvm_cfg['CUSTOM1MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1MODE'])       : 'rx');
 $dwdvm_custom1_time       = trim(isset($dwdvm_cfg['CUSTOM1TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1TIME'])       : 'h');
 $dwdvm_custom1_limit      = trim(isset($dwdvm_cfg['CUSTOM1LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM1LIMIT'])      : '-1');
 $dwdvm_custom1_unit       = trim(isset($dwdvm_cfg['CUSTOM1UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1UNIT'])       : 'GB');
 $dwdvm_custom1_stop       = trim(isset($dwdvm_cfg['CUSTOM1STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1STOP'])       : 'disable');
 $dwdvm_custom1_start      = trim(isset($dwdvm_cfg['CUSTOM1START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM1START'])      : 'disable');
-$dwdvm_custom1_action     = trim(isset($dwdvm_cfg['CUSTOM1ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM1ACTION'])     : 'disable');
 
-$dwdvm_custom2_interface  = trim(isset($dwdvm_cfg['CUSTOM2INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM2INTERFACE'])  : 'eth0');
+$dwdvm_custom2_interface  = trim(isset($dwdvm_cfg['CUSTOM2INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM2INTERFACE'])  : '');
 $dwdvm_custom2_mode       = trim(isset($dwdvm_cfg['CUSTOM2MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2MODE'])       : 'rx');
 $dwdvm_custom2_time       = trim(isset($dwdvm_cfg['CUSTOM2TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2TIME'])       : 'h');
 $dwdvm_custom2_limit      = trim(isset($dwdvm_cfg['CUSTOM2LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM2LIMIT'])      : '-1');
 $dwdvm_custom2_unit       = trim(isset($dwdvm_cfg['CUSTOM2UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2UNIT'])       : 'GB');
 $dwdvm_custom2_stop       = trim(isset($dwdvm_cfg['CUSTOM2STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2STOP'])       : 'disable');
 $dwdvm_custom2_start      = trim(isset($dwdvm_cfg['CUSTOM2START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM2START'])      : 'disable');
-$dwdvm_custom2_action     = trim(isset($dwdvm_cfg['CUSTOM2ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM2ACTION'])     : 'disable');
 
-$dwdvm_custom3_interface  = trim(isset($dwdvm_cfg['CUSTOM3INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM3INTERFACE'])  : 'eth0');
+$dwdvm_custom3_interface  = trim(isset($dwdvm_cfg['CUSTOM3INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM3INTERFACE'])  : '');
 $dwdvm_custom3_mode       = trim(isset($dwdvm_cfg['CUSTOM3MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3MODE'])       : 'rx');
 $dwdvm_custom3_time       = trim(isset($dwdvm_cfg['CUSTOM3TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3TIME'])       : 'h');
 $dwdvm_custom3_limit      = trim(isset($dwdvm_cfg['CUSTOM3LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM3LIMIT'])      : '-1');
 $dwdvm_custom3_unit       = trim(isset($dwdvm_cfg['CUSTOM3UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3UNIT'])       : 'GB');
 $dwdvm_custom3_stop       = trim(isset($dwdvm_cfg['CUSTOM3STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3STOP'])       : 'disable');
 $dwdvm_custom3_start      = trim(isset($dwdvm_cfg['CUSTOM3START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM3START'])      : 'disable');
-$dwdvm_custom3_action     = trim(isset($dwdvm_cfg['CUSTOM3ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM3ACTION'])     : 'disable');
 
-$dwdvm_custom4_interface  = trim(isset($dwdvm_cfg['CUSTOM4INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM4INTERFACE'])  : 'eth0');
+$dwdvm_custom4_interface  = trim(isset($dwdvm_cfg['CUSTOM4INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM4INTERFACE'])  : '');
 $dwdvm_custom4_mode       = trim(isset($dwdvm_cfg['CUSTOM4MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4MODE'])       : 'rx');
 $dwdvm_custom4_time       = trim(isset($dwdvm_cfg['CUSTOM4TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4TIME'])       : 'h');
 $dwdvm_custom4_limit      = trim(isset($dwdvm_cfg['CUSTOM4LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM4LIMIT'])      : '-1');
 $dwdvm_custom4_unit       = trim(isset($dwdvm_cfg['CUSTOM4UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4UNIT'])       : 'GB');
 $dwdvm_custom4_stop       = trim(isset($dwdvm_cfg['CUSTOM4STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4STOP'])       : 'disable');
 $dwdvm_custom4_start      = trim(isset($dwdvm_cfg['CUSTOM4START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM4START'])      : 'disable');
-$dwdvm_custom4_action     = trim(isset($dwdvm_cfg['CUSTOM4ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM4ACTION'])     : 'disable');
 
-$dwdvm_custom5_interface  = trim(isset($dwdvm_cfg['CUSTOM5INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM5INTERFACE'])  : 'eth0');
+$dwdvm_custom5_interface  = trim(isset($dwdvm_cfg['CUSTOM5INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM5INTERFACE'])  : '');
 $dwdvm_custom5_mode       = trim(isset($dwdvm_cfg['CUSTOM5MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5MODE'])       : 'rx');
 $dwdvm_custom5_time       = trim(isset($dwdvm_cfg['CUSTOM5TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5TIME'])       : 'h');
 $dwdvm_custom5_limit      = trim(isset($dwdvm_cfg['CUSTOM5LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM5LIMIT'])      : '-1');
 $dwdvm_custom5_unit       = trim(isset($dwdvm_cfg['CUSTOM5UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5UNIT'])       : 'GB');
 $dwdvm_custom5_stop       = trim(isset($dwdvm_cfg['CUSTOM5STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5STOP'])       : 'disable');
 $dwdvm_custom5_start      = trim(isset($dwdvm_cfg['CUSTOM5START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM5START'])      : 'disable');
-$dwdvm_custom5_action     = trim(isset($dwdvm_cfg['CUSTOM5ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM5ACTION'])     : 'disable');
 
-$dwdvm_custom6_interface  = trim(isset($dwdvm_cfg['CUSTOM6INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM6INTERFACE'])  : 'eth0');
+$dwdvm_custom6_interface  = trim(isset($dwdvm_cfg['CUSTOM6INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM6INTERFACE'])  : '');
 $dwdvm_custom6_mode       = trim(isset($dwdvm_cfg['CUSTOM6MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6MODE'])       : 'rx');
 $dwdvm_custom6_time       = trim(isset($dwdvm_cfg['CUSTOM6TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6TIME'])       : 'h');
 $dwdvm_custom6_limit      = trim(isset($dwdvm_cfg['CUSTOM6LIMIT'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM6LIMIT'])      : '-1');
 $dwdvm_custom6_unit       = trim(isset($dwdvm_cfg['CUSTOM6UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6UNIT'])       : 'GB');
 $dwdvm_custom6_stop       = trim(isset($dwdvm_cfg['CUSTOM6STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6STOP'])       : 'disable');
 $dwdvm_custom6_start      = trim(isset($dwdvm_cfg['CUSTOM6START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM6START'])      : 'disable');
-$dwdvm_custom6_action     = trim(isset($dwdvm_cfg['CUSTOM6ACTION'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM6ACTION'])     : 'disable');
 
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );

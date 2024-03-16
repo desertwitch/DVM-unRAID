@@ -635,67 +635,61 @@ Markdown="false"
 
     <div> 
     <table class="tablesorter">
-    <thead><tr><th><strong>Network Interface</strong></th><th><strong>Traffic Direction</strong></th><th><strong>Timespan Observed</strong></th><th><strong>Threshold Limit</strong></th><th><strong>Threshold Unit</strong></th><th><strong>Stop Docker Container</strong></th><th><strong>Start Docker Container</strong></th><th><strong>dvm-user-actions.sh</strong></th></tr></thead>
+    <thead><tr><th><strong>Network Interface</strong></th><th><strong>Traffic Direction</strong></th><th><strong>Timespan Observed</strong></th><th><strong>Threshold Limit</strong></th><th><strong>Threshold Unit</strong></th><th><strong>Stop Docker Container</strong></th><th><strong>Start Docker Container</strong></th></tr></thead>
     <tbody>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM1INTERFACE" name="CUSTOM1INTERFACE" value="<?=$dwdvm_custom1_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM1INTERFACE" name="CUSTOM1INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom1_interface;?>"></input></td>
     <td><select id="CUSTOM1MODE" name="CUSTOM1MODE" size="1"><?=mk_option($dwdvm_custom1_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom1_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM1TIME" name="CUSTOM1TIME" size="1"><?=mk_option($dwdvm_custom1_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom1_time, "d", "Last Day");?><?=mk_option($dwdvm_custom1_time, "m", "Last Month");?><?=mk_option($dwdvm_custom1_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM1LIMIT" name="CUSTOM1LIMIT" value="<?=$dwdvm_custom1_limit;?>"></input></td>
     <td><select id="CUSTOM1UNIT" name="CUSTOM1UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom1_unit, "B", "B");?><?=mk_option($dwdvm_custom1_unit, "KB", "KB");?><?=mk_option($dwdvm_custom1_unit, "MB", "MB");?><?=mk_option($dwdvm_custom1_unit, "GB", "GB");?><?=mk_option($dwdvm_custom1_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM1STOP" name="CUSTOM1STOP" size="1"><?=mk_option($dwdvm_custom1_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom1_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM1START" name="CUSTOM1START" size="1"><?=mk_option($dwdvm_custom1_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom1_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM1ACTION" name="CUSTOM1ACTION" size="1"><?=mk_option($dwdvm_custom1_action, "disable", "No");?><?=mk_option($dwdvm_custom1_action, "enable", "Yes");?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM2INTERFACE" name="CUSTOM2INTERFACE" value="<?=$dwdvm_custom2_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM2INTERFACE" name="CUSTOM2INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom2_interface;?>"></input></td>
     <td><select id="CUSTOM2MODE" name="CUSTOM2MODE" size="1"><?=mk_option($dwdvm_custom2_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom2_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM2TIME" name="CUSTOM2TIME" size="1"><?=mk_option($dwdvm_custom2_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom2_time, "d", "Last Day");?><?=mk_option($dwdvm_custom2_time, "m", "Last Month");?><?=mk_option($dwdvm_custom2_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM2LIMIT" name="CUSTOM2LIMIT" value="<?=$dwdvm_custom2_limit;?>"></input></td>
     <td><select id="CUSTOM2UNIT" name="CUSTOM2UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom2_unit, "B", "B");?><?=mk_option($dwdvm_custom2_unit, "KB", "KB");?><?=mk_option($dwdvm_custom2_unit, "MB", "MB");?><?=mk_option($dwdvm_custom2_unit, "GB", "GB");?><?=mk_option($dwdvm_custom2_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM2STOP" name="CUSTOM2STOP" size="1"><?=mk_option($dwdvm_custom2_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom2_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM2START" name="CUSTOM2START" size="1"><?=mk_option($dwdvm_custom2_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom2_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM2ACTION" name="CUSTOM2ACTION" size="1"><?=mk_option($dwdvm_custom2_action, "disable", "No");?><?=mk_option($dwdvm_custom2_action, "enable", "Yes");?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM3INTERFACE" name="CUSTOM3INTERFACE" value="<?=$dwdvm_custom3_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM3INTERFACE" name="CUSTOM3INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom3_interface;?>"></input></td>
     <td><select id="CUSTOM3MODE" name="CUSTOM3MODE" size="1"><?=mk_option($dwdvm_custom3_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom3_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM3TIME" name="CUSTOM3TIME" size="1"><?=mk_option($dwdvm_custom3_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom3_time, "d", "Last Day");?><?=mk_option($dwdvm_custom3_time, "m", "Last Month");?><?=mk_option($dwdvm_custom3_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM3LIMIT" name="CUSTOM3LIMIT" value="<?=$dwdvm_custom3_limit;?>"></input></td>
     <td><select id="CUSTOM3UNIT" name="CUSTOM3UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom3_unit, "B", "B");?><?=mk_option($dwdvm_custom3_unit, "KB", "KB");?><?=mk_option($dwdvm_custom3_unit, "MB", "MB");?><?=mk_option($dwdvm_custom3_unit, "GB", "GB");?><?=mk_option($dwdvm_custom3_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM3STOP" name="CUSTOM3STOP" size="1"><?=mk_option($dwdvm_custom3_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom3_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM3START" name="CUSTOM3START" size="1"><?=mk_option($dwdvm_custom3_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom3_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM3ACTION" name="CUSTOM3ACTION" size="1"><?=mk_option($dwdvm_custom3_action, "disable", "No");?><?=mk_option($dwdvm_custom3_action, "enable", "Yes");?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM4INTERFACE" name="CUSTOM4INTERFACE" value="<?=$dwdvm_custom4_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM4INTERFACE" name="CUSTOM4INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom4_interface;?>"></input></td>
     <td><select id="CUSTOM4MODE" name="CUSTOM4MODE" size="1"><?=mk_option($dwdvm_custom4_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom4_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM4TIME" name="CUSTOM4TIME" size="1"><?=mk_option($dwdvm_custom4_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom4_time, "d", "Last Day");?><?=mk_option($dwdvm_custom4_time, "m", "Last Month");?><?=mk_option($dwdvm_custom4_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM4LIMIT" name="CUSTOM4LIMIT" value="<?=$dwdvm_custom4_limit;?>"></input></td>
     <td><select id="CUSTOM4UNIT" name="CUSTOM4UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom4_unit, "B", "B");?><?=mk_option($dwdvm_custom4_unit, "KB", "KB");?><?=mk_option($dwdvm_custom4_unit, "MB", "MB");?><?=mk_option($dwdvm_custom4_unit, "GB", "GB");?><?=mk_option($dwdvm_custom4_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM4STOP" name="CUSTOM4STOP" size="1"><?=mk_option($dwdvm_custom4_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom4_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM4START" name="CUSTOM4START" size="1"><?=mk_option($dwdvm_custom4_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom4_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM4ACTION" name="CUSTOM4ACTION" size="1"><?=mk_option($dwdvm_custom4_action, "disable", "No");?><?=mk_option($dwdvm_custom4_action, "enable", "Yes");?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM5INTERFACE" name="CUSTOM5INTERFACE" value="<?=$dwdvm_custom5_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM5INTERFACE" name="CUSTOM5INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom5_interface;?>"></input></td>
     <td><select id="CUSTOM5MODE" name="CUSTOM5MODE" size="1"><?=mk_option($dwdvm_custom5_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom5_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM5TIME" name="CUSTOM5TIME" size="1"><?=mk_option($dwdvm_custom5_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom5_time, "d", "Last Day");?><?=mk_option($dwdvm_custom5_time, "m", "Last Month");?><?=mk_option($dwdvm_custom5_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM5LIMIT" name="CUSTOM5LIMIT" value="<?=$dwdvm_custom5_limit;?>"></input></td>
     <td><select id="CUSTOM5UNIT" name="CUSTOM5UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom5_unit, "B", "B");?><?=mk_option($dwdvm_custom5_unit, "KB", "KB");?><?=mk_option($dwdvm_custom5_unit, "MB", "MB");?><?=mk_option($dwdvm_custom5_unit, "GB", "GB");?><?=mk_option($dwdvm_custom5_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM5STOP" name="CUSTOM5STOP" size="1"><?=mk_option($dwdvm_custom5_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom5_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM5START" name="CUSTOM5START" size="1"><?=mk_option($dwdvm_custom5_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom5_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM5ACTION" name="CUSTOM5ACTION" size="1"><?=mk_option($dwdvm_custom5_action, "disable", "No");?><?=mk_option($dwdvm_custom5_action, "enable", "Yes");?></select></td>
     </tr>
     <tr>
-    <td><input type="text" class="narrow" id="CUSTOM6INTERFACE" name="CUSTOM6INTERFACE" value="<?=$dwdvm_custom6_interface;?>"></input></td>
+    <td><input type="text" class="narrow" id="CUSTOM6INTERFACE" name="CUSTOM6INTERFACE" placeholder="eth0" value="<?=$dwdvm_custom6_interface;?>"></input></td>
     <td><select id="CUSTOM6MODE" name="CUSTOM6MODE" size="1"><?=mk_option($dwdvm_custom6_mode, "rx", "IN-bound");?><?=mk_option($dwdvm_custom6_mode, "tx", "OUT-bound");?></select></td>
     <td><select id="CUSTOM6TIME" name="CUSTOM6TIME" size="1"><?=mk_option($dwdvm_custom6_time, "h", "Last Hour");?><?=mk_option($dwdvm_custom6_time, "d", "Last Day");?><?=mk_option($dwdvm_custom6_time, "m", "Last Month");?><?=mk_option($dwdvm_custom6_time, "y", "Last Year");?></select></td>
     <td><input type="text" class="narrow dvmlimit2" id="CUSTOM6LIMIT" name="CUSTOM6LIMIT" value="<?=$dwdvm_custom6_limit;?>"></input></td>
     <td><select id="CUSTOM6UNIT" name="CUSTOM6UNIT" class="narrow" size="1"><?=mk_option($dwdvm_custom6_unit, "B", "B");?><?=mk_option($dwdvm_custom6_unit, "KB", "KB");?><?=mk_option($dwdvm_custom6_unit, "MB", "MB");?><?=mk_option($dwdvm_custom6_unit, "GB", "GB");?><?=mk_option($dwdvm_custom6_unit, "TB", "TB");?></select></td>
     <td><select id="CUSTOM6STOP" name="CUSTOM6STOP" size="1"><?=mk_option($dwdvm_custom6_stop, "disable", "Stop: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom6_stop, $dvm_available_docker, "Stop: $dvm_available_docker")); } }?></select></td>
     <td><select id="CUSTOM6START" name="CUSTOM6START" size="1"><?=mk_option($dwdvm_custom6_start, "disable", "Start: None");?><?if($dvm_available_dockers) { foreach ($dvm_available_dockers as $dvm_available_docker) { echo(mk_option($dwdvm_custom6_start, $dvm_available_docker, "Start: $dvm_available_docker")); } }?></select></td>
-    <td><select id="CUSTOM6ACTION" name="CUSTOM6ACTION" size="1"><?=mk_option($dwdvm_custom6_action, "disable", "No");?><?=mk_option($dwdvm_custom6_action, "enable", "Yes");?></select></td>
     </tr>
     </tbody>
     </table>
