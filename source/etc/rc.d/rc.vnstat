@@ -112,7 +112,7 @@ write_config() {
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Adding DVM notification and user action service to crontab..."
     fi
-    cp -f $DOCROOT/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
+    cp -f $DOCROOT/misc/dwdvm-notify.cron /boot/config/plugins/dynamix/dwdvm-notify.cron
   else
     if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ]; then
       echo "Removing DVM notification and user action service from crontab..."
@@ -125,7 +125,7 @@ write_config() {
     if [ ! -f /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron ]; then
       echo "Adding DVM custom alarms script to crontab (${CRONINT})..."
     fi
-    cp -f $DOCROOT/dwdvm-custom-alarms.cron /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
+    cp -f $DOCROOT/misc/dwdvm-custom-alarms.cron /boot/config/plugins/dynamix/dwdvm-custom-alarms.cron
     if [ "$CRONINT" == "01min" ]; then
       sleep 1
     elif [ "$CRONINT" == "15min" ]; then
