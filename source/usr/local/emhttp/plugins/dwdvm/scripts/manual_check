@@ -33,7 +33,7 @@ vnstat --config /etc/vnstat/vnstat.conf --iflist 2>&1
 
 echo ""
 echo "###"
-echo "### RECORDED INTERFACES IN THE BACKEND DATABASE"
+echo "### BACKEND REPORTED INTERFACES IN THE DATABASE"
 echo "###"
 echo ""
 
@@ -41,7 +41,7 @@ vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>&1
 
 echo ""
 echo "###"
-echo "### RUNNING MANUAL CHECK"
+echo "### MANUAL THRESHOLD CHECK"
 echo "###"
 echo ""
 
