@@ -445,6 +445,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last hour inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last hour inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -506,6 +507,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last hour outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last hour outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -567,6 +569,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last day inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last day inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -628,6 +631,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last day outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last day outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -689,6 +693,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last month inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last month inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -750,6 +755,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last month outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last month outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -811,6 +817,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last year inbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last year inbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
@@ -872,6 +879,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls what virtual machine should be disconnected from the network when the last year outbound data volume threshold has been exceeded (for the primary network interface).</p>
         <p>This setting controls what virtual machine should be reconnected to the network when the last year outbound data volume threshold has returned to normal (reset for the primary network interface).</p>
+        <p>This action is equivalent to unplugging and replugging a network cable from a computer - this means in principle no other changes are made to the virtual machine and virtual machine operation respectively.</p>
         <p><strong>This settings only has an effect when the respective user actions (threshold exceeded user action for disconnect VM / threshold reset user action for reconnect VM) are enabled.</strong></p>
         <p><em>If you want to execute more commands or do more advanced scripting please refer to the <strong>dvm-user-actions.sh</strong> script, which can be edited using the DVM configuration editor.</em></p>
     </blockquote>
