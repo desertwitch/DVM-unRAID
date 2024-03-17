@@ -98,6 +98,8 @@ $dwdvm_custom1_limit      = trim(isset($dwdvm_cfg['CUSTOM1LIMIT'])      ? htmlsp
 $dwdvm_custom1_unit       = trim(isset($dwdvm_cfg['CUSTOM1UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1UNIT'])       : 'GB');
 $dwdvm_custom1_stop       = trim(isset($dwdvm_cfg['CUSTOM1STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1STOP'])       : 'disable');
 $dwdvm_custom1_start      = trim(isset($dwdvm_cfg['CUSTOM1START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM1START'])      : 'disable');
+$dwdvm_custom1_vmstop     = trim(isset($dwdvm_cfg['CUSTOM1VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM1VMSTOP'])     : 'disable');
+$dwdvm_custom1_vmstart    = trim(isset($dwdvm_cfg['CUSTOM1VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM1VMSTART'])    : 'disable');
 
 $dwdvm_custom2_interface  = trim(isset($dwdvm_cfg['CUSTOM2INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM2INTERFACE'])  : 'noiface');
 $dwdvm_custom2_mode       = trim(isset($dwdvm_cfg['CUSTOM2MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2MODE'])       : 'rx');
@@ -106,6 +108,8 @@ $dwdvm_custom2_limit      = trim(isset($dwdvm_cfg['CUSTOM2LIMIT'])      ? htmlsp
 $dwdvm_custom2_unit       = trim(isset($dwdvm_cfg['CUSTOM2UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2UNIT'])       : 'GB');
 $dwdvm_custom2_stop       = trim(isset($dwdvm_cfg['CUSTOM2STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM2STOP'])       : 'disable');
 $dwdvm_custom2_start      = trim(isset($dwdvm_cfg['CUSTOM2START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM2START'])      : 'disable');
+$dwdvm_custom2_vmstop     = trim(isset($dwdvm_cfg['CUSTOM2VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM2VMSTOP'])     : 'disable');
+$dwdvm_custom2_vmstart    = trim(isset($dwdvm_cfg['CUSTOM2VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM2VMSTART'])    : 'disable');
 
 $dwdvm_custom3_interface  = trim(isset($dwdvm_cfg['CUSTOM3INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM3INTERFACE'])  : 'noiface');
 $dwdvm_custom3_mode       = trim(isset($dwdvm_cfg['CUSTOM3MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3MODE'])       : 'rx');
@@ -114,6 +118,8 @@ $dwdvm_custom3_limit      = trim(isset($dwdvm_cfg['CUSTOM3LIMIT'])      ? htmlsp
 $dwdvm_custom3_unit       = trim(isset($dwdvm_cfg['CUSTOM3UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3UNIT'])       : 'GB');
 $dwdvm_custom3_stop       = trim(isset($dwdvm_cfg['CUSTOM3STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM3STOP'])       : 'disable');
 $dwdvm_custom3_start      = trim(isset($dwdvm_cfg['CUSTOM3START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM3START'])      : 'disable');
+$dwdvm_custom3_vmstop     = trim(isset($dwdvm_cfg['CUSTOM3VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM3VMSTOP'])     : 'disable');
+$dwdvm_custom3_vmstart    = trim(isset($dwdvm_cfg['CUSTOM3VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM3VMSTART'])    : 'disable');
 
 $dwdvm_custom4_interface  = trim(isset($dwdvm_cfg['CUSTOM4INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM4INTERFACE'])  : 'noiface');
 $dwdvm_custom4_mode       = trim(isset($dwdvm_cfg['CUSTOM4MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4MODE'])       : 'rx');
@@ -122,6 +128,8 @@ $dwdvm_custom4_limit      = trim(isset($dwdvm_cfg['CUSTOM4LIMIT'])      ? htmlsp
 $dwdvm_custom4_unit       = trim(isset($dwdvm_cfg['CUSTOM4UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4UNIT'])       : 'GB');
 $dwdvm_custom4_stop       = trim(isset($dwdvm_cfg['CUSTOM4STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM4STOP'])       : 'disable');
 $dwdvm_custom4_start      = trim(isset($dwdvm_cfg['CUSTOM4START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM4START'])      : 'disable');
+$dwdvm_custom4_vmstop     = trim(isset($dwdvm_cfg['CUSTOM4VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM4VMSTOP'])     : 'disable');
+$dwdvm_custom4_vmstart    = trim(isset($dwdvm_cfg['CUSTOM4VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM4VMSTART'])    : 'disable');
 
 $dwdvm_custom5_interface  = trim(isset($dwdvm_cfg['CUSTOM5INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM5INTERFACE'])  : 'noiface');
 $dwdvm_custom5_mode       = trim(isset($dwdvm_cfg['CUSTOM5MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5MODE'])       : 'rx');
@@ -130,6 +138,8 @@ $dwdvm_custom5_limit      = trim(isset($dwdvm_cfg['CUSTOM5LIMIT'])      ? htmlsp
 $dwdvm_custom5_unit       = trim(isset($dwdvm_cfg['CUSTOM5UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5UNIT'])       : 'GB');
 $dwdvm_custom5_stop       = trim(isset($dwdvm_cfg['CUSTOM5STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM5STOP'])       : 'disable');
 $dwdvm_custom5_start      = trim(isset($dwdvm_cfg['CUSTOM5START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM5START'])      : 'disable');
+$dwdvm_custom5_vmstop     = trim(isset($dwdvm_cfg['CUSTOM5VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM5VMSTOP'])     : 'disable');
+$dwdvm_custom5_vmstart    = trim(isset($dwdvm_cfg['CUSTOM5VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM5VMSTART'])    : 'disable');
 
 $dwdvm_custom6_interface  = trim(isset($dwdvm_cfg['CUSTOM6INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM6INTERFACE'])  : 'noiface');
 $dwdvm_custom6_mode       = trim(isset($dwdvm_cfg['CUSTOM6MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6MODE'])       : 'rx');
@@ -138,6 +148,8 @@ $dwdvm_custom6_limit      = trim(isset($dwdvm_cfg['CUSTOM6LIMIT'])      ? htmlsp
 $dwdvm_custom6_unit       = trim(isset($dwdvm_cfg['CUSTOM6UNIT'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6UNIT'])       : 'GB');
 $dwdvm_custom6_stop       = trim(isset($dwdvm_cfg['CUSTOM6STOP'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM6STOP'])       : 'disable');
 $dwdvm_custom6_start      = trim(isset($dwdvm_cfg['CUSTOM6START'])      ? htmlspecialchars($dwdvm_cfg['CUSTOM6START'])      : 'disable');
+$dwdvm_custom6_vmstop     = trim(isset($dwdvm_cfg['CUSTOM6VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTOP'])     : 'disable');
+$dwdvm_custom6_vmstart    = trim(isset($dwdvm_cfg['CUSTOM6VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTART'])    : 'disable');
 
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
