@@ -432,11 +432,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Hour</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="RXVMHSTOP" name="RXVMHSTOP" size="1">
-            <?=mk_option($dwdvm_hvm_rx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_hvm_rx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="RXVMHSTART" name="RXVMHSTART" size="1">
-            <?=mk_option($dwdvm_hvm_rx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_hvm_rx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -493,11 +493,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Hour</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="TXVMHSTOP" name="TXVMHSTOP" size="1">
-            <?=mk_option($dwdvm_hvm_tx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_hvm_tx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="TXVMHSTART" name="TXVMHSTART" size="1">
-            <?=mk_option($dwdvm_hvm_tx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_hvm_tx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_hvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -554,11 +554,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Day</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="RXVMDSTOP" name="RXVMDSTOP" size="1">
-            <?=mk_option($dwdvm_dvm_rx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_dvm_rx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="RXVMDSTART" name="RXVMDSTART" size="1">
-            <?=mk_option($dwdvm_dvm_rx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_dvm_rx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -615,11 +615,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Day</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="TXVMDSTOP" name="TXVMDSTOP" size="1">
-            <?=mk_option($dwdvm_dvm_tx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_dvm_tx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="TXVMDSTART" name="TXVMDSTART" size="1">
-            <?=mk_option($dwdvm_dvm_tx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_dvm_tx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_dvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -676,11 +676,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Month</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="RXVMMSTOP" name="RXVMMSTOP" size="1">
-            <?=mk_option($dwdvm_mvm_rx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_mvm_rx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="RXVMMSTART" name="RXVMMSTART" size="1">
-            <?=mk_option($dwdvm_mvm_rx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_mvm_rx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -737,11 +737,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Month</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="TXVMMSTOP" name="TXVMMSTOP" size="1">
-            <?=mk_option($dwdvm_mvm_tx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_mvm_tx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="TXVMMSTART" name="TXVMMSTART" size="1">
-            <?=mk_option($dwdvm_mvm_tx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_mvm_tx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_mvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -798,11 +798,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Year</strong> <strong><u>IN</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="RXVMYSTOP" name="RXVMYSTOP" size="1">
-            <?=mk_option($dwdvm_yvm_rx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_yvm_rx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_rx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="RXVMYSTART" name="RXVMYSTART" size="1">
-            <?=mk_option($dwdvm_yvm_rx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_yvm_rx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_rx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
@@ -859,11 +859,11 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
         <dt>Last <strong>Year</strong> <strong><u>OUT</u></strong>-bound Disconnect / Reconnect VM:</dt>
         <dd>
             <select id="TXVMYSTOP" name="TXVMYSTOP" size="1">
-            <?=mk_option($dwdvm_yvm_tx_stop, "disable", "Stop: None");?>
+            <?=mk_option($dwdvm_yvm_tx_stop, "disable", "Disconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_tx_stop, $dvm_available_vm, "Disconnect: $dvm_available_vm")); } }?>
             </select>
             <select id="TXVMYSTART" name="TXVMYSTART" size="1">
-            <?=mk_option($dwdvm_yvm_tx_start, "disable", "Start: None");?>
+            <?=mk_option($dwdvm_yvm_tx_start, "disable", "Reconnect: None");?>
             <?if($dvm_available_vms) { foreach ($dvm_available_vms as $dvm_available_vm) { echo(mk_option($dwdvm_yvm_tx_start, $dvm_available_vm, "Reconnect: $dvm_available_vm")); } }?>
             </select>
         </dd>
