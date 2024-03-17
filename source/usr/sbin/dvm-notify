@@ -352,4 +352,3 @@ for i in "${!allCustomInterfaces[@]}"; do
         fi
     fi
 done
-
