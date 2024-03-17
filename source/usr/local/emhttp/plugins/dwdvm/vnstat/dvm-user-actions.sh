@@ -14,7 +14,7 @@
 # These actions follow the same behavior as the notifications - execute ONCE when limit changes
 # Advanced scripting can be done using DVM-CUSTOM-ALARMS.SH (independent from DVM user actions)
 #
-# For your convenience, the network interface which triggered the function call is passed as $1
+# For any filtering needs, the network interface which triggered the function call is passed as $1
 #
 # DO NOT PUT ANY COMMANDS OR STATEMENTS OUTSIDE OF THE ALREADY DEFINED FUNCTIONS
 # BEWARE THAT FUNCTIONS CANNOT BE EMPTY SO KEEP THE ECHO STATEMENT IN EACH FUNCTION
