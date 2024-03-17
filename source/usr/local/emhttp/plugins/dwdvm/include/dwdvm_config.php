@@ -154,6 +154,6 @@ $dwdvm_custom6_vmstart    = trim(isset($dwdvm_cfg['CUSTOM6VMSTART'])    ? htmlsp
 
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(htmlspecialchars(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null")));
-$dwdvm_support_link = trim(shell_exec("plugin support /boot/config/plugins/dwdvm.plg"));
+//$dwdvm_support_link = trim(shell_exec("plugin support /boot/config/plugins/dwdvm.plg"));
 
 ?>
