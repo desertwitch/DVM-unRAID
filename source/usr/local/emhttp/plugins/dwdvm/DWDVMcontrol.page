@@ -966,6 +966,8 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
     <p>This settings table allows you to configure secondary thresholds and user actions for different network interfaces.</p>
     <p><strong>Please <u>do not</u> use your primary network interface in this section, as any settings made in this section will have no effect on your primary network interface.</strong></p>
+    <p>It is possible to configure <u>two or more secondary thresholds</u> using the <u>same combination of network interface, traffic direction and timespan</u>, but the status color of the interface will then be based on the first alarm.</p> 
+    <p>For example for two alarms both using interface 'eth1', 'inbound' and 'hour': the dashboard will show the status color for the first alarm, but the notifications and actions will run for both and independently of each other.</p>
     </blockquote>
 
     <dl>

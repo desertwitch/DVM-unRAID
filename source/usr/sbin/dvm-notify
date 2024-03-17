@@ -64,10 +64,10 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
             RESACTIONSMSG=""
             RESVMSMSG=""
             if [ "${allLimits[$i]}" == "-1" ]; then
-                echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
+                echo "0: (${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
                 rm -f "/tmp/${allBadFiles[$i]}"
             else
-                echo -n "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
+                echo -n "0: (${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... "
                 if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" | grep -i "error" >/dev/null 2>&1); then
                     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allMetricParameters[$i]}" "${allMetricModes[$i]}" "${allLimits[$i]}" "${allUnits[$i]}" "$PRIMARY" >/dev/null 2>&1; then
                         if [ ! -f "/tmp/${allBadFiles[$i]}" ]; then
@@ -103,7 +103,7 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                     fi
                                 fi
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
-                                ${allBadFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
+                                ${allBadFunctions[$i]} "0" "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
@@ -154,7 +154,7 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                     fi
                                 fi                                
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
-                                ${allGoodFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
+                                ${allGoodFunctions[$i]} "0" "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
@@ -205,6 +205,7 @@ for i in "${!allCustomInterfaces[@]}"; do
     RESDOCKERMSG=""
     RESACTIONSMSG=""
     RESVMSMSG=""
+    RESALARMID=$(("$i" + 1))
     UPPERMODE="$(echo "${allCustomModes[$i]}" | awk '{print toupper($0)}')"
     HUMANTIME="${allCustomTimes[$i]}"
     case "${allCustomTimes[$i]}" in
@@ -255,15 +256,15 @@ for i in "${!allCustomInterfaces[@]}"; do
         ;;
     esac
     if [ "${allCustomLimits[$i]}" == "-1" ]; then
-        echo "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
-        rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+        echo "${RESALARMID}: (${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
+        rm -f "/tmp/dvm${RESALARMID}_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
     else
-        echo -n "(${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
+        echo -n "${RESALARMID}: (${allCustomInterfaces[$i]}) ${UPPERMODE} ${HUMANTIME} [${allCustomLimits[$i]} ${allCustomUnits[$i]}]... "
         if [ -n "${allCustomInterfaces[$i]}" ] && [ ! "${allCustomInterfaces[$i]}" == "$PRIMARY" ] && [ ! "${allCustomInterfaces[$i]}" == "noiface" ] && [ -e "/sys/class/net/${allCustomInterfaces[$i]}" ]; then
             if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "${allCustomInterfaces[$i]}" >/dev/null 2>&1); then
                 if ! (vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" | grep -i "error" >/dev/null 2>&1); then
                     if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 "${allCustomTimes[$i]}" "${allCustomModes[$i]}" "${allCustomLimits[$i]}" "${allCustomUnits[$i]}" "${allCustomInterfaces[$i]}" >/dev/null 2>&1; then
-                        if [ ! -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
+                        if [ ! -f "/tmp/dvm${RESALARMID}_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
                             echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded." | logger -t "dvm-notify"
                             if [ "$BADACTIONS" == "enable" ]; then
                                 if [ ! "${allCustomStops[$i]}" == "disable" ]; then
@@ -296,7 +297,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                                     fi
                                 fi                                
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_reached" | logger -t "dvm-notify"
-                                eval "${HUMANTIME}_${allCustomModes[$i]}_reached" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_reached" "${RESALARMID}" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
@@ -312,9 +313,9 @@ for i in "${!allCustomInterfaces[@]}"; do
                         else
                             echo "OK (LIMIT EXCEEDED - REPEAT)"
                         fi
-                        touch "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+                        touch "/tmp/dvm${RESALARMID}_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
                     else
-                        if [ -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
+                        if [ -f "/tmp/dvm${RESALARMID}_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified" ]; then
                             echo "[${allCustomInterfaces[$i]}] DVM: The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded." | logger -t "dvm-notify"
                             if [ "$GOODACTIONS" == "enable" ]; then
                                 if [ ! "${allCustomStarts[$i]}" == "disable" ]; then
@@ -347,7 +348,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                                     fi
                                 fi                                    
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_normal_again" | logger -t "dvm-notify"
-                                eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
+                                eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" "${RESALARMID}" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
@@ -363,7 +364,7 @@ for i in "${!allCustomInterfaces[@]}"; do
                         else
                             echo "OK (LIMIT NOT EXCEEDED - REPEAT)"
                         fi
-                        rm -f "/tmp/dvm_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
+                        rm -f "/tmp/dvm${RESALARMID}_${allCustomInterfaces[$i]}_${allCustomTimes[$i]}_bad_${allCustomModes[$i]}_notified"
                     fi
                 else
                     echo "FAILED (DATABASE WAS NOT READY)"
