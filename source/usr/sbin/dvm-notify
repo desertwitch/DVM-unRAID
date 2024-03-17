@@ -107,13 +107,13 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
-                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allBadDockers[$i]}' stopped with success."
-                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allBadDockers[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
-                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."      
-                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allBadVMS[$i]}' disconnected with success."
-                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allBadVMS[$i]}' disconnected with errors (see SYSLOG)."                           
-                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "alert"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allBadDockers[$i]}' stopped with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allBadDockers[$i]}' stopped with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with errors (see SYSLOG)."      
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allBadVMS[$i]}' disconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allBadVMS[$i]}' disconnected with errors (see SYSLOG)."                           
+                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded.${RESDOCKERMSG}${RESVMSMSG}${RESACTIONSMSG}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
                         else
@@ -158,13 +158,13 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
-                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allGoodDockers[$i]}' started with success."
-                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allGoodDockers[$i]}' started with errors (see SYSLOG)."
-                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
-                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."   
-                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allGoodVMS[$i]}' reconnected with success."
-                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allGoodVMS[$i]}' reconnected with errors (see SYSLOG)."                            
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "normal"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allGoodDockers[$i]}' started with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allGoodDockers[$i]}' started with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with errors (see SYSLOG)."   
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allGoodVMS[$i]}' reconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allGoodVMS[$i]}' reconnected with errors (see SYSLOG)."                            
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded.${RESDOCKERMSG}${RESVMSMSG}${RESACTIONSMSG}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
@@ -300,13 +300,13 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
-                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStops[$i]}' stopped with success."
-                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStops[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
-                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."
-                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStops[$i]}' disconnected with success."
-                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStops[$i]}' disconnected with errors (see SYSLOG)."                                      
-                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "alert"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allCustomStops[$i]}' stopped with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allCustomStops[$i]}' stopped with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with errors (see SYSLOG)."
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allCustomVMStops[$i]}' disconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allCustomVMStops[$i]}' disconnected with errors (see SYSLOG)."                                      
+                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded.${RESDOCKERMSG}${RESVMSMSG}${RESACTIONSMSG}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
                         else
@@ -351,13 +351,13 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
-                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStarts[$i]}' started with success."
-                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
-                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
-                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)." 
-                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStarts[$i]}' reconnected with success."
-                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStarts[$i]}' reconnected with errors (see SYSLOG)."                                                                 
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "normal"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allCustomStarts[$i]}' started with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG=" Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG=" User actions executed with errors (see SYSLOG)." 
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allCustomVMStarts[$i]}' reconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG=" VM '${allCustomVMStarts[$i]}' reconnected with errors (see SYSLOG)."                                                                 
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded.${RESDOCKERMSG}${RESVMSMSG}${RESACTIONSMSG}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
