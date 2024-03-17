@@ -57,12 +57,12 @@ echo ""
 if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/net/${PRIMARY}" ]; then
     if (vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null | grep "$PRIMARY" >/dev/null 2>&1); then
         for i in "${!allLimits[@]}"; do
-            RESULT1=""
-            RESULT2=""
-            RESULT3=""
-            RESULT1MESSAGE=""
-            RESULT2MESSAGE=""
-            RESULT3MESSAGE=""
+            RESDOCKER=""
+            RESACTIONS=""
+            RESVMS=""
+            RESDOCKERMSG=""
+            RESACTIONSMSG=""
+            RESVMSMSG=""
             if [ "${allLimits[$i]}" == "-1" ]; then
                 echo "(${PRIMARY}) ${allMetricModesCaps[$i]} ${allMetrics[$i]} [${allLimits[$i]} ${allUnits[$i]}]... NOT CHECKING (LIMIT DISABLED)"
                 rm -f "/tmp/${allBadFiles[$i]}"
@@ -76,44 +76,44 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 if [ ! "${allBadDockers[$i]}" == "disable" ]; then
                                     echo "[${PRIMARY}] DVM: Attempting to stop Docker container (as configured by user): ${allBadDockers[$i]}" | logger -t "dvm-notify"
                                     docker stop "${allBadDockers[$i]}" 2>&1 | logger -t "dvm-notify"
-                                    RESULT1="${PIPESTATUS[0]}"
+                                    RESDOCKER="${PIPESTATUS[0]}"
                                 fi
                                 if [ ! "${allBadVMS[$i]}" == "disable" ]; then
                                     echo "[${PRIMARY}] DVM: Attempting to disconnect VM (as configured by user): ${allBadVMS[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allBadVMS[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
-                                        RESULT3CODES=()
+                                        RESVMSCODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${PRIMARY}] DVM: Now disconnecting VM from interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allBadVMS[$i]}" "${v}" down 2>&1 | logger -t "dvm-notify"
-                                                RESULT3CODES+=("${PIPESTATUS[0]}")
+                                                RESVMSCODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${PRIMARY}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3CODES+=("1")
+                                                RESVMSCODES+=("1")
                                             fi
                                         done
-                                        RESULT3="0"
-                                        for r in "${RESULT3CODES[@]}"; do
-                                            [ ! "$r" -eq 0 ] && RESULT3="1"
+                                        RESVMS="0"
+                                        for r in "${RESVMSCODES[@]}"; do
+                                            [ ! "$r" -eq 0 ] && RESVMS="1"
                                         done                                        
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
-                                        RESULT3="1"
+                                        RESVMS="1"
                                     fi
                                 fi
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allBadFunctions[$i]}" | logger -t "dvm-notify"
                                 ${allBadFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
-                                RESULT2="${PIPESTATUS[0]}"
+                                RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
-                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allBadDockers[$i]}' stopped with success."
-                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allBadDockers[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."      
-                                [ -n "$RESULT3" ] && [ "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allBadVMS[$i]}' disconnected with success."
-                                [ -n "$RESULT3" ] && [ ! "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allBadVMS[$i]}' disconnected with errors (see SYSLOG)."                           
-                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded. ${RESULT1MESSAGE} ${RESULT3MESSAGE} ${RESULT2MESSAGE}" -i "alert"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allBadDockers[$i]}' stopped with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allBadDockers[$i]}' stopped with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."      
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allBadVMS[$i]}' disconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allBadVMS[$i]}' disconnected with errors (see SYSLOG)."                           
+                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]}" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume was exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
                         else
@@ -127,44 +127,44 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 if [ ! "${allGoodDockers[$i]}" == "disable" ]; then
                                     echo "[${PRIMARY}] DVM: Attempting to start Docker container (as configured by user): ${allGoodDockers[$i]}" | logger -t "dvm-notify"
                                     docker start "${allGoodDockers[$i]}" 2>&1 | logger -t "dvm-notify"
-                                    RESULT1="${PIPESTATUS[0]}"
+                                    RESDOCKER="${PIPESTATUS[0]}"
                                 fi
                                 if [ ! "${allGoodVMS[$i]}" == "disable" ]; then
                                     echo "[${PRIMARY}] DVM: Attempting to reconnect VM (as configured by user): ${allGoodVMS[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allGoodVMS[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
-                                        RESULT3CODES=()
+                                        RESVMSCODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${PRIMARY}] DVM: Now reconnecting VM to interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allGoodVMS[$i]}" "${v}" up 2>&1 | logger -t "dvm-notify"
-                                                RESULT3CODES+=("${PIPESTATUS[0]}")
+                                                RESVMSCODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${PRIMARY}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3CODES+=("1")
+                                                RESVMSCODES+=("1")
                                             fi
                                         done
-                                        RESULT3="0"
-                                        for r in "${RESULT3CODES[@]}"; do
-                                            [ ! "$r" -eq 0 ] && RESULT3="1"
+                                        RESVMS="0"
+                                        for r in "${RESVMSCODES[@]}"; do
+                                            [ ! "$r" -eq 0 ] && RESVMS="1"
                                         done
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
-                                        RESULT3="1"
+                                        RESVMS="1"
                                     fi
                                 fi                                
                                 echo "[${PRIMARY}] DVM: Attempting to execute dvm-user-actions function: ${allGoodFunctions[$i]}" | logger -t "dvm-notify"
                                 ${allGoodFunctions[$i]} "${PRIMARY}" 2>&1 | logger -t "dvm-user-actions"
-                                RESULT2="${PIPESTATUS[0]}"
+                                RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
-                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' started with success."
-                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' started with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."   
-                                [ -n "$RESULT3" ] && [ "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allGoodVMS[$i]}' reconnected with success."
-                                [ -n "$RESULT3" ] && [ ! "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allGoodVMS[$i]}' reconnected with errors (see SYSLOG)."                            
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded. ${RESULT1MESSAGE} ${RESULT3MESSAGE} ${RESULT2MESSAGE}" -i "normal"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allGoodDockers[$i]}' started with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allGoodDockers[$i]}' started with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."   
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allGoodVMS[$i]}' reconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allGoodVMS[$i]}' reconnected with errors (see SYSLOG)."                            
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${PRIMARY}): ${allMetricsCaps[$i]} ${allMetricModesCaps[$i]} OK" -d "The per ${allMetrics[$i]} ${allMetricModesAlt[$i]}-bound data volume is no longer exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
@@ -199,12 +199,12 @@ allCustomVMStops=("$CUSTOM1VMSTOP" "$CUSTOM2VMSTOP" "$CUSTOM3VMSTOP" "$CUSTOM4VM
 allCustomVMStarts=("$CUSTOM1VMSTART" "$CUSTOM2VMSTART" "$CUSTOM3VMSTART" "$CUSTOM4VMSTART" "$CUSTOM5VMSTART" "$CUSTOM6VMSTART")
 
 for i in "${!allCustomInterfaces[@]}"; do
-    RESULT1=""
-    RESULT2=""
-    RESULT3=""
-    RESULT1MESSAGE=""
-    RESULT2MESSAGE=""
-    RESULT3MESSAGE=""
+    RESDOCKER=""
+    RESACTIONS=""
+    RESVMS=""
+    RESDOCKERMSG=""
+    RESACTIONSMSG=""
+    RESVMSMSG=""
     UPPERMODE="$(echo "${allCustomModes[$i]}" | awk '{print toupper($0)}')"
     HUMANTIME="${allCustomTimes[$i]}"
     case "${allCustomTimes[$i]}" in
@@ -269,44 +269,44 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 if [ ! "${allCustomStops[$i]}" == "disable" ]; then
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to stop Docker container (as configured by user): ${allCustomStops[$i]}" | logger -t "dvm-notify"
                                     docker stop "${allCustomStops[$i]}" 2>&1 | logger -t "dvm-notify"
-                                    RESULT1="${PIPESTATUS[0]}"
+                                    RESDOCKER="${PIPESTATUS[0]}"
                                 fi
                                 if [ ! "${allCustomVMStops[$i]}" == "disable" ]; then
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to disconnect VM (as configured by user): ${allCustomVMStops[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allCustomVMStops[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
-                                        RESULT3CODES=()
+                                        RESVMSCODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${allCustomInterfaces[$i]}] DVM: Now disconnecting VM from interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allCustomVMStops[$i]}" "${v}" down 2>&1 | logger -t "dvm-notify"
-                                                RESULT3CODES+=("${PIPESTATUS[0]}")
+                                                RESVMSCODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${allCustomInterfaces[$i]}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3CODES+=("1")
+                                                RESVMSCODES+=("1")
                                             fi
                                         done
-                                        RESULT3="0"
-                                        for r in "${RESULT3CODES[@]}"; do
-                                            [ ! "$r" -eq 0 ] && RESULT3="1"
+                                        RESVMS="0"
+                                        for r in "${RESVMSCODES[@]}"; do
+                                            [ ! "$r" -eq 0 ] && RESVMS="1"
                                         done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
-                                        RESULT3="1"
+                                        RESVMS="1"
                                     fi
                                 fi                                
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_reached" | logger -t "dvm-notify"
                                 eval "${HUMANTIME}_${allCustomModes[$i]}_reached" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
-                                RESULT2="${PIPESTATUS[0]}"
+                                RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$BADNOTIFY" == "enable" ]; then
-                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStops[$i]}' stopped with success."
-                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStops[$i]}' stopped with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."
-                                [ -n "$RESULT3" ] && [ "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allCustomVMStops[$i]}' disconnected with success."
-                                [ -n "$RESULT3" ] && [ ! "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allCustomVMStops[$i]}' disconnected with errors (see SYSLOG)."                                      
-                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded. ${RESULT1MESSAGE} ${RESULT3MESSAGE} ${RESULT2MESSAGE}" -i "alert"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStops[$i]}' stopped with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStops[$i]}' stopped with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)."
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStops[$i]}' disconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStops[$i]}' disconnected with errors (see SYSLOG)."                                      
+                                $NOTIFY -e "Data Volume Monitor" -s "Alert ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE}" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume was exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "alert"
                             fi
                             echo "OK (LIMIT EXCEEDED - FIRST TIME - NOTIFY: ${BADNOTIFY} / ACTIONS: ${BADACTIONS})"
                         else
@@ -320,44 +320,44 @@ for i in "${!allCustomInterfaces[@]}"; do
                                 if [ ! "${allCustomStarts[$i]}" == "disable" ]; then
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to start Docker container (as configured by user): ${allCustomStarts[$i]}" | logger -t "dvm-notify"
                                     docker start "${allCustomStarts[$i]}" 2>&1 | logger -t "dvm-notify"
-                                    RESULT1="${PIPESTATUS[0]}"
+                                    RESDOCKER="${PIPESTATUS[0]}"
                                 fi
                                 if [ ! "${allCustomVMStarts[$i]}" == "disable" ]; then
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to reconnect VM (as configured by user): ${allCustomVMStarts[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allCustomVMStarts[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
-                                        RESULT3CODES=()
+                                        RESVMSCODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${allCustomInterfaces[$i]}] DVM: Now reconnecting VM to interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allCustomVMStarts[$i]}" "${v}" up 2>&1 | logger -t "dvm-notify"
-                                                RESULT3CODES+=("${PIPESTATUS[0]}")
+                                                RESVMSCODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${allCustomInterfaces[$i]}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3CODES+=("1")
+                                                RESVMSCODES+=("1")
                                             fi
                                         done
-                                        RESULT3="0"
-                                        for r in "${RESULT3CODES[@]}"; do
-                                            [ ! "$r" -eq 0 ] && RESULT3="1"
+                                        RESVMS="0"
+                                        for r in "${RESVMSCODES[@]}"; do
+                                            [ ! "$r" -eq 0 ] && RESVMS="1"
                                         done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
-                                        RESULT3="1"
+                                        RESVMS="1"
                                     fi
                                 fi                                    
                                 echo "[${allCustomInterfaces[$i]}] DVM: Attempting to execute dvm-user-actions function: ${HUMANTIME}_${allCustomModes[$i]}_normal_again" | logger -t "dvm-notify"
                                 eval "${HUMANTIME}_${allCustomModes[$i]}_normal_again" "${allCustomInterfaces[$i]}" 2>&1 | logger -t "dvm-user-actions"
-                                RESULT2="${PIPESTATUS[0]}"
+                                RESACTIONS="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
-                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStarts[$i]}' started with success."
-                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
-                                [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
-                                [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)." 
-                                [ -n "$RESULT3" ] && [ "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allCustomVMStarts[$i]}' reconnected with success."
-                                [ -n "$RESULT3" ] && [ ! "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allCustomVMStarts[$i]}' reconnected with errors (see SYSLOG)."                                                                 
-                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded. ${RESULT1MESSAGE} ${RESULT3MESSAGE} ${RESULT2MESSAGE}" -i "normal"
+                                [ -n "$RESDOCKER" ] && [ "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStarts[$i]}' started with success."
+                                [ -n "$RESDOCKER" ] && [ ! "$RESDOCKER" -eq 0 ] && RESDOCKERMSG="Docker container '${allCustomStarts[$i]}' started with errors (see SYSLOG)."
+                                [ -n "$RESACTIONS" ] && [ "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with success."
+                                [ -n "$RESACTIONS" ] && [ ! "$RESACTIONS" -eq 0 ] && RESACTIONSMSG="User actions executed with errors (see SYSLOG)." 
+                                [ -n "$RESVMS" ] && [ "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStarts[$i]}' reconnected with success."
+                                [ -n "$RESVMS" ] && [ ! "$RESVMS" -eq 0 ] && RESVMSMSG="VM '${allCustomVMStarts[$i]}' reconnected with errors (see SYSLOG)."                                                                 
+                                $NOTIFY -e "Data Volume Monitor" -s "Notice ${SUBJECT} (${allCustomInterfaces[$i]}): ${HUMANTIMECAPS} ${UPPERMODE} OK" -d "The per ${HUMANTIME} ${HUMANMODE}-bound data volume is no longer exceeded. ${RESDOCKERMSG} ${RESVMSMSG} ${RESACTIONSMSG}" -i "normal"
                             fi
                             echo "OK (LIMIT NOT EXCEEDED - FIRST TIME - NOTIFY: ${GOODNOTIFY} / ACTIONS: ${GOODACTIONS})"
                         else
