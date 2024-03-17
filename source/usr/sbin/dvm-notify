@@ -93,9 +93,9 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                                 RESULT3CODES+=("1")
                                             fi
                                         done
-                                        RESULT3=0
+                                        RESULT3="0"
                                         for r in "${RESULT3CODES[@]}"; do
-                                            [ "$r" -eq 1 ] && RESULT3=1
+                                            [ "$r" -eq 1 ] && RESULT3="1"
                                         done                                        
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
@@ -144,9 +144,9 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                                 RESULT3CODES+=("1")
                                             fi
                                         done
-                                        RESULT3=0
+                                        RESULT3="0"
                                         for r in "${RESULT3CODES[@]}"; do
-                                            [ "$r" -eq 1 ] && RESULT3=1
+                                            [ "$r" -eq 1 ] && RESULT3="1"
                                         done
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
@@ -286,9 +286,9 @@ for i in "${!allCustomInterfaces[@]}"; do
                                                 RESULT3CODES+=("1")
                                             fi
                                         done
-                                        RESULT3=0
+                                        RESULT3="0"
                                         for r in "${RESULT3CODES[@]}"; do
-                                            [ "$r" -eq 1 ] && RESULT3=1
+                                            [ "$r" -eq 1 ] && RESULT3="1"
                                         done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
@@ -337,9 +337,9 @@ for i in "${!allCustomInterfaces[@]}"; do
                                                 RESULT3CODES+=("1")
                                             fi
                                         done
-                                        RESULT3=0
+                                        RESULT3="0"
                                         for r in "${RESULT3CODES[@]}"; do
-                                            [ "$r" -eq 1 ] && RESULT3=1
+                                            [ "$r" -eq 1 ] && RESULT3="1"
                                         done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
