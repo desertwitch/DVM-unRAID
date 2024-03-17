@@ -882,7 +882,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <div> 
     <table class="tablesorter">
-    <thead><tr><th><strong>Network Interface</strong></th><th><strong>Traffic Direction</strong></th><th><strong>Timespan Observed</strong></th><th><strong>Threshold Limit</strong></th><th><strong>Threshold Unit</strong></th><th><strong>Stop Docker Container</strong></th><th><strong>Start Docker Container</strong></th><th><strong>Disconnect VM</strong></th><th><strong>Reconnect VM</strong></th></tr></thead>
+    <thead><tr><th><strong>Interface</strong></th><th><strong>Direction</strong></th><th><strong>Timespan</strong></th><th><strong>Threshold</strong></th><th><strong>Unit</strong></th><th><strong>Stop Docker</strong></th><th><strong>Start Docker</strong></th><th><strong>Disconnect VM</strong></th><th><strong>Reconnect VM</strong></th></tr></thead>
     <tbody>
     <tr>
     <td><? if($dvm_available_interfacs) { echo("<select id='CUSTOM1INTERFACE' name='CUSTOM1INTERFACE' size='1'>"); echo(mk_option($dwdvm_custom1_interface, "noiface", "-")); foreach ($dvm_available_interfacs as $dvm_available_interfac) { echo(mk_option($dwdvm_custom1_interface, $dvm_available_interfac, $dvm_available_interfac)); } echo("</select>"); } else { echo("<input type='text' class='narrow' id='CUSTOM1INTERFACE' name='CUSTOM1INTERFACE' maxlength='40' value='$dwdvm_custom1_interface'>"); } ?></td>
