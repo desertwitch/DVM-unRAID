@@ -3,7 +3,7 @@
  * Copyright macester (parts of code from NUT package)
  * Copyright gfjardim (parts of code from NUT package)
  * Copyright SimonF (parts of code from NUT package)
- * Copyright Mohamed Emad (icon from vnstat-client package)
+ * Copyright Mohamed Emad (icon from vnstat-server package)
  * Copyright desertwitch
  *
  * Copyright Dan Landon
