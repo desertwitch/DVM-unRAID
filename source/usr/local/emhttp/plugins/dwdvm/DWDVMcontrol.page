@@ -40,6 +40,7 @@ $dvm_available_raw = shell_exec("docker ps --format '{{.Names}}' --all 2>/dev/nu
 $dvm_available_dockers = false;
 if(!empty($dvm_available_raw)) {
     $dvm_available_dockers = explode(PHP_EOL, trim($dvm_available_raw));
+    $dvm_available_dockers = array_filter($dvm_available_dockers);
 } else {
     $dvm_available_dockers = false;
 }
@@ -48,6 +49,7 @@ $dvm_available_raw2 = shell_exec("virsh list --name --all 2>/dev/null");
 $dvm_available_vms = false;
 if(!empty($dvm_available_raw2)) {
     $dvm_available_vms = explode(PHP_EOL, trim($dvm_available_raw2));
+    $dvm_available_vms = array_filter($dvm_available_vms);
 } else {
     $dvm_available_vms = false;
 }
