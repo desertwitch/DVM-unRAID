@@ -146,8 +146,8 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                 RESULT2="${PIPESTATUS[0]}"
                             fi
                             if [ "$GOODNOTIFY" == "enable" ]; then
-                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' stopped with success."
-                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' stopped with errors (see SYSLOG)."
+                                [ -n "$RESULT1" ] && [ "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' started with success."
+                                [ -n "$RESULT1" ] && [ ! "$RESULT1" -eq 0 ] && RESULT1MESSAGE="Docker container '${allGoodDockers[$i]}' started with errors (see SYSLOG)."
                                 [ -n "$RESULT2" ] && [ "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with success."
                                 [ -n "$RESULT2" ] && [ ! "$RESULT2" -eq 0 ] && RESULT2MESSAGE="User actions executed with errors (see SYSLOG)."   
                                 [ -n "$RESULT3" ] && [ "$RESULT3" -eq 0 ] && RESULT3MESSAGE="VM '${allGoodVMS[$i]}' reconnected with success."
