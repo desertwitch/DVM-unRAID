@@ -382,7 +382,7 @@ function build_report_light()
                             $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
                         }
                     } else {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
                     }
                     $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
@@ -452,7 +452,7 @@ function build_report_light()
                             $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
                         }
                     } else {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
                     }
                     $returnStr .= $tmpStr;
                     $returnStr .= "</tr>";
@@ -461,7 +461,7 @@ function build_report_light()
                     if(isExistingInterface($db_iface)) {
                         $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . "</td>";
                     } else {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision dvm-gray-orb' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
                     }
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->rx ?? 0) . "</td>";
                     $returnStr .= "<td>". humanFileSize($xml->interface[0]->traffic[0]->fiveminutes[0]->fiveminute[0]->tx ?? 0) . "</td>";
@@ -478,7 +478,7 @@ function build_report_light()
             } else {
                 $returnStr .= "<tr>";
                 $returnStr .= "<td>". $db_iface . "</td>";
-                $returnStr .= "<td colspan='10'><i class='dvmorbiconactive fa fa-exclamation-circle dvm-gray-orb' title='Removed or Inactive Interface'></i><em>Error Occured While Querying Network Interface</em></td>";
+                $returnStr .= "<td colspan='10'><i class='dvmorbiconactive fa fa-exclamation-circle' title='Removed or Inactive Interface'></i><em>Error Occured While Querying Network Interface</em></td>";
                 $returnStr .= "</tr>";
             }
         }
