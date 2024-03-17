@@ -82,16 +82,21 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                     echo "[${PRIMARY}] DVM: Attempting to disconnect VM (as configured by user): ${allBadVMS[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allBadVMS[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+                                        RESULT3CODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${PRIMARY}] DVM: Now disconnecting VM from interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allBadVMS[$i]}" "${v}" down 2>&1 | logger -t "dvm-notify"
-                                                RESULT3="${PIPESTATUS[0]}"
+                                                RESULT3CODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${PRIMARY}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3="1"
+                                                RESULT3CODES+=("1")
                                             fi
                                         done
+                                        RESULT3=0
+                                        for r in "${RESULT3CODES[@]}"; do
+                                            [ "$r" -eq 1 ] && RESULT3=1
+                                        done                                        
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
                                         RESULT3="1"
@@ -128,15 +133,20 @@ if [ -n "${PRIMARY}" ] && [ ! "${PRIMARY}" == "noiface" ] && [ -e "/sys/class/ne
                                     echo "[${PRIMARY}] DVM: Attempting to reconnect VM (as configured by user): ${allGoodVMS[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allGoodVMS[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+                                        RESULT3CODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${PRIMARY}] DVM: Now reconnecting VM to interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allGoodVMS[$i]}" "${v}" up 2>&1 | logger -t "dvm-notify"
-                                                RESULT3="${PIPESTATUS[0]}"
+                                                RESULT3CODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${PRIMARY}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3="1"
+                                                RESULT3CODES+=("1")
                                             fi
+                                        done
+                                        RESULT3=0
+                                        for r in "${RESULT3CODES[@]}"; do
+                                            [ "$r" -eq 1 ] && RESULT3=1
                                         done
                                     else
                                         echo "[${PRIMARY}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
@@ -265,16 +275,21 @@ for i in "${!allCustomInterfaces[@]}"; do
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to disconnect VM (as configured by user): ${allCustomVMStops[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allCustomVMStops[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+                                        RESULT3CODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${allCustomInterfaces[$i]}] DVM: Now disconnecting VM from interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allCustomVMStops[$i]}" "${v}" down 2>&1 | logger -t "dvm-notify"
-                                                RESULT3="${PIPESTATUS[0]}"
+                                                RESULT3CODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${allCustomInterfaces[$i]}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3="1"
+                                                RESULT3CODES+=("1")
                                             fi
                                         done
+                                        RESULT3=0
+                                        for r in "${RESULT3CODES[@]}"; do
+                                            [ "$r" -eq 1 ] && RESULT3=1
+                                        done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
                                         RESULT3="1"
@@ -311,16 +326,21 @@ for i in "${!allCustomInterfaces[@]}"; do
                                     echo "[${allCustomInterfaces[$i]}] DVM: Attempting to reconnect VM (as configured by user): ${allCustomVMStarts[$i]}" | logger -t "dvm-notify"
                                     VMIFACES="$(virsh domiflist "${allCustomVMStarts[$i]}" 2>/dev/null | awk 'NR>2{ print $1 }')"
                                     if [ "${PIPESTATUS[0]}" -eq 0 ]; then
+                                        RESULT3CODES=()
                                         for v in $VMIFACES; do
                                             if [ -e "/sys/class/net/${v}" ]; then
                                                 echo "[${allCustomInterfaces[$i]}] DVM: Now reconnecting VM to interface: ${v}" | logger -t "dvm-notify"
                                                 virsh domif-setlink "${allCustomVMStarts[$i]}" "${v}" up 2>&1 | logger -t "dvm-notify"
-                                                RESULT3="${PIPESTATUS[0]}"
+                                                RESULT3CODES+=("${PIPESTATUS[0]}")
                                             else
                                                 echo "[${allCustomInterfaces[$i]}] DVM: VM service returned '${v}' interface for the VM... not found on system!" | logger -t "dvm-notify"
-                                                RESULT3="1"
+                                                RESULT3CODES+=("1")
                                             fi
                                         done
+                                        RESULT3=0
+                                        for r in "${RESULT3CODES[@]}"; do
+                                            [ "$r" -eq 1 ] && RESULT3=1
+                                        done                                        
                                     else
                                         echo "[${allCustomInterfaces[$i]}] DVM: VM service did not return a valid list of interfaces for the VM." | logger -t "dvm-notify"
                                         RESULT3="1"
