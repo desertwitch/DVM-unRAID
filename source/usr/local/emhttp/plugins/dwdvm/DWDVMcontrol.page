@@ -973,6 +973,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <dl>
         <dt>
             <input id="DEFAULT" type="submit" name="#default" value="Default">
+            <input id="MANUALCHECK" type="button" value="Manual Check">
         </dt>
         <dd>
             <input type="submit" id="btnApply3" name="#apply" value="Apply"><input type="button" value="Done" onclick="done()">
@@ -991,10 +992,12 @@ function checkRUNNING(){
         $('.dwdvm-run').prop('disabled', true);
         $('#RESTART').prop('disabled', false);
         $('#CLEANDB').prop('disabled', false);
+        $('#MANUALCHECK').prop('disabled', false);
     }else{
         $('.dwdvm-run').prop('disabled', false);
         $('#RESTART').prop('disabled', true);
         $('#CLEANDB').prop('disabled', true);
+        $('#MANUALCHECK').prop('disabled', true);
     }
 }
 function checkLIMITS(){
@@ -1038,6 +1041,9 @@ function CleanDB(){
     $('#command').val('');
     openBox('/usr/local/emhttp/plugins/dwdvm/scripts/clean_db', 'DVM Database Purger', 600, 600, true);
 }
+function ManualCheck(){
+    openBox('/usr/local/emhttp/plugins/dwdvm/scripts/manual_check', 'DVM Manual Check', 600, 600, false);
+}
 $(function() {
 
     $('form input:not([type="submit"])').keydown(function(e) {
@@ -1058,6 +1064,7 @@ $(function() {
     });
 
     $('#RESTART').click(Restart);
+    $('#MANUALCHECK').click(ManualCheck);
 
     if (typeof swal === "function") { 
         $('#RESETCONF').click(function(){ swal({title:"Are you sure?",text:"DVM configuration will be returned to the default state.<br>DVM database <u>will not be wiped</u> of any of its contents!",type:"warning",html:true,showCancelButton:true}, ResetConfig); });
