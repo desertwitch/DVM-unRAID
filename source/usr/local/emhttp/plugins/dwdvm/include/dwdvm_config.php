@@ -90,7 +90,6 @@ $dwdvm_yvm_rx_stop        = trim(isset($dwdvm_cfg['RXVMYSTOP'])         ? htmlsp
 $dwdvm_yvm_tx_start       = trim(isset($dwdvm_cfg['TXVMYSTART'])        ? htmlspecialchars($dwdvm_cfg['TXVMYSTART'])   : 'disable');
 $dwdvm_yvm_tx_stop        = trim(isset($dwdvm_cfg['TXVMYSTOP'])         ? htmlspecialchars($dwdvm_cfg['TXVMYSTOP'])   : 'disable');
 
-
 $dwdvm_custom1_interface  = trim(isset($dwdvm_cfg['CUSTOM1INTERFACE'])  ? htmlspecialchars($dwdvm_cfg['CUSTOM1INTERFACE'])  : 'noiface');
 $dwdvm_custom1_mode       = trim(isset($dwdvm_cfg['CUSTOM1MODE'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1MODE'])       : 'rx');
 $dwdvm_custom1_time       = trim(isset($dwdvm_cfg['CUSTOM1TIME'])       ? htmlspecialchars($dwdvm_cfg['CUSTOM1TIME'])       : 'h');
@@ -151,9 +150,7 @@ $dwdvm_custom6_start      = trim(isset($dwdvm_cfg['CUSTOM6START'])      ? htmlsp
 $dwdvm_custom6_vmstop     = trim(isset($dwdvm_cfg['CUSTOM6VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTOP'])     : 'disable');
 $dwdvm_custom6_vmstart    = trim(isset($dwdvm_cfg['CUSTOM6VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTART'])    : 'disable');
 
-
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = trim(htmlspecialchars(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null")));
-//$dwdvm_support_link = trim(shell_exec("plugin support /boot/config/plugins/dwdvm.plg"));
 
 ?>
