@@ -71,7 +71,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 </div><br>
 <?endif;?>
 
-<span style="float:right;margin-right:10px"><a href="" target="_blank" title="DVM Support Thread"><i class="fa fa-medkit"></i> <u>Support Thread</u></a> / <a href="https://humdi.net/vnstat/" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
+<span style="float:right;margin-right:10px"><a href="https://forums.unraid.net/topic/158472-plugin-data-volume-monitor-dvm/" target="_blank" title="DVM Support Thread"><i class="fa fa-medkit"></i> <u>Support Thread</u></a> / <a href="https://humdi.net/vnstat/" target="_blank" title="DVM User Manual"><i class="fa fa-file-text-o"></i> <u>User Manual</u></a></span>
 
 <div>
     <span class="left"><i class="icon fa fa-power-off"></i> Service Settings</span>
