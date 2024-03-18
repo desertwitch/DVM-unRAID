@@ -41,7 +41,7 @@ vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>&1
 
 echo ""
 echo "###"
-echo "### MANUAL THRESHOLD CHECK"
+echo "### TESTING PERIODIC THRESHOLD CHECK"
 echo "###"
 echo ""
 
