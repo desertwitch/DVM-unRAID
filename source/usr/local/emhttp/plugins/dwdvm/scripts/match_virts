@@ -17,10 +17,9 @@
 #
 
 for container in $(docker ps --format '{{.Names}}' 2>/dev/null); do
-        NAME="${container}"
-        PID="$(docker inspect "${NAME}" --format "{{.State.Pid}}" 2>/dev/null)"
+        PID="$(docker inspect "${container}" --format "{{.State.Pid}}" 2>/dev/null)"
         while read -r iface id; do
-                [[ "$iface" == "lo" ]] && continue
+                [[ "${iface}" == "lo" ]] && continue
                 veth="$(ip -br addr 2>/dev/null | sed -nre "s/(veth.*)@if$id.*/\1/p" 2>/dev/null)"
                 if [ -n "${container}" ] && [ -n "${veth}" ] && [ -e "/sys/class/net/${veth}" ]; then
                         echo "${veth}:${container}"
@@ -29,18 +28,19 @@ for container in $(docker ps --format '{{.Names}}' 2>/dev/null); do
 done
 
 for network in $(docker network ls -q 2>/dev/null); do
-        for container in $(docker network inspect "${network}" --format='{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null); do
+        containers="$(docker network inspect "${network}" --format='{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null)"
+        for container in $containers; do
                 if [ -n "${container}" ] && [ -n "${network}" ] && [ -e "/sys/class/net/br-${network}" ]; then
                         echo "br-${network}:${container}"
                 fi
         done
 done
 
-for VM in $(virsh list --name 2>/dev/null); do
-        IFACES="$(virsh domiflist "${VM}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
-        for IFACE in $IFACES; do
-                if [ -n "${VM}" ] && [ -n "${IFACE}" ] && [ -e "/sys/class/net/${IFACE}" ]; then
-                        echo "${IFACE}:${VM}"
+for vm in $(virsh list --name 2>/dev/null); do
+        ifaces="$(virsh domiflist "${VM}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
+        for iface in $ifaces; do
+                if [ -n "${vm}" ] && [ -n "${iface}" ] && [ -e "/sys/class/net/${iface}" ]; then
+                        echo "${iface}:${vm}"
                 fi
         done
 done
