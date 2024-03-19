@@ -29,10 +29,9 @@ for container in $(docker ps --format '{{.Names}}' 2>/dev/null); do
 done
 
 for network in $(docker network ls --format '{{.ID}}' 2>/dev/null); do
-        ID="${network}"
-        for container in $(docker network inspect "${ID}" --format='{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null); do
-                if [ -n "${container}" ] && [ -n "${ID}" ] && [ -e "/sys/class/net/br-${ID}" ]; then
-                        echo "br-${ID}:${container}"
+        for container in $(docker network inspect "${network}" --format='{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null); do
+                if [ -n "${container}" ] && [ -n "${network}" ] && [ -e "/sys/class/net/br-${network}" ]; then
+                        echo "br-${network}:${container}"
                 fi
         done
 done
