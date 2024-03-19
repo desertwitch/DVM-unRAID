@@ -37,7 +37,7 @@ for network in $(docker network ls -q 2>/dev/null); do
 done
 
 for vm in $(virsh list --name 2>/dev/null); do
-        ifaces="$(virsh domiflist "${VM}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
+        ifaces="$(virsh domiflist "${vm}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
         for iface in $ifaces; do
                 if [ -n "${vm}" ] && [ -n "${iface}" ] && [ -e "/sys/class/net/${iface}" ]; then
                         echo "${iface}:${vm}"
