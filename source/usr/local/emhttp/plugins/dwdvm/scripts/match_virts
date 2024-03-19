@@ -1,0 +1,39 @@
+#!/bin/bash
+#
+# Copyright Derek Macias (parts of code from NUT package)
+# Copyright macester (parts of code from NUT package)
+# Copyright gfjardim (parts of code from NUT package)
+# Copyright SimonF (parts of code from NUT package)
+# Copyright Mohamed Emad (icon from vnstat-client package)
+# Copyright Dicho (parts of code for Docker interface detection)
+# Copyright desertwitch
+#
+# This program is free software; you can redistribute it and/or
+# modify it under the terms of the GNU General Public License 2
+# as published by the Free Software Foundation.
+#
+# The above copyright notice and this permission notice shall be
+# included in all copies or substantial portions of the Software.
+#
+
+for container in $(docker ps --format '{{.Names}}' 2>/dev/null); do
+        NAME="${container}"
+        PID="$(docker inspect "${NAME}" --format "{{.State.Pid}}" 2>/dev/null)"
+        while read -r iface id; do
+                [[ "$iface" == "lo" ]] && continue
+                veth="$(ip -br addr 2>/dev/null | sed -nre "s/(veth.*)@if$id.*/\1/p" 2>/dev/null)"
+                if [ -n "${container}" ] && [ -n "${veth}" ] && [ -e "/sys/class/net/${veth}" ]; then
+                        echo "${veth}:${container}"
+                fi
+        done < <(</proc/"${PID}"/net/igmp awk '/^[0-9]+/{print $2 " " $1;}' 2>/dev/null)
+done
+
+VMS="$(virsh list --name 2>/dev/null)"
+for VM in $VMS; do
+        IFACES="$(virsh domiflist "${VM}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
+        for IFACE in $IFACES; do
+                if [ -n "${VM}" ] && [ -n "${IFACE}" ] && [ -e "/sys/class/net/${IFACE}" ]; then
+                        echo "${IFACE}:${VM}"
+                fi
+        done
+done

@@ -3,14 +3,14 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "dwdvm">
 <!ENTITY author    "desertwitch">
-<!ENTITY version   "2024.03.18">
+<!ENTITY version   "2024.03.19">
 <!ENTITY launch    "Settings/DWDVMsettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/DVM-unRAID/main">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
 <!ENTITY pkgURL    "&gitURL;/packages">
 <!ENTITY plgPATH   "/boot/config/plugins/&name;">
-<!ENTITY plgNAME   "dwdvm-2024.03.18-x86_64-1">
-<!ENTITY plgMD5    "0460c913703f3cf70f640ad72a790293">
+<!ENTITY plgNAME   "dwdvm-2024.03.19-x86_64-1">
+<!ENTITY plgMD5    "38687bc4a44e9277e163be5a5ee3d0c9">
 <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
 
@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2023.03.19
+- new: add setting to match services (dockers/VMs) to virtual network interfaces
 ###2023.03.18
 - release note: welcome to the first version of the DVM package.
 - release note: please do report any problems in the support topic.

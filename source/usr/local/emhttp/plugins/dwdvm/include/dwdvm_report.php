@@ -41,6 +41,34 @@ function humanFileSize($sizeObj,$unit="") {
     }
 }
 
+function getVirtualInterfaceServiceMatches() {
+    try {
+        $matches_raw = shell_exec("/usr/local/emhttp/plugins/dwdvm/scripts/match_virts 2>/dev/null");
+        if($matches_raw) {
+            $returnArr = [];
+            foreach(explode(PHP_EOL, trim($matches_raw)) as $match) {
+                $submatch = explode(":", $match);
+                if(!empty($submatch[0]) && !empty($submatch[1])) {
+                    if(!empty($returnArr[$submatch[0]])) {
+                        $returnArr[$submatch[0]] = $returnArr[$submatch[0]] . " " . $submatch[1];
+                    } else {
+                        $returnArr[$submatch[0]] = $submatch[1];
+                    }
+                } else {
+                    continue;
+                }
+            }
+            return $returnArr;
+        } else {
+            return false;
+        }
+    } catch (Throwable $e) { // For PHP 7
+        return false;
+    } catch (Exception $e) { // For PHP 5
+        return false;
+    }
+}
+
 function isPhysicalInterface($string) {
     try {
         $phys_ifaces = shell_exec("find /sys/class/net/ -type l ! -lname '*/devices/virtual/net/*' 2>/dev/null");
@@ -118,7 +146,7 @@ function getXMLforInterface($iface)
         if(!empty($iface) && $iface !== "noiface") {
             $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". $iface ." --limit 1 --xml 2>/dev/null");
             if($xml_raw) {
-                if(strpos($xml_raw, "xmlversion")) {
+                if(strpos($xml_raw, "xmlversion") !== false) {
                     $xml = new SimpleXMLElement($xml_raw);
                 } else {
                     return false;
@@ -343,8 +371,16 @@ function build_report_light()
     global $dwdvm_custom6_limit;
     global $dwdvm_custom6_unit;
 
+    global $dwdvm_vifaces;
+    global $dwdvm_match_virts;
+
     $custom_iface_string = "{$dwdvm_custom1_interface};{$dwdvm_custom2_interface};{$dwdvm_custom3_interface};{$dwdvm_custom4_interface};{$dwdvm_custom5_interface};{$dwdvm_custom6_interface}";
     $custom_iface_array = explode(";", trim($custom_iface_string)) ?? [];
+
+    $virt_iface_matches = false;
+    if($dwdvm_vifaces == "enable" && $dwdvm_match_virts == "enable") {
+        $virt_iface_matches = getVirtualInterfaceServiceMatches();
+    }
     
     $returnStr = "";
     $db_ifaces_array = getInterfaces();
@@ -373,13 +409,21 @@ function build_report_light()
                     } else {
                         $returnStr .= "<tr>";
                     }
+
                     if(isExistingInterface($db_iface)) {
+                        $matchedService = "";
+                        if($virt_iface_matches) {
+                            $matchedService = $virt_iface_matches[$db_iface] ?? false;
+                            if($matchedService) {
+                                $matchedService = "<span style='font-size:x-small;color:gray;'> {$matchedService}</span>";
+                            }
+                        }
                         if ( strpos ( $tmpStr , "red-text" ) !== false ) {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . $matchedService . "</td>";
                         } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface .  $matchedService . "</td>";
                         } else {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . $matchedService . "</td>";
                         }
                     } else {
                         $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
@@ -443,13 +487,21 @@ function build_report_light()
                     }
 
                     $returnStr .= "<tr>";
+
                     if(isExistingInterface($db_iface)) {
+                        $matchedService = "";
+                        if($virt_iface_matches) {
+                            $matchedService = $virt_iface_matches[$db_iface] ?? false;
+                            if($matchedService) {
+                                $matchedService = "<span style='font-size:x-small;color:gray;'> {$matchedService}</span>";
+                            }
+                        }
                         if ( strpos ( $tmpStr , "red-text" ) !== false ) {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle red-orb' title='Monitored - Limits Exceeded'></i>" . $db_iface . $matchedService . "</td>";
                         } else if ( strpos ( $tmpStr , "green-text" ) !== false ) {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle green-orb' title='Monitored - Limits Not Exceeded'></i>" . $db_iface . $matchedService . "</td>";
                         } else {
-                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . "</td>";
+                            $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>" . $db_iface . $matchedService . "</td>";
                         }
                     } else {
                         $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
@@ -458,8 +510,16 @@ function build_report_light()
                     $returnStr .= "</tr>";
                 } else {
                     $returnStr .= "<tr>";
+
                     if(isExistingInterface($db_iface)) {
-                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . "</td>";
+                        $matchedService = "";
+                        if($virt_iface_matches) {
+                            $matchedService = $virt_iface_matches[$db_iface] ?? false;
+                            if($matchedService) {
+                                $matchedService = "<span style='font-size:x-small;color:gray;'> {$matchedService}</span>";
+                            }
+                        }
+                        $returnStr .= "<td><i class='dvmorbiconactive fa fa-circle dvm-gray-orb' title='Monitored - No Limits'></i>". $db_iface . $matchedService . "</td>";
                     } else {
                         $returnStr .= "<td><i class='dvmorbiconactive fa fa-low-vision' title='Removed or Inactive Interface'></i>" . $db_iface . "</td>";
                     }
@@ -606,19 +666,19 @@ function build_dashboard_mini() {
 if(!empty($_GET["mode"])) {
     switch($_GET["mode"]) {
         case "report":
-            echo(build_report() ?? "error");
+            echo(build_report() ?? "");
             break;
         case "lightreport":
-            echo(build_report_light() ?? "error");
+            echo(build_report_light() ?? "");
             break;
         case "footer":
-            echo(build_footer() ?? "error");
+            echo(build_footer() ?? "");
             break;
         case "dashboard":
-            echo(build_dashboard() ?? "error");
+            echo(build_dashboard() ?? "");
             break;
         case "dashboardmini":
-            echo(build_dashboard_mini() ?? "error");
+            echo(build_dashboard_mini() ?? "");
             break;
     }
 }

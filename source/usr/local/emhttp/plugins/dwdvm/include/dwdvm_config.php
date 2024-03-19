@@ -24,6 +24,7 @@ $dwdvm_service            = trim(isset($dwdvm_cfg['SERVICE'])           ? htmlsp
 $dwdvm_backupdb           = trim(isset($dwdvm_cfg['BACKUPDB'])          ? htmlspecialchars($dwdvm_cfg['BACKUPDB'])      : 'enable');
 $dwdvm_report             = trim(isset($dwdvm_cfg['REPORT'])            ? htmlspecialchars($dwdvm_cfg['REPORT'])        : 'text');
 $dwdvm_vifaces            = trim(isset($dwdvm_cfg['VIFACES'])           ? htmlspecialchars($dwdvm_cfg['VIFACES'])       : 'enable');
+$dwdvm_match_virts        = trim(isset($dwdvm_cfg['MATCHVIRTS'])        ? htmlspecialchars($dwdvm_cfg['MATCHVIRTS'])    : 'disable');
 $dwdvm_oifaces            = trim(isset($dwdvm_cfg['OIFACES'])           ? htmlspecialchars($dwdvm_cfg['OIFACES'])       : 'disable');
 $dwdvm_autopurge          = trim(isset($dwdvm_cfg['AUTOPURGE'])         ? htmlspecialchars($dwdvm_cfg['AUTOPURGE'])     : 'disable');
 $dwdvm_cronint            = trim(isset($dwdvm_cfg['CRONINT'])           ? htmlspecialchars($dwdvm_cfg['CRONINT'])       : 'disable');

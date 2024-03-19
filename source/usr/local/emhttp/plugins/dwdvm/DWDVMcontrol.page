@@ -196,6 +196,22 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     </blockquote>
 
     <dl>
+        <dt>Match Virtual Network Interfaces to Services:</dt>
+        <dd>
+            <select id="MATCHVIRTS" name="MATCHVIRTS" size="1">
+                <?=mk_option($dwdvm_match_virts, "disable", "No");?>
+                <?=mk_option($dwdvm_match_virts, "enable", "Yes");?>
+            </select>
+        </dd>
+    </dl>
+
+    <blockquote class="inline_help">
+        <p>This setting will <u>attempt</u> to match any virtual interfaces with their respective Dockers and VMs, in order to better be able to read the metrics.</p>
+        <p>Please note that virtual network interfaces do not persist between Docker container restarts and a different interface may be assigned after a container restarts.</p>
+        <p>It is therefore best to set up thresholds using actual physical network interfaces (e.g. eth0) and not rely on virtual network interfaces for notifications and user actions.</p>
+    </blockquote>
+
+    <dl>
         <dt>Show Removed Network Interfaces:</dt>
         <dd>
             <select id="OIFACES" name="OIFACES" size="1">
