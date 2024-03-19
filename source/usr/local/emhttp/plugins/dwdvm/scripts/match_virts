@@ -28,6 +28,15 @@ for container in $(docker ps --format '{{.Names}}' 2>/dev/null); do
         done < <(</proc/"${PID}"/net/igmp awk '/^[0-9]+/{print $2 " " $1;}' 2>/dev/null)
 done
 
+for network in $(docker network ls --format '{{.ID}}' 2>/dev/null); do
+        ID="${network}"
+        for container in $(docker network inspect "${ID}" --format='{{range .Containers}}{{println .Name}}{{end}}' 2>/dev/null); do
+                if [ -n "${container}" ] && [ -n "${ID}" ] && [ -e "/sys/class/net/br-${ID}" ]; then
+                        echo "br-${ID}:${container}"
+                fi
+        done
+done
+
 VMS="$(virsh list --name 2>/dev/null)"
 for VM in $VMS; do
         IFACES="$(virsh domiflist "${VM}" 2>/dev/null | awk 'NR>2{ print $1 }' 2>/dev/null)"
