@@ -193,7 +193,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>This setting controls if virtual network interfaces should also be displayed on this page.</p>
         <p>Not all virtual network interfaces are monitorable and some data reported for such interfaces may be inconsistent.</p>
-        <p>Some virtual interfaces will show inverse traffic, e.g. RX as TX, because first the physical interface receives (RX) the traffic (e.g from the internet) and then the virtual interface sends (TX) that traffic to its final destination (e.g. a Docker or VM).</p>
+        <p>Some virtual interfaces will show inverse traffic, e.g. RX as TX, because first the physical interface receives (RX) the traffic (e.g. from the internet) and then the virtual interface sends (TX) that traffic to its final destination (e.g. a Docker or VM).</p>
     </blockquote>
 
     <dl>
