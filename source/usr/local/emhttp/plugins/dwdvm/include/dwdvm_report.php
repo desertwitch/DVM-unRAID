@@ -24,6 +24,8 @@ function humanFileSize($sizeObj,$unit="") {
     try {
         $size = intval($sizeObj);
         if($size) {
+            if( (!$unit && $size >= 1<<40) || $unit == "TB")
+                return number_format($size/(1<<40),2)." TB";
             if( (!$unit && $size >= 1<<30) || $unit == "GB")
                 return number_format($size/(1<<30),2)." GB";
             if( (!$unit && $size >= 1<<20) || $unit == "MB")
