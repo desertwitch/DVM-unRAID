@@ -18,11 +18,14 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
-###2023.03.20
+###2024.03.26
+- fix: show terabytes as unit for the data volume reported in the network interface tables
+- fix: add clarification as to why some virtual interfaces will show inverse network traffic
+###2024.03.20
 - new: add setting to match services (dockers/VMs) to virtual network interfaces
 - new: also match docker containers using custom docker networks in the interface table
 - fix: minor bugfix concerning service to virtual network interface matching in interface table
-###2023.03.18
+###2024.03.18
 - release note: welcome to the first version of the DVM package.
 - release note: please do report any problems in the support topic.
 </CHANGES>
