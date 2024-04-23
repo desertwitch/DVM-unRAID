@@ -26,8 +26,8 @@ Markdown="false"
 ?>
 <?require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php';?>
 <link type="text/css" rel="stylesheet" href="<?=autov('/webGui/styles/jquery.filetree.css');?>">
-<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror.css');?>">
-<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/dracula.css');?>">
+<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/codemirror.min.css');?>">
+<link type="text/css" rel="stylesheet" href="<?=autov('/plugins/dwdvm/css/dracula.min.css');?>">
 <style type="text/css">
     .CodeMirror { border: 1px solid #eee; cursor: text; margin-top: 15px; margin-bottom: 10px; }
     .CodeMirror pre.CodeMirror-placeholder { color: #999; }
@@ -60,9 +60,9 @@ Markdown="false"
 </form>
 
 <script src="<?=autov('/webGui/javascript/jquery.filetree.js');?>"></script>
-<script src="<?=autov('/plugins/dwdvm/js/codemirror.js');?>"></script>
-<script src="<?=autov('/plugins/dwdvm/js/autorefresh.js');?>"></script>
-<script src="<?=autov('/plugins/dwdvm/js/properties.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/codemirror.min.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/autorefresh.min.js');?>"></script>
+<script src="<?=autov('/plugins/dwdvm/js/properties.min.js');?>"></script>
 
 <script type="text/javascript">
 $(function(){
