@@ -18,6 +18,9 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.06.23
+- fix: renamed generic function names to avoid declaration collisions with other plugins
+- fix: minified the GUI dependencies to reduce the package size and also the page load times within the GUI
 ###2024.03.26
 - fix: show terabytes as unit for the data volume reported in the network interface tables
 - fix: add clarification as to why some virtual interfaces will show inverse network traffic
