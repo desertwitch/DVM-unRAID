@@ -103,8 +103,8 @@ fi
 
 echo ""
 echo "-------------------------------------------------------------------------"
-echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been installed."
-echo " Copyright 2023 - &author;"
+echo " Data Volume Monitor (DVM) for UNRAID has been installed."
+echo " Version: &version; / Plugin Maintainer: &author;"
 echo "-------------------------------------------------------------------------"
 echo ""
 </INLINE>
@@ -147,8 +147,8 @@ fi
 
 echo ""
 echo "-------------------------------------------------------------------------"
-echo " Data Volume Monitor (DVM) for UNRAID (&version;) has been removed."
-echo " Copyright 2023 - &author;"
+echo " Data Volume Monitor (DVM) for UNRAID has been removed."
+echo " Version: &version; / Plugin Maintainer: &author;"
 echo "-------------------------------------------------------------------------"
 echo ""
 </INLINE>
