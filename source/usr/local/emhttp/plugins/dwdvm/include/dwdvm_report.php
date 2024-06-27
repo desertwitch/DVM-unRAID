@@ -146,7 +146,7 @@ function dvm_getXMLforInterface($iface)
 
     try {
         if(!empty($iface) && $iface !== "noiface") {
-            $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". $iface ." --limit 1 --xml 2>/dev/null");
+            $xml_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf -i ". escapeshellarg($iface) ." --limit 1 --xml 2>/dev/null");
             if($xml_raw) {
                 if(strpos($xml_raw, "xmlversion") !== false) {
                     $xml = new SimpleXMLElement($xml_raw);
@@ -173,6 +173,11 @@ function dvm_checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
         if(intval($limit) < 0) {
             return $str;
         } else {
+            $iface = escapeshellarg($iface);
+            $time = escapeshellarg($time);
+            $limit = escapeshellarg($limit);
+            $unit = escapeshellarg($unit);
+            $mode = escapeshellarg($mode);
             $returnStr = shell_exec("if ! vnstat --config /etc/vnstat/vnstat.conf --alert 0 3 {$time} {$mode} {$limit} {$unit} {$iface} >/dev/null 2>&1; then echo 1; else echo 0; fi");
             if(intval($returnStr) > 0) {
                 return "<span class='red-text'>$str</span>";
@@ -245,12 +250,12 @@ function dvm_build_report()
     if($db_ifaces_array) {
         foreach($db_ifaces_array as $db_iface) {
             if ($dwdvm_report == "both") {
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_s.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_5.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_h.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_d.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_m.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_y.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
 
                 if($db_iface == $dwdvm_primary) {
                     if(count($db_ifaces_array) > 1) {
@@ -262,20 +267,20 @@ function dvm_build_report()
                     $returnStr .= "<tr>";
                 }
                 $returnStr .= "<td>". $db_iface ."</td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_d.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_m.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_d.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_m.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_y.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "</tr>";
             } else if ($dwdvm_report == "images") {
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_s.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_5.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_h.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_d.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_m.png -i ". $db_iface ." 2>/dev/null");
-                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". $db_iface ."_y.png -i ". $db_iface ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_s.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_5.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -h -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_h.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -d -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_d.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -m -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_m.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
+                shell_exec("vnstati --config /etc/vnstat/vnstat.conf -y -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_y.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
 
                 if($db_iface == $dwdvm_primary) {
                     if(count($db_ifaces_array) > 1) {
@@ -305,12 +310,12 @@ function dvm_build_report()
                     $returnStr .= "<tr>";
                 }
                 $returnStr .= "<td>". $db_iface ."</td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
-                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". $db_iface ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -d -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -m -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
+                $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -y -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "</tr>";
             }
         }
