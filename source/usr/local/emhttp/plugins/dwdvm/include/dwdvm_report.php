@@ -25,14 +25,14 @@ function dvm_humanFileSize($sizeObj,$unit="") {
         $size = intval($sizeObj);
         if($size) {
             if( (!$unit && $size >= 1000000000000) || $unit == "TB")
-                return number_format(($size/1000000000000),2)." TB";
+                return number_format(($size/1000000000000),2) . " TB";
             if( (!$unit && $size >= 1000000000) || $unit == "GB")
-                return number_format(($size/1000000000),2)." GB";
+                return number_format(($size/1000000000),2) . " GB";
             if( (!$unit && $size >= 1000000) || $unit == "MB")
-                return number_format(($size/1000000),2)." MB";
+                return number_format(($size/1000000),2) . " MB";
             if( (!$unit && $size >= 1000) || $unit == "KB")
-                return number_format(($size/1000),2)." KB";
-            return number_format($size)." B";
+                return number_format(($size/1000),2) . " KB";
+            return number_format($size) . " B";
         } else {
             return "-";
         }
