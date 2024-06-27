@@ -18,6 +18,9 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.06.27
+- fix: improved safeguards against malformed configurations
+- fix: improved safeguards against XSS cross-site vulnerabilities
 ###2024.06.23
 - fix: changed units from KiB to KB
 - fix: renamed generic function names to avoid declaration collisions with other plugins
