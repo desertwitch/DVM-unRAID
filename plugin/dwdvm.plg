@@ -3,14 +3,14 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "dwdvm">
 <!ENTITY author    "desertwitch">
-<!ENTITY version   "2024.06.27">
+<!ENTITY version   "2024.06.27a">
 <!ENTITY launch    "Settings/DWDVMsettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/DVM-unRAID/main">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
 <!ENTITY pkgURL    "&gitURL;/packages">
 <!ENTITY plgPATH   "/boot/config/plugins/&name;">
-<!ENTITY plgNAME   "dwdvm-2024.06.27-x86_64-1">
-<!ENTITY plgMD5    "e7a5c5323be3e359d7b3cfbced755a18">
+<!ENTITY plgNAME   "dwdvm-2024.06.27-x86_64-2">
+<!ENTITY plgMD5    "47eaf7344066c595e927cf5a04ba8ff9">
 <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
 
@@ -18,7 +18,7 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
-###2024.06.27
+###2024.06.27a
 - fix: improved safeguards against malformed configurations
 - fix: improved safeguards against XSS cross-site vulnerabilities
 ###2024.06.23
