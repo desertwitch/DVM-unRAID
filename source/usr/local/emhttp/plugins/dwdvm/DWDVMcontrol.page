@@ -127,7 +127,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input id="DEFAULT" type="submit" name="#default" value="Default">
+            <input type="submit" name="#default" value="Default">
             <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
             <input id="RESETALL" class="dwdvm-run" type="button" value="Reset All">
         </dt>
@@ -381,7 +381,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input id="DEFAULT" type="submit" name="#default" value="Default">
+            <input type="submit" name="#default" value="Default">
             <input id="CLEANDB" type="button" value="Purge Database">
         </dt>
         <dd>
@@ -989,7 +989,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input id="DEFAULT" type="submit" name="#default" value="Default">
+            <input type="submit" name="#default" value="Default">
             <input id="MANUALCHECK" type="button" value="Service Check">
         </dt>
         <dd>
