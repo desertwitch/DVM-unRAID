@@ -693,7 +693,6 @@ if(!empty($_GET["mode"])) {
                 } else {
                     $dvm_retarr["error"]["response"] = "Falsy dvm_build_report() function response!";
                 }
-                echo(json_encode($dvm_retarr));
                 break;
             case "lightreport":
                 $dvm_funcout = dvm_build_report_light();
@@ -702,7 +701,6 @@ if(!empty($_GET["mode"])) {
                 } else {
                     $dvm_retarr["error"]["response"] = "Falsy dvm_build_report_light() function response!";
                 }
-                echo(json_encode($dvm_retarr));
                 break;
             case "footer":
                 $dvm_funcout = dvm_build_footer();
@@ -711,7 +709,6 @@ if(!empty($_GET["mode"])) {
                 } else {
                     $dvm_retarr["error"]["response"] = "Falsy dvm_build_footer() function response!";
                 }
-                echo(json_encode($dvm_retarr));
                 break;
             case "dashboard":
                 $dvm_funcout = dvm_build_dashboard();
@@ -720,7 +717,6 @@ if(!empty($_GET["mode"])) {
                 } else {
                     $dvm_retarr["error"]["response"] = "Falsy dvm_build_dashboard() function response!";
                 }
-                echo(json_encode($dvm_retarr));
                 break;
             case "dashboardmini":
                 $dvm_funcout = dvm_build_dashboard_mini();
@@ -729,11 +725,9 @@ if(!empty($_GET["mode"])) {
                 } else {
                     $dvm_retarr["error"]["response"] = "Falsy dvm_build_dashboard_mini() function response!";
                 }
-                echo(json_encode($dvm_retarr));
                 break;
             default:
                 $dvm_retarr["error"]["response"] = "Invalid GET parameters";
-                echo(json_encode($dvm_retarr));
                 break;
         }
     }
@@ -747,5 +741,6 @@ if(!empty($_GET["mode"])) {
         $dvm_retarr = [];
         $dvm_retarr["error"]["response"] = $e->getMessage();
     }
+    echo(json_encode($dvm_retarr));
 }
 ?>
