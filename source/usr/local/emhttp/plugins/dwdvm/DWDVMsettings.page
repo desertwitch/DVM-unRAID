@@ -58,11 +58,11 @@ Markdown="false"
 <?if($dwdvm_running):?>
 function getDVMReports() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'report'},function(data) {
-        if (data) { $('.dvm_report').html(data); }
-    });
+        if (data && data.success && data.success.response) { $('.dvm_report').html(data.success.response); }
+    }, 'json');
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'lightreport'},function(data) {
-        if (data) { $('.dvm_lightreport').html(data); }
-    });
+        if (data && data.success && data.success.response) { $('.dvm_lightreport').html(data.success.response); }
+    }, 'json');
     clearTimeout(timers.getDVMReports);
     timers.getDVMReports = setTimeout(getDVMReports, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
 }

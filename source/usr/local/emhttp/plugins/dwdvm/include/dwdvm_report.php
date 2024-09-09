@@ -36,9 +36,9 @@ function dvm_humanFileSize($sizeObj,$unit="") {
         } else {
             return "-";
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
         return "-";
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
         return "-";
     }
 }
@@ -64,9 +64,11 @@ function dvm_getVirtualInterfaceServiceMatches() {
         } else {
             return false;
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return false;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return false;
     }
 }
@@ -90,9 +92,11 @@ function dvm_isPhysicalInterface($string) {
         } else {
             return true; 
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return true;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return true;
     }
 }
@@ -106,9 +110,11 @@ function dvm_isExistingInterface($string) {
         } else {
             return true;
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return true;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return true;
     }
 }
@@ -131,9 +137,11 @@ function dvm_getInterfaces()
         } else {
             return false;
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return false;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return false;
     }
     return $db_ifaces_array; 
@@ -159,9 +167,11 @@ function dvm_getXMLforInterface($iface)
         } else {
             return false;
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return false;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return false;
     }
     return $xml;
@@ -187,9 +197,11 @@ function dvm_checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
                 return $str;
             }
         }
-    } catch (Throwable $e) { // For PHP 7
+    } catch (\Throwable $t) {
+        error_log($t);
         return $str;
-    } catch (Exception $e) { // For PHP 5
+    } catch (\Exception $e) {
+        error_log($e);
         return $str;
     }
 }
@@ -671,22 +683,69 @@ function dvm_build_dashboard_mini() {
 }
 
 if(!empty($_GET["mode"])) {
-    switch($_GET["mode"]) {
-        case "report":
-            echo(dvm_build_report() ?? "");
-            break;
-        case "lightreport":
-            echo(dvm_build_report_light() ?? "");
-            break;
-        case "footer":
-            echo(dvm_build_footer() ?? "");
-            break;
-        case "dashboard":
-            echo(dvm_build_dashboard() ?? "");
-            break;
-        case "dashboardmini":
-            echo(dvm_build_dashboard_mini() ?? "");
-            break;
+    try {
+        $dvm_retarr = [];
+        switch($_GET["mode"]) {
+            case "report":
+                $dvm_funcout = dvm_build_report();
+                if($dvm_funcout) {
+                    $dvm_retarr["success"]["response"] = $dvm_funcout;
+                } else {
+                    $dvm_retarr["error"]["response"] = "Falsy dvm_build_report() function response!";
+                }
+                echo(json_encode($dvm_retarr));
+                break;
+            case "lightreport":
+                $dvm_funcout = dvm_build_report_light();
+                if($dvm_funcout) {
+                    $dvm_retarr["success"]["response"] = $dvm_funcout;
+                } else {
+                    $dvm_retarr["error"]["response"] = "Falsy dvm_build_report_light() function response!";
+                }
+                echo(json_encode($dvm_retarr));
+                break;
+            case "footer":
+                $dvm_funcout = dvm_build_footer();
+                if($dvm_funcout) {
+                    $dvm_retarr["success"]["response"] = $dvm_funcout;
+                } else {
+                    $dvm_retarr["error"]["response"] = "Falsy dvm_build_footer() function response!";
+                }
+                echo(json_encode($dvm_retarr));
+                break;
+            case "dashboard":
+                $dvm_funcout = dvm_build_dashboard();
+                if($dvm_funcout) {
+                    $dvm_retarr["success"]["response"] = $dvm_funcout;
+                } else {
+                    $dvm_retarr["error"]["response"] = "Falsy dvm_build_dashboard() function response!";
+                }
+                echo(json_encode($dvm_retarr));
+                break;
+            case "dashboardmini":
+                $dvm_funcout = dvm_build_dashboard_mini();
+                if($dvm_funcout) {
+                    $dvm_retarr["success"]["response"] = $dvm_funcout;
+                } else {
+                    $dvm_retarr["error"]["response"] = "Falsy dvm_build_dashboard_mini() function response!";
+                }
+                echo(json_encode($dvm_retarr));
+                break;
+            default:
+                $dvm_retarr["error"]["response"] = "Invalid GET parameters";
+                echo(json_encode($dvm_retarr));
+                break;
+        }
+    }
+    catch (\Throwable $t) {
+        error_log($t);
+        $dvm_retarr = [];
+        $dvm_retarr["error"]["response"] = $t->getMessage();
+    }
+    catch (\Exception $e) {
+        error_log($e);
+        $dvm_retarr = [];
+        $dvm_retarr["error"]["response"] = $e->getMessage();
     }
 }
 ?>

@@ -65,8 +65,8 @@ switch ($dwdvm_footerformat) {
 <script type="text/javascript">
 function getDVMFooter() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'footer'},function(data) {
-        if (data) { $('#dvm_footer').html(data); }
-    });
+        if (data && data.success && data.success.response) { $('#dvm_footer').html(data.success.response); }
+    }, 'json');
     clearTimeout(timers.getDVMFooter);
     timers.getDVMFooter = setTimeout(getDVMFooter, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
 }
@@ -105,11 +105,11 @@ EOT;
 <script type="text/javascript">
 function getDVMDashboard() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'dashboardmini'},function(data) {
-        if (data) { $('.dvm_mini_dash').html(data); }
-    });
+        if (data && data.success && data.success.response) { $('.dvm_mini_dash').html(data.success.response); }
+    }, 'json');
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'dashboard'},function(data) {
-        if (data) {
-            var metrics = data.split(';');
+        if (data && data.success && data.success.response) {
+            var metrics = data.success.response.split(';');
             $('.dvm_5rx').html(metrics[0]);
             $('.dvm_5tx').html(metrics[1]);
             $('.dvm_hrx').html(metrics[2]);
@@ -121,10 +121,10 @@ function getDVMDashboard() {
             $('.dvm_yrx').html(metrics[8]);
             $('.dvm_ytx').html(metrics[9]);
 
-            if(data.includes("red-text")) {
+            if(data.success.response.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
-            } else if(data.includes("green-text")) { 
+            } else if(data.success.response.includes("green-text")) { 
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
@@ -132,7 +132,7 @@ function getDVMDashboard() {
                 $(".dvmorbicon").attr("title","Monitored - No Limits");
             }
         }
-    });
+    }, 'json');
     clearTimeout(timers.getDVMDashboard);
     timers.getDVMDashboard = setTimeout(getDVMDashboard, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
 }
@@ -163,11 +163,11 @@ $(function(){
 <script type="text/javascript">
 function getDVMDashboard() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'dashboardmini'},function(data) {
-        if (data) { $('.dvm_mini_dash').html(data); }
-    });
+        if (data && data.success && data.success.response) { $('.dvm_mini_dash').html(data.success.response); }
+    }, 'json');
     $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'dashboard'},function(data) {
-        if (data) {
-            var metrics = data.split(';');
+        if (data && data.success && data.success.response) {
+            var metrics = data.success.response.split(';');
             $('.dvm_5rx').html(metrics[0]);
             $('.dvm_5tx').html(metrics[1]);
             $('.dvm_hrx').html(metrics[2]);
@@ -179,10 +179,10 @@ function getDVMDashboard() {
             $('.dvm_yrx').html(metrics[8]);
             $('.dvm_ytx').html(metrics[9]); 
 
-            if(data.includes("red-text")) {
+            if(data.success.response.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
-            } else if(data.includes("green-text")) { 
+            } else if(data.success.response.includes("green-text")) { 
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
@@ -190,7 +190,7 @@ function getDVMDashboard() {
                 $(".dvmorbicon").attr("title","Monitored - No Limits");
             } 
         }
-    });
+    }, 'json');
     clearTimeout(timers.getDVMDashboard);
     timers.getDVMDashboard = setTimeout(getDVMDashboard, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
 }
