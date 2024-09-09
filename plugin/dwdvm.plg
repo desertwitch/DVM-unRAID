@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.09.09
+- fix: improvements to error and backend communication handling
 ###2024.08.07
 - new: switched from legacy to more recent update checking mechanism
 ###2024.06.27a
