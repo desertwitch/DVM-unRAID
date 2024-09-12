@@ -64,7 +64,8 @@ if [ -x /etc/rc.d/rc.vnstat ]; then
         echo "WARNING: The DVM installation script was not able to stop the services gracefully."
         echo "WARNING: IN CASE OF PROBLEMS, please REBOOT YOUR SYSTEM to complete any upgrades."
         echo "WARNING:"
-    fi 
+    fi
+    killall dvm-poller >/dev/null 2>&amp;1  
 fi
 echo ""
 exit 0
@@ -129,7 +130,8 @@ if [ -x /etc/rc.d/rc.vnstat ]; then
         echo "WARNING: The DVM uninstallation script was not able to stop the services gracefully."
         echo "WARNING: IN CASE OF PROBLEMS, please REBOOT YOUR SYSTEM to remove any remaining packages."
         echo "WARNING:"
-    fi 
+    fi
+    killall dvm-poller >/dev/null 2>&amp;1
 fi
 
 removepkg &plgPATH;/*.txz
@@ -151,6 +153,8 @@ if [ -f /boot/config/plugins/dynamix/dwdvm-notify.cron ] || [ -f /boot/config/pl
     update_cron
     sleep 1
 fi
+
+rm -f /etc/cron.daily/dvm-poller >/dev/null 2>&amp;1
 
 echo ""
 echo "-------------------------------------------------------------------------"

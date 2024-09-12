@@ -151,6 +151,8 @@ $dwdvm_custom6_start      = trim(isset($dwdvm_cfg['CUSTOM6START'])      ? htmlsp
 $dwdvm_custom6_vmstop     = trim(isset($dwdvm_cfg['CUSTOM6VMSTOP'])     ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTOP'])     : 'disable');
 $dwdvm_custom6_vmstart    = trim(isset($dwdvm_cfg['CUSTOM6VMSTART'])    ? htmlspecialchars($dwdvm_cfg['CUSTOM6VMSTART'])    : 'disable');
 
+$dwdvm_metricsapi         = trim(isset($dwdvm_cfg['METRICSAPI'])        ? htmlspecialchars($dwdvm_cfg['METRICSAPI'])        : 'enable');
+
 $dwdvm_running    = (intval(trim(shell_exec( "[ -f /proc/`cat /var/run/vnstat/vnstat.pid 2> /dev/null`/exe ] && echo 1 || echo 0 2> /dev/null" ))) === 1 );
 $dwdvm_installed_backend = htmlspecialchars(trim(shell_exec("find /var/log/packages/ -type f -iname 'vnstat*' -printf '%f\n' 2> /dev/null")));
 
