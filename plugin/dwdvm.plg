@@ -18,6 +18,9 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.09.12
+- fix: made optical changes regarding wording, positioning and helptexts on the DVM Settings page
+- new: use of plugin usage metric functions to aid development of new features and planning for plugin updates (toggleable)
 ###2024.09.09a
 - fix: improvements to error and backend communication handling
 ###2024.08.07
