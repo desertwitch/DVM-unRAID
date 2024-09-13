@@ -3,14 +3,14 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "dwdvm">
 <!ENTITY author    "desertwitch">
-<!ENTITY version   "2024.09.12">
+<!ENTITY version   "2024.09.13">
 <!ENTITY launch    "Settings/DWDVMsettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/DVM-unRAID/main">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
 <!ENTITY pkgURL    "&gitURL;/packages">
 <!ENTITY plgPATH   "/boot/config/plugins/&name;">
-<!ENTITY plgNAME   "dwdvm-2024.09.12-x86_64-1">
-<!ENTITY plgMD5    "df2777420bfabd2aa57cdaa8fe98aaa3">
+<!ENTITY plgNAME   "dwdvm-2024.09.13-x86_64-1">
+<!ENTITY plgMD5    "917093a337f8b72782f62c00445f9ae8">
 <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
 
@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.09.13
+- important fix: address possible flock condition causing installation script to stall (thanks AgentXXL)
 ###2024.09.12
 - fix: made optical changes regarding wording, positioning and helptexts on the DVM Settings page
 - new: use of plugin usage metric functions to aid development of new features and planning for plugin updates (toggleable)
@@ -112,6 +114,7 @@ if [ "$SERVICE" == "enable" ]; then
     /etc/rc.d/rc.vnstat start
 fi
 
+/etc/cron.daily/dvm-poller conntest >/dev/null 2>&amp;1 &amp;
 echo ""
 echo "-------------------------------------------------------------------------"
 echo " Data Volume Monitor (DVM) for UNRAID has been installed."

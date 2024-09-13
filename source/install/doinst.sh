@@ -50,7 +50,6 @@ fi
 rm -f /etc/cron.daily/dvm-poller >/dev/null 2>&1
 ln -sf /usr/local/emhttp/plugins/dwdvm/scripts/poller /etc/cron.daily/dvm-poller >/dev/null 2>&1
 chmod +x /etc/cron.daily/dvm-poller >/dev/null 2>&1
-/etc/cron.daily/dvm-poller conntest >/dev/null 2>&1 &
 
 # set up permissions
 if [ -d /etc/vnstat ]; then
