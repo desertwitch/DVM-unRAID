@@ -252,7 +252,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <blockquote class="inline_help">
         <p>Put here all network interface, container or VM names that you want shown within the DVM dashboards (or write nothing to show everything).</p>
         <p>Make sure to write them as <strong>case-sensitive</strong> and separated by a semicolon (<strong>;</strong>) - an example configuration could be: <code>br0;win10vm;Grafana</code></p>
-        <p>To be able to filter by container or VM names, the <em><strong>"Match Virtual Network Interfaces to Services"</strong></em> setting needs to be enabled within the DVM settings.</p>
+        <p>To be able to filter by container or VM names, the <em><strong>"Match Virtual Network Interfaces to Services"</strong></em> setting needs to be enabled within the DVM settings also.</p>
         <p>Please note that these filters are applied only after all other settings were processed, so such other settings may also filter out certain interfaces (e.g. virtual or removed interfaces).</p>
     </blockquote>
 
