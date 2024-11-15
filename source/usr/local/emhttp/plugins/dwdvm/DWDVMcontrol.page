@@ -245,15 +245,15 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <dl>
         <dt>Visible Network Interface and Service Filter:</dt>
         <dd>
-            <input type="text" name="FILTERS" value="<?=$dwdvm_filters;?>">
+            <input type="text" class="narrow" name="FILTERS" value="<?=$dwdvm_filters;?>">
         </dd>
     </dl>
 
     <blockquote class="inline_help">
-        <p>Put here all network interface, container or VM names that you want shown within the DVM dashboards.</p>
-        <p>Make sure to write them as <strong>case-sensitive</strong> and separated by a semicolon (<strong>;</strong>) - e.g.: <strong><em>br0;win10vm;Grafana</em></strong></p>
-        <p>If you want all interfaces to be shown, simply write <strong>ALL</strong> into this field (which is also the default setting of DVM).</p>
-        <p>Please note that these filters are applied after all other settings are processed, so such other settings may also hide certain interfaces before.</p>
+        <p>Put here all network interface, container or VM names that you want shown within the DVM dashboards (or write <strong>ALL</strong>).</p>
+        <p>Make sure to write them as <strong>case-sensitive</strong> and separated by a semicolon (<strong>;</strong>) - e.g.: <em><strong>br0;win10vm;Grafana</strong></em></p>
+        <p>To be able to filter by container or VM names, you also need to enable the <em><strong>"Match Virtual Network Interfaces to Services"</strong></em> setting within the DVM settings.</p>
+        <p>Please note that these filters are applied only after all other settings are processed, so such other settings may also hide certain interfaces (e.g. by interface type: virtual, removed, ...)</p>
     </blockquote>
 
     <dl>
