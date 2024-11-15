@@ -87,10 +87,10 @@ function dvm_isPhysicalInterface($string) {
             if(!in_array("/sys/class/net/" . $string, $existing_ifaces_array)) {
                 return true; // keep removed interfaces for later removal
             }
-            
+
             return in_array("/sys/class/net/" . $string, $phys_ifaces_array);
         } else {
-            return true; 
+            return true;
         }
     } catch (\Throwable $t) {
         error_log($t);
@@ -123,7 +123,7 @@ function dvm_getInterfaces()
 {
     global $dwdvm_vifaces;
     global $dwdvm_oifaces;
-    
+
     $db_ifaces_array = "";
     try {
         $db_ifaces_raw = shell_exec("vnstat --config /etc/vnstat/vnstat.conf --dbiflist 2>/dev/null");
@@ -131,7 +131,7 @@ function dvm_getInterfaces()
             $db_ifaces_regex = '/Interfaces in database\: (.*)/';
             preg_match_all($db_ifaces_regex, $db_ifaces_raw, $db_ifaces_matches);
             $db_ifaces = $db_ifaces_matches[1][0];
-            $db_ifaces_array = explode(" ", trim($db_ifaces));  
+            $db_ifaces_array = explode(" ", trim($db_ifaces));
             if ($dwdvm_vifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'dvm_isPhysicalInterface'); }
             if ($dwdvm_oifaces !== "enable") { $db_ifaces_array = array_filter($db_ifaces_array, 'dvm_isExistingInterface'); }
         } else {
@@ -144,7 +144,7 @@ function dvm_getInterfaces()
         error_log($e);
         return false;
     }
-    return $db_ifaces_array; 
+    return $db_ifaces_array;
 }
 
 function dvm_getXMLforInterface($iface)
@@ -206,7 +206,7 @@ function dvm_checkAgainstLimits($iface, $time, $limit, $unit, $mode, $str)
     }
 }
 
-function dvm_get_primary_metrics() 
+function dvm_get_primary_metrics()
 {
     global $dwdvm_primary;
     global $dwdvm_hlimit_rx;
@@ -225,7 +225,7 @@ function dvm_get_primary_metrics()
     global $dwdvm_munit_tx;
     global $dwdvm_ylimit_tx;
     global $dwdvm_yunit_tx;
-    
+
     $trafficTotal = [];
     $xml = dvm_getXMLforInterface($dwdvm_primary);
 
@@ -250,17 +250,30 @@ function dvm_get_primary_metrics()
     return $trafficTotal;
 }
 
-function dvm_build_report() 
+function dvm_build_report()
 {
     global $dwdvm_report;
     global $dwdvm_vifaces;
     global $dwdvm_primary;
+    global $dwdvm_match_virts;
 
     $returnStr = "";
     $db_ifaces_array = dvm_getInterfaces();
 
+    $virt_iface_matches = false;
+    if($dwdvm_match_virts == "enable") {
+        $virt_iface_matches = dvm_getVirtualInterfaceServiceMatches();
+    }
+
     if($db_ifaces_array) {
         foreach($db_ifaces_array as $db_iface) {
+            $matchedService = "";
+            if($virt_iface_matches) {
+                $matchedService = $virt_iface_matches[$db_iface] ?? false;
+                if($matchedService) {
+                    $matchedService = "<span style='font-size:x-small;color:gray;'> {$matchedService}</span>";
+                }
+            }
             if ($dwdvm_report == "both") {
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -s -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_s.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
                 shell_exec("vnstati --config /etc/vnstat/vnstat.conf -5 -c 1 -o /usr/local/emhttp/plugins/dwdvm/images/". escapeshellarg($db_iface) ."_5.png -i ". escapeshellarg($db_iface) ." 2>/dev/null");
@@ -278,7 +291,7 @@ function dvm_build_report()
                 } else {
                     $returnStr .= "<tr>";
                 }
-                $returnStr .= "<td>". $db_iface ."</td>";
+                $returnStr .= "<td>". $db_iface . $matchedService . "</td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
@@ -303,7 +316,7 @@ function dvm_build_report()
                 } else {
                     $returnStr .= "<tr>";
                 }
-                $returnStr .= "<td>". $db_iface ."</td>";
+                $returnStr .= "<td>". $db_iface . $matchedService . "</td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_s.png'></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_5.png'></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><img src='/plugins/dwdvm/images/". $db_iface ."_h.png'></details></td>";
@@ -321,7 +334,7 @@ function dvm_build_report()
                 } else {
                     $returnStr .= "<tr>";
                 }
-                $returnStr .= "<td>". $db_iface ."</td>";
+                $returnStr .= "<td>". $db_iface . $matchedService . "</td>";
                 $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -s -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -5 -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
                 $returnStr .= "<td><details><summary>...</summary><pre style='font-size:x-small;'>".htmlspecialchars(shell_exec("vnstat --config /etc/vnstat/vnstat.conf -h -i ". escapeshellarg($db_iface) ." 2>/dev/null") ?? "")."</pre></details></td>";
@@ -400,10 +413,10 @@ function dvm_build_report_light()
     if($dwdvm_vifaces == "enable" && $dwdvm_match_virts == "enable") {
         $virt_iface_matches = dvm_getVirtualInterfaceServiceMatches();
     }
-    
+
     $returnStr = "";
     $db_ifaces_array = dvm_getInterfaces();
-    
+
     if($db_ifaces_array) {
         foreach($db_ifaces_array as $db_iface) {
             $xml = dvm_getXMLforInterface($db_iface);
@@ -422,7 +435,7 @@ function dvm_build_report_light()
                     $tmpStr .= "<td>". dvm_checkAgainstLimits($db_iface, "m", $dwdvm_mlimit_tx, $dwdvm_munit_tx, "tx", dvm_humanFileSize($xml->interface[0]->traffic[0]->months[0]->month[0]->tx ?? 0)) . "</td>";
                     $tmpStr .= "<td>". dvm_checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_rx, $dwdvm_yunit_rx, "rx", dvm_humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->rx ?? 0)) . "</td>";
                     $tmpStr .= "<td>". dvm_checkAgainstLimits($db_iface, "y", $dwdvm_ylimit_tx, $dwdvm_yunit_tx, "tx", dvm_humanFileSize($xml->interface[0]->traffic[0]->years[0]->year[0]->tx ?? 0)) . "</td>";
-                    
+
                     if(count($db_ifaces_array) > 1) {
                         $returnStr .= "<tr style='border:2px solid;'>";
                     } else {
@@ -572,15 +585,15 @@ function dvm_build_report_light()
 function dvm_build_dashboard() {
     $returnStr = "";
     $dvm_metrics = [];
-    
-    $dvm_5 = []; 
-    $dvm_h = []; 
-    $dvm_d = []; 
-    $dvm_m = []; 
-    $dvm_y = []; 
-    
+
+    $dvm_5 = [];
+    $dvm_h = [];
+    $dvm_d = [];
+    $dvm_m = [];
+    $dvm_y = [];
+
     $dvm_metrics = dvm_get_primary_metrics();
-    
+
     if($dvm_metrics) {
         $dvm_5 = $dvm_metrics[0];
         $dvm_h = $dvm_metrics[1];
@@ -595,7 +608,7 @@ function dvm_build_dashboard() {
     return $returnStr;
 }
 
-function dvm_build_footer() 
+function dvm_build_footer()
 {
     global $dwdvm_hlimit_rx;
     global $dwdvm_hunit_rx;
@@ -657,7 +670,7 @@ function dvm_build_dashboard_mini() {
 
     $dvm_mini = dvm_build_footer();
 
-    if($dvm_mini) {  
+    if($dvm_mini) {
         switch ($dwdvm_footerformat) {
             case '5':
                 $dvm_mini_descr = "Last 5 Minutes:";
