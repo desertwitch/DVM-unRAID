@@ -18,6 +18,9 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.11.15
+- new: added a filter option to filter out any unwanted interfaces from the GUI dashboards
+- fix: fixed DVM Settings page automatically scrolling down to a random position (thanks jcofer555)
 ###2024.09.16
 - fix: reworked bash scripts to better standards with more safety for strange configurational states
 ###2024.09.13
@@ -72,7 +75,7 @@ if [ -x /etc/rc.d/rc.vnstat ]; then
         echo "WARNING: IN CASE OF PROBLEMS, please REBOOT YOUR SYSTEM to complete any upgrades."
         echo "WARNING:"
     fi
-    killall dvm-poller >/dev/null 2>&amp;1  
+    killall dvm-poller >/dev/null 2>&amp;1
 fi
 echo ""
 exit 0
@@ -100,7 +103,7 @@ install or upgrade the plugin itself
 run the post-installation scripts
 -->
 <FILE Run="/bin/bash">
-<INLINE> 
+<INLINE>
 CONFIG=&plgPATH;/&name;.cfg
 
 # reading our configuration
