@@ -58,7 +58,7 @@ Markdown="false"
 <?if($dwdvm_running):?>
 function getDVMReports() {
     let filters = "<?=$dwdvm_filters;?>";
-    let filterArray = filters.split(";");
+    let filterArray = filters.split(";").map(filter => filter.trim());
 
     $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'report' }, function (data) {
         if (data && data.success && data.success.response) {
