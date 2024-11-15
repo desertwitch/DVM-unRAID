@@ -58,12 +58,12 @@ Markdown="false"
 <?if($dwdvm_running):?>
 function getDVMReports() {
     let filters = "<?=$dwdvm_filters;?>";
-    let filterArray = filters.split(";").map(filter => filter.trim());
+    let filterArray = filters.split(";").map(filter => filter.trim()).filter(f => f);
 
     $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'report' }, function (data) {
         if (data && data.success && data.success.response) {
             let $tempContainer = $('<div>').html(data.success.response);
-            if (filters && filters !== "ALL") {
+            if (filterArray.length > 0) {
                 $tempContainer.find('tr').each(function () {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();
@@ -81,7 +81,7 @@ function getDVMReports() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'lightreport' }, function (data) {
         if (data && data.success && data.success.response) {
             let $tempContainer = $('<div>').html(data.success.response);
-            if (filters && filters !== "ALL") {
+            if (filterArray.length > 0) {
                 $tempContainer.find('tr').each(function () {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();

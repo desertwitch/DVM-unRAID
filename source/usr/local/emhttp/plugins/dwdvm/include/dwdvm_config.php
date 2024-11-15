@@ -32,7 +32,7 @@ $dwdvm_dashb              = trim(isset($dwdvm_cfg['DASHB'])             ? htmlsp
 $dwdvm_footer             = trim(isset($dwdvm_cfg['FOOTER'])            ? htmlspecialchars($dwdvm_cfg['FOOTER'])        : 'enable');
 $dwdvm_footerformat       = trim(isset($dwdvm_cfg['FOOTERFORMAT'])      ? htmlspecialchars($dwdvm_cfg['FOOTERFORMAT'])  : 'd');
 $dwdvm_primary            = trim(isset($dwdvm_cfg['PRIMARY'])           ? htmlspecialchars($dwdvm_cfg['PRIMARY'])       : 'eth0');
-$dwdvm_filters            = trim(isset($dwdvm_cfg['FILTERS'])           ? htmlspecialchars($dwdvm_cfg['FILTERS'])       : 'ALL');
+$dwdvm_filters            = trim(isset($dwdvm_cfg['FILTERS'])           ? htmlspecialchars($dwdvm_cfg['FILTERS'])       : '');
 
 $dwdvm_good_notify        = trim(isset($dwdvm_cfg['GOODNOTIFY'])        ? htmlspecialchars($dwdvm_cfg['GOODNOTIFY'])  : 'disable');
 $dwdvm_bad_notify         = trim(isset($dwdvm_cfg['BADNOTIFY'])         ? htmlspecialchars($dwdvm_cfg['BADNOTIFY']) : 'disable');
