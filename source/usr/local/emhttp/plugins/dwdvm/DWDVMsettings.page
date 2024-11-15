@@ -28,7 +28,7 @@ Markdown="false"
 ?>
 <? require_once '/usr/local/emhttp/plugins/dwdvm/include/dwdvm_config.php'; ?>
 
-<div> 
+<div>
 <table class="tablesorter shift" border="1">
 <thead>
 <tr><th><strong>Network Interface</strong></th><th colspan="2"><strong>Last 5 Minutes</strong></th><th colspan="2"><strong>Last Hour</strong></th><th colspan="2"><strong>Last Day</strong></th><th colspan="2"><strong>Last Month</strong></th><th colspan="2"><strong>Last Year</strong></th></tr>
@@ -43,7 +43,7 @@ Markdown="false"
 </div>
 
 
-<div> 
+<div>
 <table class="tablesorter">
 <thead><tr><th><strong>Network Interface</strong></th><th><strong>Report (Summary)</strong></th><th><strong>Report (5 Minutes)</strong></th><th><strong>Report (Hours)</strong></th><th><strong>Report (Days)</strong></th><th><strong>Report (Months)</strong></th><th><strong>Report (Years)</strong></th></tr></thead>
 <tbody class="dvm_report">
@@ -57,11 +57,43 @@ Markdown="false"
 <script type="text/javascript">
 <?if($dwdvm_running):?>
 function getDVMReports() {
-    $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'report'},function(data) {
-        if (data && data.success && data.success.response) { $('.dvm_report').html(data.success.response); }
+    let filters = "<?=$dwdvm_filters;?>";
+    let filterArray = filters.split(";");
+
+    $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'report' }, function (data) {
+        if (data && data.success && data.success.response) {
+            let $tempContainer = $('<div>').html(data.success.response);
+            if (filters && filters !== "ALL") {
+                $tempContainer.find('tr').each(function () {
+                    let $tr = $(this);
+                    let $firstTd = $tr.find('td').first();
+                    let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
+                    let serviceText = $firstTd.find('span').text().trim();
+                    if (!filterArray.includes(tdText) && !filterArray.includes(serviceText)) {
+                        $tr.remove();
+                    }
+                });
+            }
+            $('.dvm_report').html($tempContainer.html());
+        }
     }, 'json');
-    $.get('/plugins/dwdvm/include/dwdvm_report.php',{mode:'lightreport'},function(data) {
-        if (data && data.success && data.success.response) { $('.dvm_lightreport').html(data.success.response); }
+
+    $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'lightreport' }, function (data) {
+        if (data && data.success && data.success.response) {
+            let $tempContainer = $('<div>').html(data.success.response);
+            if (filters && filters !== "ALL") {
+                $tempContainer.find('tr').each(function () {
+                    let $tr = $(this);
+                    let $firstTd = $tr.find('td').first();
+                    let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
+                    let serviceText = $firstTd.find('span').text().trim();
+                    if (!filterArray.includes(tdText) && !filterArray.includes(serviceText)) {
+                        $tr.remove();
+                    }
+                });
+            }
+            $('.dvm_lightreport').html($tempContainer.html());
+        }
     }, 'json');
     clearTimeout(timers.getDVMReports);
     timers.getDVMReports = setTimeout(getDVMReports, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
