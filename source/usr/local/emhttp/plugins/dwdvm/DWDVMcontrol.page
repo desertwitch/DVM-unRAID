@@ -245,7 +245,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <dl>
         <dt>Visible Network Interface and Service Filter:</dt>
         <dd>
-            <textarea name="FILTERS" rows="4" cols="50"><?=$dwdvm_filters;?></textarea>
+            <input type="text" name="FILTERS" value="<?=$dwdvm_filters;?>">
         </dd>
     </dl>
 
