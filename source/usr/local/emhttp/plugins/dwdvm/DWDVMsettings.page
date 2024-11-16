@@ -95,7 +95,7 @@ function getDVMReports() {
                                 break;
                             }
                         } else if (!filter.startsWith("!")) {
-                            if (tdText.includes(filter) || spanTexts.includes(filter)) {
+                            if (tdText === filter || spanTexts.includes(filter)) {
                                 rowMatches = true;
                                 break;
                             }
@@ -147,7 +147,7 @@ function getDVMReports() {
                                 break;
                             }
                         } else if (!filter.startsWith("!")) {
-                            if (tdText.includes(filter) || spanTexts.includes(filter)) {
+                            if (tdText === filter || spanTexts.includes(filter)) {
                                 rowMatches = true;
                                 break;
                             }
