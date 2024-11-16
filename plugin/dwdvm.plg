@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2024.11.16
+- fix: when filtering, treat multiple container or VM names as separate and individual names
 ###2024.11.15
 - new: added a filter option to filter out any unwanted interfaces from the GUI dashboards
 - fix: fixed DVM Settings page automatically scrolling down to a random position (thanks jcofer555)
