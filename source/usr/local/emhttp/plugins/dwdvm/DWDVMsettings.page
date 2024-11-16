@@ -63,26 +63,51 @@ function getDVMReports() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'report' }, function (data) {
         if (data && data.success && data.success.response) {
             let $tempContainer = $('<div>').html(data.success.response);
+
             if (filterArray.length > 0) {
                 $tempContainer.find('tr').each(function () {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();
                     let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
 
-                    let spanMatches = false;
-                    $firstTd.find('span span').each(function () {
-                        let spanText = $(this).text().trim();
-                        if (filterArray.includes(spanText)) {
-                            spanMatches = true;
-                            return false;
-                        }
-                    });
+                    let spanTexts = $firstTd.find('span span').map(function () {
+                        return $(this).text().trim();
+                    }).get();
 
-                    if (!filterArray.includes(tdText) && !spanMatches) {
+                    let rowMatches = false;
+
+                    for (let filter of filterArray) {
+                        if (filter.includes("+") || filter.includes("!")) {
+                            let [includePart, excludePart] = filter.split("!");
+                            let includeKeywords = includePart ? includePart.split("+").map(k => k.trim()) : [];
+                            let excludeKeywords = excludePart ? excludePart.split("+").map(k => k.trim()) : [];
+
+                            let matchesInclusion = includeKeywords.every(keyword =>
+                                spanTexts.includes(keyword)
+                            );
+
+                            let matchesExclusion = excludeKeywords.every(keyword =>
+                                spanTexts.includes(keyword)
+                            );
+
+                            if (matchesInclusion && !matchesExclusion) {
+                                rowMatches = true;
+                                break;
+                            }
+                        } else if (!filter.startsWith("!")) {
+                            if (tdText.includes(filter) || spanTexts.includes(filter)) {
+                                rowMatches = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!rowMatches) {
                         $tr.remove();
                     }
                 });
             }
+
             $('.dvm_report').html($tempContainer.html());
         }
     }, 'json');
@@ -90,29 +115,55 @@ function getDVMReports() {
     $.get('/plugins/dwdvm/include/dwdvm_report.php', { mode: 'lightreport' }, function (data) {
         if (data && data.success && data.success.response) {
             let $tempContainer = $('<div>').html(data.success.response);
+
             if (filterArray.length > 0) {
                 $tempContainer.find('tr').each(function () {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();
                     let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
 
-                    let spanMatches = false;
-                    $firstTd.find('span span').each(function () {
-                        let spanText = $(this).text().trim();
-                        if (filterArray.includes(spanText)) {
-                            spanMatches = true;
-                            return false;
-                        }
-                    });
+                    let spanTexts = $firstTd.find('span span').map(function () {
+                        return $(this).text().trim();
+                    }).get();
 
-                    if (!filterArray.includes(tdText) && !spanMatches) {
+                    let rowMatches = false;
+
+                    for (let filter of filterArray) {
+                        if (filter.includes("+") || filter.includes("!")) {
+                            let [includePart, excludePart] = filter.split("!");
+                            let includeKeywords = includePart ? includePart.split("+").map(k => k.trim()) : [];
+                            let excludeKeywords = excludePart ? excludePart.split("+").map(k => k.trim()) : [];
+
+                            let matchesInclusion = includeKeywords.every(keyword =>
+                                spanTexts.includes(keyword)
+                            );
+
+                            let matchesExclusion = excludeKeywords.every(keyword =>
+                                spanTexts.includes(keyword)
+                            );
+
+                            if (matchesInclusion && !matchesExclusion) {
+                                rowMatches = true;
+                                break;
+                            }
+                        } else if (!filter.startsWith("!")) {
+                            if (tdText.includes(filter) || spanTexts.includes(filter)) {
+                                rowMatches = true;
+                                break;
+                            }
+                        }
+                    }
+
+                    if (!rowMatches) {
                         $tr.remove();
                     }
                 });
             }
+
             $('.dvm_lightreport').html($tempContainer.html());
         }
     }, 'json');
+
     clearTimeout(timers.getDVMReports);
     timers.getDVMReports = setTimeout(getDVMReports, <?=max(abs(isset($display['refresh']) ? $display['refresh'] : 0),(30 * 1000))?>);
 }
