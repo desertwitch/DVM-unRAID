@@ -83,11 +83,11 @@ function getDVMReports() {
                             let excludeKeywords = excludePart ? excludePart.split("+").map(k => k.trim()) : [];
 
                             let matchesInclusion = includeKeywords.every(keyword =>
-                                spanTexts.includes(keyword)
+                                spanTexts.some(spanText => spanText === keyword)
                             );
 
                             let matchesExclusion = excludeKeywords.every(keyword =>
-                                spanTexts.includes(keyword)
+                                spanTexts.some(spanText => spanText === keyword)
                             );
 
                             if (matchesInclusion && !matchesExclusion) {
@@ -95,7 +95,7 @@ function getDVMReports() {
                                 break;
                             }
                         } else if (!filter.startsWith("!")) {
-                            if (tdText === filter || spanTexts.includes(filter)) {
+                            if (tdText === filter || spanTexts.some(spanText => spanText === filter)) {
                                 rowMatches = true;
                                 break;
                             }
@@ -135,11 +135,11 @@ function getDVMReports() {
                             let excludeKeywords = excludePart ? excludePart.split("+").map(k => k.trim()) : [];
 
                             let matchesInclusion = includeKeywords.every(keyword =>
-                                spanTexts.includes(keyword)
+                                spanTexts.some(spanText => spanText === keyword)
                             );
 
                             let matchesExclusion = excludeKeywords.every(keyword =>
-                                spanTexts.includes(keyword)
+                                spanTexts.some(spanText => spanText === keyword)
                             );
 
                             if (matchesInclusion && !matchesExclusion) {
@@ -147,7 +147,7 @@ function getDVMReports() {
                                 break;
                             }
                         } else if (!filter.startsWith("!")) {
-                            if (tdText === filter || spanTexts.includes(filter)) {
+                            if (tdText === filter || spanTexts.some(spanText => spanText === filter)) {
                                 rowMatches = true;
                                 break;
                             }
