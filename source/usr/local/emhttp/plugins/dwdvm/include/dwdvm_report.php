@@ -52,9 +52,9 @@ function dvm_getVirtualInterfaceServiceMatches() {
                 $submatch = explode(":", $match);
                 if(!empty($submatch[0]) && !empty($submatch[1])) {
                     if(!empty($returnArr[$submatch[0]])) {
-                        $returnArr[$submatch[0]] = $returnArr[$submatch[0]] . " " . $submatch[1];
+                        $returnArr[$submatch[0]] = $returnArr[$submatch[0]] . " <span>" . $submatch[1] . "</span>";
                     } else {
-                        $returnArr[$submatch[0]] = $submatch[1];
+                        $returnArr[$submatch[0]] = "<span>" . $submatch[1] . "</span>";
                     }
                 } else {
                     continue;

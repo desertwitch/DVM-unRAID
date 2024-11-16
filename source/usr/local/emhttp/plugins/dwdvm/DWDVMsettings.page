@@ -68,8 +68,17 @@ function getDVMReports() {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();
                     let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
-                    let serviceText = $firstTd.find('span').text().trim();
-                    if (!filterArray.includes(tdText) && !filterArray.includes(serviceText)) {
+
+                    let spanMatches = false;
+                    $firstTd.find('span span').each(function () {
+                        let spanText = $(this).text().trim();
+                        if (filterArray.includes(spanText)) {
+                            spanMatches = true;
+                            return false;
+                        }
+                    });
+
+                    if (!filterArray.includes(tdText) && !spanMatches) {
                         $tr.remove();
                     }
                 });
@@ -86,8 +95,17 @@ function getDVMReports() {
                     let $tr = $(this);
                     let $firstTd = $tr.find('td').first();
                     let tdText = $firstTd.contents().not($firstTd.children()).text().trim();
-                    let serviceText = $firstTd.find('span').text().trim();
-                    if (!filterArray.includes(tdText) && !filterArray.includes(serviceText)) {
+
+                    let spanMatches = false;
+                    $firstTd.find('span span').each(function () {
+                        let spanText = $(this).text().trim();
+                        if (filterArray.includes(spanText)) {
+                            spanMatches = true;
+                            return false;
+                        }
+                    });
+
+                    if (!filterArray.includes(tdText) && !spanMatches) {
                         $tr.remove();
                     }
                 });
