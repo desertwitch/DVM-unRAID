@@ -92,7 +92,7 @@ $mytiles[$pluginname]['column2'] =
 <span><i class="dvmorbicon"></i></span><span class="dvm_mini_dash"><em>Loading...</em></span>
 <br><br>
 </div>
-<a href="/Dashboard/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
+<a href="/Settings/DWDVMsettings" title="Go to DVM Settings"><i class="fa fa-fw fa-cog control"></i></a>
 </td></tr>
 <tr><td><span class="w36">Last 5 Minutes:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_5rx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_5tx">-</span></span></td></tr>
 <tr><td><span class="w36">Last Hour:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_hrx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_htx">-</span></span></td></tr>
@@ -124,7 +124,7 @@ function getDVMDashboard() {
             if(data.success.response.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
-            } else if(data.success.response.includes("green-text")) { 
+            } else if(data.success.response.includes("green-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
@@ -177,18 +177,18 @@ function getDVMDashboard() {
             $('.dvm_mrx').html(metrics[6]);
             $('.dvm_mtx').html(metrics[7]);
             $('.dvm_yrx').html(metrics[8]);
-            $('.dvm_ytx').html(metrics[9]); 
+            $('.dvm_ytx').html(metrics[9]);
 
             if(data.success.response.includes("red-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle red-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Exceeded");
-            } else if(data.success.response.includes("green-text")) { 
+            } else if(data.success.response.includes("green-text")) {
                 $(".dvmorbicon").attr("class","dvmorbicon dvmorbiconactive fa fa-circle green-orb");
                 $(".dvmorbicon").attr("title","Monitored - Limits Not Exceeded");
             } else {
                 $(".dvmorbicon").attr("class", "dvmorbicon dvmorbiconactive fa fa-circle dvm-gray-orb");
                 $(".dvmorbicon").attr("title","Monitored - No Limits");
-            } 
+            }
         }
     }, 'json');
     clearTimeout(timers.getDVMDashboard);
