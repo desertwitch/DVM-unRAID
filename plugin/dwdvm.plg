@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2025.01.22
+- fix: resolved issue with transition between dashboard and settings
 ###2024.11.16b
 - fix: treat multiple container or VM names as separate and individual names when filtering
 ###2024.11.15
