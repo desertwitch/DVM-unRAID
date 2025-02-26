@@ -18,6 +18,8 @@
 
 <CHANGES>
 ## Data Volume Monitor (DVM) for UNRAID
+###2025.02.26
+- fix: future-proofing changes to base plugin structure
 ###2025.01.22
 - fix: resolved issue with transition between dashboard and settings
 ###2024.11.16b
@@ -123,7 +125,6 @@ if [ "$SERVICE" == "enable" ]; then
     /etc/rc.d/rc.vnstat start
 fi
 
-/etc/cron.daily/dvm-poller conntest >/dev/null 2>&amp;1 &amp;
 echo ""
 echo "-------------------------------------------------------------------------"
 echo " Data Volume Monitor (DVM) for UNRAID has been installed."

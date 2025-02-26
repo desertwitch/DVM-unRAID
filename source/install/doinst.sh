@@ -46,10 +46,8 @@ if [ ! -L /etc/vnstat.conf ]; then
     ln -sf /etc/vnstat/vnstat.conf /etc/vnstat.conf
 fi
 
-# set up plugin-specific polling tasks
+# remove (legacy) plugin-specific polling tasks
 rm -f /etc/cron.daily/dvm-poller >/dev/null 2>&1
-ln -sf /usr/local/emhttp/plugins/dwdvm/scripts/poller /etc/cron.daily/dvm-poller >/dev/null 2>&1
-chmod +x /etc/cron.daily/dvm-poller >/dev/null 2>&1
 
 # set up permissions
 if [ -d /etc/vnstat ]; then
