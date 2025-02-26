@@ -3,14 +3,14 @@
 <!DOCTYPE PLUGIN [
 <!ENTITY name      "dwdvm">
 <!ENTITY author    "desertwitch">
-<!ENTITY version   "2025.01.22">
+<!ENTITY version   "2025.02.26">
 <!ENTITY launch    "Settings/DWDVMsettings">
 <!ENTITY gitURL    "https://raw.githubusercontent.com/&author;/DVM-unRAID/main">
 <!ENTITY pluginURL "&gitURL;/plugin/&name;.plg">
 <!ENTITY pkgURL    "&gitURL;/packages">
 <!ENTITY plgPATH   "/boot/config/plugins/&name;">
-<!ENTITY plgNAME   "dwdvm-2025.01.22-x86_64-1">
-<!ENTITY plgMD5    "278a02c9950859f15a28d7a7ef4f58e2">
+<!ENTITY plgNAME   "dwdvm-2025.02.26-x86_64-1">
+<!ENTITY plgMD5    "3b9071fab185e2ccca62aed70b9ff35c">
 <!ENTITY emhttp    "/usr/local/emhttp/plugins/&name;">
 ]>
 
