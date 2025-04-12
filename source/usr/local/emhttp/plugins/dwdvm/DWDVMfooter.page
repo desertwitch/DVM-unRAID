@@ -72,7 +72,7 @@ function getDVMFooter() {
 }
 $(function()
 {
-    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> / <?=$dvm_footer_descr?>' class='minimal'></span>").insertAfter("div#footer > span#copyright");
+    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> / <?=$dvm_footer_descr?>' class='minimal'></span>").insertAfter("#footer > span#copyright");
     getDVMFooter();
 });
 </script>
