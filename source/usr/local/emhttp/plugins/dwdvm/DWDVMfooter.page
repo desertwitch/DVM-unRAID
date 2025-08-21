@@ -25,12 +25,16 @@ Link="nav-user"
 <style type="text/css">
 #dvm_footer {
     float: right;
+    <?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'7.1.99', '<')):?>
     margin-right: 6px;
+    <?endif;?>
 }
 #dvm_footer.minimal {
     font-family: bitstream;
     font-size: 1.1rem;
+    <?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'7.1.99', '<')):?>
     padding-right: 10px;
+    <?endif;?>
 }
 .dvmorbiconactive {
     margin-right: 4px;
@@ -72,7 +76,14 @@ function getDVMFooter() {
 }
 $(function()
 {
-    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> / <?=$dvm_footer_descr?>' class='minimal'></span>").insertAfter("#footer > span#copyright");
+    var dvm_footer = $("<span id='dvm_footer' title='<?=$dwdvm_primary?> / <?=$dvm_footer_descr?>' class='minimal'></span>");
+
+    <?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'7.1.99', '>')):?>
+    dvm_footer.appendTo(".footer-right");
+    <?else:?>
+    dvm_footer.insertAfter("#footer > span#copyright");
+    <?endif;?>
+
     getDVMFooter();
 });
 </script>
@@ -82,6 +93,47 @@ $(function()
 <?if(stripos($path, "dashboard") !== false && $dwdvm_running && $dwdvm_dashb == "enable" && !empty($dwdvm_primary)):?>
 <?
 $pluginname = "DVM";
+
+if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'7.1.99', '>')) {
+// -------------------------------------------------------------
+// RESPONSIVE DASHBOARD
+// -------------------------------------------------------------
+$mytiles[$pluginname]['column2'] =
+<<<EOT
+<tbody id="tblDVMDash" title="_(DVM)_">
+    <tr>
+    <td>
+        <span class='tile-header'>
+        <span class='tile-header-left'>
+          <i class='fa fa-pie-chart f32'></i>
+          <div class='section'>
+              <h3 class='tile-header-main'>_(Data Volume Monitor (DVM))_</h3>
+              <span><span><i class="dvmorbicon"></i></span><span class="dvm_mini_dash"><em>Loading...</em></span></span>
+          </div>
+        </span>
+        <span class='tile-header-right'>
+            <span class='tile-ctrl'>
+            </span>
+            <span class='tile-header-right-controls'>
+            <a href='/Settings/DWDVMsettings' title='_(Go to DVM Settings)_'>
+                <i class='fa fa-fw fa-cog control'></i>
+            </a>
+            </span>
+        </span>
+        </span>
+    </td>
+    </tr>
+    <tr><td><span class="w36">Last 5 Minutes:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_5rx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_5tx">-</span></span></td></tr>
+    <tr><td><span class="w36">Last Hour:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_hrx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_htx">-</span></span></td></tr>
+    <tr><td><span class="w36">Last Day:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_drx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_dtx">-</span></span></td></tr>
+    <tr><td><span class="w36">Last Month:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_mrx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_mtx">-</span></span></td></tr>
+    <tr><td><span class="w36">Last Year:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_yrx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_ytx">-</span></span></td></tr>
+</tbody>
+EOT;
+} else {
+// -------------------------------------------------------------
+// NON-RESPONSIVE DASHBOARD
+// -------------------------------------------------------------
 $mytiles[$pluginname]['column2'] =
 <<<EOT
 <tbody id="tblDVMDash" title="DVM">
@@ -101,6 +153,7 @@ $mytiles[$pluginname]['column2'] =
 <tr><td><span class="w36">Last Year:</span><span class="w26"><i class="fa fa-arrow-down"></i> <span class="dvm_yrx">-</span></span><span class="w26"><i class="fa fa-arrow-up"></i> <span class="dvm_ytx">-</span></span></td></tr>
 </tbody>
 EOT;
+}
 ?>
 <script type="text/javascript">
 function getDVMDashboard() {

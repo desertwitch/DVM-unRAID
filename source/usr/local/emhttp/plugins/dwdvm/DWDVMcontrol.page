@@ -127,14 +127,18 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input type="submit" name="#default" value="Default">
-            <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
-            <input id="RESETALL" class="dwdvm-run" type="button" value="Reset All">
+            <span>
+                <input type="submit" name="#default" value="Default">
+                <input id="RESETCONF" class="dwdvm-run" type="button" value="Reset Config">
+                <input id="RESETALL" class="dwdvm-run" type="button" value="Reset All">
+            </span>
         </dt>
         <dd>
-            <input type="submit" id="btnApply" name="#apply" value="Apply">
-            <input type="button" value="Done" onclick="done()">
-            <input id="RESTART" type="button" value="Restart DVM">
+            <span>
+                <input type="submit" id="btnApply" name="#apply" value="Apply">
+                <input type="button" value="Done" onclick="done()">
+                <input id="RESTART" type="button" value="Restart DVM">
+            </span>
         </dd>
     </dl>
 
@@ -245,7 +249,7 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
     <dl>
         <dt>Visible Network Interface and Service Filter:</dt>
         <dd>
-            <input type="text" class="narrow" name="FILTERS" value="<?=$dwdvm_filters;?>">
+            <input type="text" class="<?if(version_compare(parse_ini_file('/etc/unraid-version')['version'],'7.1.99', '<')):?>narrow<?endif;?>" name="FILTERS" value="<?=$dwdvm_filters;?>">
         </dd>
     </dl>
 
@@ -395,11 +399,16 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input type="submit" name="#default" value="Default">
-            <input id="CLEANDB" type="button" value="Purge Database">
+            <span>
+                <input type="submit" name="#default" value="Default">
+                <input id="CLEANDB" type="button" value="Purge Database">
+            </span>
         </dt>
         <dd>
-            <input type="submit" id="btnApply2" name="#apply" value="Apply"><input type="button" value="Done" onclick="done()">
+            <span>
+                <input type="submit" id="btnApply2" name="#apply" value="Apply">
+                <input type="button" value="Done" onclick="done()">
+            </span>
         </dd>
     </dl>
 
@@ -1003,11 +1012,15 @@ $double_primary = in_array($dwdvm_primary,$custom_iface_array);
 
     <dl>
         <dt>
-            <input type="submit" name="#default" value="Default">
-            <input id="MANUALCHECK" type="button" value="Service Check">
+            <span>
+                <input type="submit" name="#default" value="Default">
+                <input id="MANUALCHECK" type="button" value="Service Check">
+            </span>
         </dt>
         <dd>
-            <input type="submit" id="btnApply3" name="#apply" value="Apply"><input type="button" value="Done" onclick="done()">
+            <span>
+                <input type="submit" id="btnApply3" name="#apply" value="Apply"><input type="button" value="Done" onclick="done()">
+            </span>
         </dd>
     </dl>
 
